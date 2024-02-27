@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <%@ include file="jspf/head.jspf"%>
 <body>
 	<%@ include file="jspf/header.jspf"%>
@@ -12,7 +12,7 @@
 				<option value="informatique">Informatique</option>
 				<option value="ameublement">Ameublement</option>
 				<option value="vetement">Vêtement</option>
-				<option value="sport-loisirs">Sport & Loisirs</option>
+				<option value="sport-loisirs">Sport &amp; Loisirs</option>
 			</select>
 			<button>Rechercher</button>
 		</section>
