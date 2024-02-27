@@ -1,0 +1,8 @@
+<header>
+	<h1>
+		<a href="#" class="home-link">ENI-Encheres</a>
+	</h1>
+	<nav>
+		<a href="#">Se connecter</a> <a href="#">S'inscrire</a>
+	</nav>
+</header>
