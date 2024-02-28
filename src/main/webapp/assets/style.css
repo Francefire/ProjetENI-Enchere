@@ -36,7 +36,20 @@ main {
 }
 
 footer {
+	display : flex ; 
+	flex-wrap : wrap;
+	flex-direction : row ;
 	background-color: var(--secondary-color);
+	justify-content: center ;
 	color: var(--senary-color);
 	height: 10vh;
+}
+
+a {
+	text-decoration: none ;
+	color : black ;
+}
+
+h1 {
+	justify-content: center; 
 }
