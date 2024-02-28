@@ -34,6 +34,11 @@ public class User {
 		this(username, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
 		this.id = id;
 	}
+	
+	public User() {
+		this.credit = 0;
+		this.admin = false;
+	}
 
 	public int getId() {
 		return id;

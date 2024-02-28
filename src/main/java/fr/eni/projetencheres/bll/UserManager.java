@@ -13,7 +13,16 @@ public class UserManager {
 
 	public void newUser(String username, String lastName, String firstName, String email, String phoneNumber,
 			String street, String postalCode, String city, String password) {
-		User u = new User(username, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
+		User u = new User();
+		u.setUsername(username);
+		u.setLastName(lastName);
+		u.setFirstName(firstName);
+		u.setEmail(email);
+		u.setPhoneNumber(phoneNumber);
+		u.setStreet(street);
+		u.setPostalCode(postalCode);
+		u.setCity(city);
+		u.setPassword(password);
 		this.userDAO.insert(u);
 	}
 	
