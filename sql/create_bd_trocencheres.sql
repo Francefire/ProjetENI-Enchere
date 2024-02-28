@@ -1,4 +1,4 @@
--- Script de création de la base de données ENCHERES
+-- Script de crï¿½ation de la base de donnï¿½es ENCHERES
 --   type :      SQL Server 2012
 --
 
@@ -52,6 +52,7 @@ CREATE TABLE UTILISATEURS (
 )
 
 ALTER TABLE UTILISATEURS ADD constraint utilisateur_pk PRIMARY KEY (no_utilisateur)
+ALTER TABLE UTILISATEURS ADD CONSTRAINT DF_Credit DEFAULT 0
 
 
 CREATE TABLE ARTICLES_VENDUS (
