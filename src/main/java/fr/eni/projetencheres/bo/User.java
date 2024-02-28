@@ -2,7 +2,7 @@ package fr.eni.projetencheres.bo;
 
 public class User {
 	private int id;
-	private String pseudo;
+	private String username;
 	private String lastName;
 	private String firstName;
 	private String email;
@@ -14,9 +14,9 @@ public class User {
 	private int credit;
 	private boolean admin;
 	
-	public User(String pseudo, String lastName, String firstName, String email, String phoneNumber, String street,
+	public User(String username, String lastName, String firstName, String email, String phoneNumber, String street,
 			String postalCode, String city, String password) {
-		this.pseudo = pseudo;
+		this.username = username;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
@@ -29,9 +29,9 @@ public class User {
 		this.admin = false;
 	}
 	
-	public User(int id, String pseudo, String lastName, String firstName, String email, String phoneNumber,
+	public User(int id, String username, String lastName, String firstName, String email, String phoneNumber,
 			String street, String postalCode, String city, String password) {
-		this(pseudo, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
+		this(username, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
 		this.id = id;
 	}
 
@@ -43,12 +43,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getPseudo() {
-		return pseudo;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getLastName() {

@@ -10,7 +10,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 
 	private static final String INSERT = "INSERT INTO Users(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM Users WHERE id=?";
-	private static final String SELECT_BY_PSEUDO = "SELECT * FROM Users WHERE pseudo=?";
+	private static final String SELECT_BY_USERNAME = "SELECT * FROM Users WHERE pseudo=?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM Users WHERE email=?";
 	private static final String UPDATE = "UPDATE Users SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE id=?";
 	private static final String DELETE = "DELETE FROM Users WHERE id=?";
@@ -19,7 +19,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	public void insert(User user) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt.setString(1, user.getPseudo());
+			pstmt.setString(1, user.getUsername());
 			pstmt.setString(2, user.getLastName());
 			pstmt.setString(3, user.getFirstName());
 			pstmt.setString(4, user.getEmail());
@@ -57,10 +57,10 @@ public class UserDAOJdbcImpl implements UserDAO {
 	}
 
 	@Override
-	public User selectByPseudo(String pseudo) {
+	public User selectByUsername(String pseudo) {
 		User user = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
-			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_USERNAME);
 			pstmt.setString(1, pseudo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
@@ -99,7 +99,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	public void update(User user) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
-			pstmt.setString(1, user.getPseudo());
+			pstmt.setString(1, user.getUsername());
 			pstmt.setString(2, user.getLastName());
 			pstmt.setString(3, user.getFirstName());
 			pstmt.setString(4, user.getEmail());

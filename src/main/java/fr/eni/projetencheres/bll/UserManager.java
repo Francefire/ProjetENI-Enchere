@@ -11,9 +11,9 @@ public class UserManager {
 		this.userDAO = DAOFactory.getUserDAO();
 	}
 
-	public void newUser(String pseudo, String lastName, String firstName, String email, String phoneNumber,
+	public void newUser(String username, String lastName, String firstName, String email, String phoneNumber,
 			String street, String postalCode, String city, String password) {
-		User u = new User(pseudo, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
+		User u = new User(username, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
 		this.userDAO.insert(u);
 	}
 	
@@ -21,8 +21,8 @@ public class UserManager {
 		return this.userDAO.selectById(id);
 	}
 	
-	public User getUserByPseudo(String pseudo) {
-		return this.userDAO.selectByPseudo(pseudo);
+	public User getUserByUsername(String username) {
+		return this.userDAO.selectByUsername(username);
 	}
 	
 	public User getUserByEmail(String email) {
