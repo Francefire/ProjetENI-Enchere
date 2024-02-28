@@ -1,6 +1,10 @@
 package fr.eni.projetencheres.dal;
 
 public class DAOFactory {
+	public static UserDAO getUserDAO() {
+		return new UserDAOJdbcImpl();
+	}
+
 	public static ArticleDAO getArticleDAO() {
 		return new ArticleDAO();
 	}
