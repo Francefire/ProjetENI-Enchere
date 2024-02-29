@@ -1,0 +1,41 @@
+body {
+	background-color: var(--tertiary-color);
+}
+
+main {
+	margin: 40px 20%;
+}
+
+.search input, .search select {
+	margin-right: 20px;
+}
+
+.search input[type=search] {
+	min-width: 200px;
+    width: 45%;
+}
+
+.search form {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.articles article {
+	background-color: var(--quaternary-color);
+	margin: 20px 0;
+}
+
+.articles article:hover {
+	border: 1px solid var(--quinary-color);
+}
+
+.articles article a {
+	color: var(--quinary-color);
+	display: flex;
+	text-decoration: none;
+}
+
+.articles article div {
+	padding: 10px;
+}
