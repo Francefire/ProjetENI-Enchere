@@ -1,8 +1,5 @@
 package fr.eni.projetencheres.bll;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.dal.BidDAO;
 import fr.eni.projetencheres.dal.DAOFactory;
@@ -18,11 +15,11 @@ public class BidsManager {
 		return bidDAO;
 	}
 	
-	public static void addBid(Bid b) throws SQLException {
+	public static void addBid(Bid b) throws BusinessException {
 		BidsManager.getIntance().insertBid(b);
 	}
 	
-	public static Bid getBidByArticleId(int articleId) throws SQLException {
+	public static Bid getBidByArticleId(int articleId) throws BusinessException {
 		return BidsManager.getIntance().selectBidByArticleId(articleId);
 	}
 }

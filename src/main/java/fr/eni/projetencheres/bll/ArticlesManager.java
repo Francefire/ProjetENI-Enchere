@@ -1,6 +1,5 @@
 package fr.eni.projetencheres.bll;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.Article;
@@ -18,15 +17,23 @@ public class ArticlesManager {
 		return articleDAO;
 	}
 	
-	public static void addArticle(Article a) throws SQLException {
-		ArticlesManager.getIntance().insertArticle(a);
+	public static void addArticle(Article a) throws BusinessException {
+		ArticlesManager.getIntance().insertArticle(a);	
 	}
 	
-	public static Article getArticleByArticleId(int articleId) throws SQLException {
+	public static void editArticle(Article a) throws BusinessException {
+		ArticlesManager.getIntance().updateArticle(a);	
+	}
+	
+	public static Article getArticleByArticleId(int articleId) throws BusinessException {
 		return ArticlesManager.getIntance().selectArticleByArticleId(articleId);
 	}
 	
-	public static List<Article> getAllArticles() throws SQLException {
+	public static List<Article> getAllArticles() throws BusinessException {
 		return ArticlesManager.getIntance().selectAllArticles();
+	}
+	
+	public static void deleteArticleByArticleId(int articleId) throws BusinessException {
+		ArticlesManager.getIntance().deleteArticle(articleId);
 	}
 }

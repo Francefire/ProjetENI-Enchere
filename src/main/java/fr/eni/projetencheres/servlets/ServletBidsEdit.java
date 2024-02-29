@@ -18,14 +18,25 @@ public class ServletBidsEdit extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/bids_edit.jsp").forward(request, response);
+		String articleId = request.getParameter("id");
+		
+		if (articleId == null || articleId.isEmpty()) {
+			response.sendRedirect(request.getContextPath() + "/bids");
+		} else {
+			request.getRequestDispatcher("/WEB-INF/jsp/bids/bids_edit.jsp").forward(request, response);	
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String articleId = request.getParameter("id");
+		
+		if (articleId == null || articleId.isEmpty()) {
+			response.sendRedirect(request.getContextPath() + "/bids");
+		}
+		
+		request.getRequestDispatcher("/WEB-INF/jsp/bids/bids_edit.jsp").forward(request, response);
 	}
-
 }
