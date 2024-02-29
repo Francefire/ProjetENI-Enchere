@@ -8,12 +8,12 @@ import fr.eni.projetencheres.bo.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
-	private static final String INSERT = "INSERT INTO Users(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
-	private static final String SELECT_BY_ID = "SELECT * FROM Users WHERE id=?";
-	private static final String SELECT_BY_USERNAME = "SELECT * FROM Users WHERE pseudo=?";
-	private static final String SELECT_BY_EMAIL = "SELECT * FROM Users WHERE email=?";
-	private static final String UPDATE = "UPDATE Users SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE id=?";
-	private static final String DELETE = "DELETE FROM Users WHERE id=?";
+	private static final String INSERT = "INSERT INTO Utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT_BY_ID = "SELECT * FROM Utilisateurs WHERE id=?";
+	private static final String SELECT_BY_USERNAME = "SELECT * FROM Utilisateurs WHERE pseudo=?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM Utilisateurs WHERE email=?";
+	private static final String UPDATE = "UPDATE Utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE id=?";
+	private static final String DELETE = "DELETE FROM Utilisateurs WHERE id=?";
 
 	@Override
 	public void insert(User user) {

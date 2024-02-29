@@ -103,6 +103,6 @@
             </div>
     </main>
 		<%@ include file="jspf/footer.jspf"%>
-		<script src="js/user.js"></script>
+		<script src="assets/js/user.js"></script>
 	</body>
 </html>
