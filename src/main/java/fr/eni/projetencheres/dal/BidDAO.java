@@ -13,7 +13,7 @@ import fr.eni.projetencheres.bo.Bid;
 
 public class BidDAO {
 	private static final String SQL_INSERT_BID = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
-	private static final String SQL_SELECT_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=?";
+	private static final String SQL_SELECT_auctions_BY_ARTICLE_ID = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article=?";
 
 	public void insertBid(Bid b) throws BusinessException {
 		try {
@@ -21,7 +21,7 @@ public class BidDAO {
 
 			PreparedStatement statement = connection.prepareStatement(SQL_INSERT_BID);
 			statement.setDate(1, Date.valueOf(b.getDate()));
-			statement.setDouble(2, b.getTotal());
+			statement.setDouble(2, b.getAmount());
 			statement.execute();
 
 			connection.close();	
@@ -30,23 +30,24 @@ public class BidDAO {
 		}
 	}
 
-	public Bid selectBidByArticleId(int articleId) throws BusinessException {
-		Bid bid = null;
+	public List<Bid> selectauctionsByArticleId(int articleId) throws BusinessException {
+		List<Bid> auctions = new ArrayList<Bid>();
 
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 
-			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_BY_ARTICLE_ID);
+			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_auctions_BY_ARTICLE_ID);
 			statement.setInt(1, articleId);
 
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
-				bid = new Bid();
+				Bid bid = new Bid();
 				bid.setUserId(rs.getInt(1));
 				bid.setArticleId(rs.getInt(2));
 				bid.setDate(rs.getDate(3).toLocalDate());
-				bid.setTotal(rs.getDouble(4));
+				bid.setAmount(rs.getDouble(4));
+				auctions.add(bid);
 			}
 
 			connection.close();
@@ -54,6 +55,6 @@ public class BidDAO {
 			throw new BusinessException(BusinessException.DAL_SELECT_BID_SQLEXCEPTION);
 		}
 
-		return bid;
+		return auctions;
 	}
 }

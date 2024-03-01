@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+body {
+	background-color: var(--tertiary-color);
+}
+
+main {
+	display: flex;
+	margin: 20px 20%;
+}
+
+section {
+	background-color: var(--quaternary-color);
+}
+
+.article {
+	margin-right: 20px;
+}
+
+.article div {
+	padding: 5px;
+}

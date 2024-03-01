@@ -6,11 +6,11 @@ public class Article {
 	private int id;
 	private String name;
 	private String description;
-	private LocalDate bidStartDate;
-	private LocalDate bidEndDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private double initialPrice;
 	private double sellingPrice;
-	private String bidState;
+	private String auctionstate;
 	private int userId;
 	private int categoryId;
 
@@ -18,22 +18,22 @@ public class Article {
 
 	}
 
-	public Article(String name, String description, LocalDate bidStartDate, LocalDate bidEndDate, double initialPrice,
-			double sellingPrice, String bidState, int userId, int categoryId) {
+	public Article(String name, String description, LocalDate startDate, LocalDate endDate, double initialPrice,
+			double sellingPrice, String auctionstate, int userId, int categoryId) {
 		this.name = name;
 		this.description = description;
-		this.bidStartDate = bidStartDate;
-		this.bidEndDate = bidEndDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.initialPrice = initialPrice;
 		this.sellingPrice = sellingPrice;
-		this.bidState = bidState;
+		this.auctionstate = auctionstate;
 		this.userId = userId;
 		this.categoryId = categoryId;
 	}
 
-	public Article(int id, String name, String description, LocalDate bidStartDate, LocalDate bidEndDate,
-			double initialPrice, double sellingPrice, String bidState, int userId, int categoryId) {
-		this(name, description, bidStartDate, bidEndDate, initialPrice, sellingPrice, bidState, userId, categoryId);
+	public Article(int id, String name, String description, LocalDate startDate, LocalDate endDate,
+			double initialPrice, double sellingPrice, String auctionstate, int userId, int categoryId) {
+		this(name, description, startDate, endDate, initialPrice, sellingPrice, auctionstate, userId, categoryId);
 		this.id = id;
 	}
 
@@ -61,20 +61,20 @@ public class Article {
 		this.description = description;
 	}
 
-	public LocalDate getBidStartDate() {
-		return bidStartDate;
+	public LocalDate getauctionstartDate() {
+		return startDate;
 	}
 
-	public void setBidStartDate(LocalDate bidStartDate) {
-		this.bidStartDate = bidStartDate;
+	public void setauctionstartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
 	public LocalDate getBidEndDate() {
-		return bidEndDate;
+		return endDate;
 	}
 
-	public void setBidEndDate(LocalDate bidEndDate) {
-		this.bidEndDate = bidEndDate;
+	public void setBidEndDate(LocalDate endDate) {
+		this.endDate = endDate;
 	}
 
 	public double getInitialPrice() {
@@ -93,12 +93,12 @@ public class Article {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public String getBidState() {
-		return bidState;
+	public String getauctionstate() {
+		return auctionstate;
 	}
 
-	public void setBidState(String bidState) {
-		this.bidState = bidState;
+	public void setauctionstate(String auctionstate) {
+		this.auctionstate = auctionstate;
 	}
 
 	public int getUserId() {
