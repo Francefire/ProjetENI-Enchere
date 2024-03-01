@@ -2,6 +2,7 @@ package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,11 +37,17 @@ public class ServletUserEdit extends HttpServlet {
 		u.setEmail(request.getParameter("email"));
 		u.setPhoneNumber(request.getParameter("phone"));
 		u.setStreet(request.getParameter("street"));
-		u.setPostalCode(request.getParameter("zipCode"));
+		u.setZipCode(request.getParameter("zipCode"));
 		u.setCity(request.getParameter("city"));
 		u.setPassword(request.getParameter("password"));
 		
 		UserManager.editUser(u);
+		request.getSession().setAttribute("user", u);
+		request.setAttribute("user", u);
+		
+		//redirection vers la servlet user
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/user");
+		rd.forward(request, response);
 		
 	}
 
