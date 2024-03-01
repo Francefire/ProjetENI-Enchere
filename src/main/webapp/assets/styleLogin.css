@@ -43,11 +43,25 @@ footer {
 	background-color: var(--secondary-color);
 	justify-content: center ;
 	color: var(--senary-color);
-	height: 10vh;
+	height: 25vh;
 }
 
-a {
-	text-decoration: none ;
-	color : black ;
+
+/* ************************************************** */
+.container {
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	align-content : space-between; 	
+	flex: wrap; 
+	margin-left: 35%;
+	width: 18%;
 }
 
+label {
+	margin-right: 20px;
+}
+
+input {
+	margin-right: 10px;
+}
