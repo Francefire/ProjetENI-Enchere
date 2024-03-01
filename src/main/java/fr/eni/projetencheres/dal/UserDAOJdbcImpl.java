@@ -4,17 +4,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
-	private static final String INSERT = "INSERT INTO Utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
-	private static final String SELECT_BY_ID = "SELECT * FROM Utilisateurs WHERE no_utilisateur=?";
-	private static final String SELECT_BY_USERNAME = "SELECT * FROM Utilisateurs WHERE pseudo=?";
-	private static final String SELECT_BY_EMAIL = "SELECT * FROM Utilisateurs WHERE email=?";
-	private static final String UPDATE = "UPDATE Utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
-	private static final String DELETE = "DELETE FROM Utilisateurs WHERE no_utilisateur=?";
 
+	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
+	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?";
+	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
+	
+	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 	@Override
 	public void insert(User user) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
@@ -127,4 +130,27 @@ public class UserDAOJdbcImpl implements UserDAO {
 		}
 	}
 
+	//Création d'une méthode pour comparer l'username et le password
+	public int check (String username, String password) throws BusinessException {
+		int id = 0 ;
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(CHECK);
+			pstmt.setString(1,username);
+			pstmt.setString(2, password);
+			ResultSet rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				id=rs.getInt("no_utilisateur");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException(BusinessException.BLL_LOGIN_USER_EXCEPTION)   ;
+		}
+		return id ;
+	}
+
+	@Override
+	public User login(String userName, String Password) throws BusinessException { 
+		return null ;
+	}
 }
