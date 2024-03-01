@@ -8,12 +8,12 @@ import fr.eni.projetencheres.bo.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
-	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
-	private static final String SELECT_BY_ID = "SELECT * FROM Users WHERE id=?";
-	private static final String SELECT_BY_USERNAME = "SELECT * FROM Users WHERE pseudo=?";
-	private static final String SELECT_BY_EMAIL = "SELECT * FROM Users WHERE email=?";
-	private static final String UPDATE = "UPDATE Users SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE id=?";
-	private static final String DELETE = "DELETE FROM Users WHERE id=?";
+	private static final String INSERT = "INSERT INTO Utilisateurs(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT_BY_ID = "SELECT * FROM Utilisateurs WHERE no_utilisateur=?";
+	private static final String SELECT_BY_USERNAME = "SELECT * FROM Utilisateurs WHERE pseudo=?";
+	private static final String SELECT_BY_EMAIL = "SELECT * FROM Utilisateurs WHERE email=?";
+	private static final String UPDATE = "UPDATE Utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+	private static final String DELETE = "DELETE FROM Utilisateurs WHERE no_utilisateur=?";
 
 	@Override
 	public void insert(User user) {
@@ -46,7 +46,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				user = new User(rs.getInt("id"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+				user = new User(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"));
 			}
@@ -64,7 +64,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(1, pseudo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				user = new User(rs.getInt("id"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+				user = new User(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"));
 			}
@@ -83,7 +83,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				user = new User(rs.getInt("id"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
+				user = new User(rs.getInt("no_utilisateur"), rs.getString("pseudo"), rs.getString("nom"), rs.getString("prenom"),
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"));
 			}
