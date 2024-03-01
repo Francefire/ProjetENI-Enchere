@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
 
@@ -65,9 +66,16 @@ public class ServletRegister extends HttpServlet {
         
         //Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
         User new_user = new User (userName, lastName, firstName, email, phone, street, zipCode, city, password);
-        UserManager.getInstance().createUser(new_user);
+        try {
+			UserManager.createUser(new_user, checkPassword);
+			request.getSession().setAttribute("user", new_user);
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         //Ci-dessous, commande pour afficher l'ID de l'utilisateur maintenant crée et inscrit dans la BDD
-        System.out.println(new_user.getId());
+        System.out.println(((User) request.getSession().getAttribute("user")).getUsername());
+        
         // Redirection de l'utilisateur vers la page d'accueil, car il est maintenant connecté
         if (new_user.getId() > 0) {
         	request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);

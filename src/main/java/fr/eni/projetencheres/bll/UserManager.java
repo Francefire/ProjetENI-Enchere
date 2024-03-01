@@ -24,9 +24,10 @@ public class UserManager {
 	
 	//Création d'une méthode pour comparer les saisies mot de passe
 		public static void comparePwd(String password, String checkPassword) throws BusinessException {
-			if (password != checkPassword) {
-				throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
+			if (password.equals(checkPassword)) {
+				return;
 			}
+			throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
 		}
 		
 	// création d'une méthode pour se connecter

@@ -11,6 +11,8 @@ public class BusinessException extends Exception {
 	public static final String DAL_INSERT_BID_SQLEXCEPTION = "Erreur lors de l'insertion de l'enchère dans la base de donnée";
 	public static final String DAL_SELECT_BID_SQLEXCEPTION = "Erreur lors de l'obtention d'enchères dans la base de donnée";
 	
+	public static final String BLL_PWD_USER_EXCEPTION = "Les mots de passe ne correspondent pas";
+	
 	public BusinessException() {
 	}
 
