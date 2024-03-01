@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html lang="fr">
+	<head>
 	<%@ include file="jspf/head.jspf"%>
 	<title>ENI-Encheres</title>
+	</head> 
 	<body>
 		<%@ include file="jspf/header.jspf"%>
+	
 		<main>
 			<section id="filters">
 				<input type="text" placeholder="Rechercher un article..."> <select>

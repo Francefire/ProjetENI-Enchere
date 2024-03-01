@@ -13,6 +13,8 @@ public class BusinessException extends Exception {
 	
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
 	public static final String BLL_PWD_USER_EXCEPTION = "Il y a une erreur sur la vérification du mot de passe : veuillez essayer à nouveau";		
+	public static final String DAL_INSERT_USER_SQLEXCEPTION = "Something went wrong..." ;
+	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Il y a un probleme avec votre statut -en ligne- !";
 	
 	public BusinessException() {
 	}

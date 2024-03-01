@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
 
@@ -18,13 +19,12 @@ import fr.eni.projetencheres.bo.User;
 public class ServletRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-//    UserManager utilisateurManager= UserManagerImpl.getInstance();
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  this.getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
-	}
+	  }
 
 
 	/**
@@ -54,29 +54,34 @@ public class ServletRegister extends HttpServlet {
         System.out.println("Mot de passe : " + password);
         System.out.println("Vérification du mot de passe : " + checkPassword );
         
-        // Etape de vérification des contraintes
-		//        if(user.getNoUtilisateur()>0) {
-		//            request.setAttribute("utilisateur", user);
-		//            this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
-		//        }else{
-		//            request.setAttribute ("erreur", "Mot de passe ou pseudo incorrect");
-		//            this.getServletContext().getRequestDispatcher("/WEB-INF/Login.jsp").forward(request,response);
-		//        }
         
-        //Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
-        User new_user = new User (userName, lastName, firstName, email, phone, street, zipCode, city, password);
-        UserManager.getInstance().createUser(new_user);
-        //Ci-dessous, commande pour afficher l'ID de l'utilisateur maintenant crée et inscrit dans la BDD
-        System.out.println(new_user.getId());
-        // Redirection de l'utilisateur vers la page d'accueil, car il est maintenant connecté
-        if (new_user.getId() > 0) {
-        	request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+//  	Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
+        User new_user = new User(userName, lastName, firstName, email, phone, street, zipCode, city, password);
+
+        
+      
+        try {
+// 			Vérification saisie du pseudo
+        	UserManager.check_username(userName);
+//      	Comparaison des saisies mot de passe
+        	UserManager.comparePwd(password, checkPassword);
+//      	Vérification concordance pseudo et mot de passe dans la BDD
+        	UserManager.createUser(new_user, checkPassword);
+        }catch (BusinessException e) {
+        	String errorMessage = e.getMessage();
+        	request.setAttribute("error", errorMessage);
+        	doGet(request,response);
         }
-        else {
-        	request.setAttribute("error", "Il y a une erreur de base de données");
-        	request.getRequestDispatcher("WEB-INF/Register.jsp").forward(request, response);
-		}
+        
+        response.sendRedirect(request.getContextPath());
+        
+//		Ci-dessous, commande pour afficher l'ID de l'utilisateur maintenant crée et inscrit dans la BDD
+//		System.out.println(new_user.getId());
+//    }
+    
+        
+//    request.setAttribute("error", "Il y a une erreur de base de données");
         
         
     }
-}
+    }

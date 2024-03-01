@@ -1,6 +1,9 @@
+<script>//<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+//--></script>
 <footer>
 	<nav>
-    	<a href="#">À propos | </a> <a href="#">Nous contacter <i class="fa-regular fa-address-card" style="color: #0c3404;"></i></a>
-        <p> &copy; 2024 ENI-Enchere. Tous droits réservés.</p>
+    	<a href="#">Ã€ propos | </a> <a href="#">Nous contacter <i class="fa-regular fa-address-card" style="color: #0c3404;"></i></a>
+        <p> &copy; 2024 ENI-Enchere. Tous droits rÃ©servÃ©s.</p>
     </nav>
 </footer>
