@@ -19,8 +19,7 @@ public class ServletUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String paramId = request.getParameter("id");
-		System.out.println(paramId);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/users/users.jsp").forward(request, response);
 	}
 
 	/**
