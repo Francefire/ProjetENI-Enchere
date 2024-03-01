@@ -9,7 +9,7 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
-		<h1>404</h1>
+		<h1>${requestScope['javax.servlet.error.status_code']}</h1>
 		<p>Page non trouvée</p>
 	</main>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>

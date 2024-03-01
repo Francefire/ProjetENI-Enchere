@@ -30,7 +30,7 @@ public class ServletAuctionsBid extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if (id == null || id.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/auctions");
+			response.sendError(404);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);	
 		}
@@ -43,7 +43,7 @@ public class ServletAuctionsBid extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if (id == null || id.isEmpty()) {			
-			response.sendRedirect(request.getContextPath() + "/auctions");	
+			response.sendError(404);	
 		} else {
 			try {
 				int articleId = Integer.parseInt(id);

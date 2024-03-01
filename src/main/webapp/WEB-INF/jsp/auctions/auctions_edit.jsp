@@ -9,6 +9,7 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
+		<div>
 		<h1>Modifier l'article</h1>
 		<%@ include file="/WEB-INF/jspf/message.jspf" %>
 		<form method="POST" action="${pageContext.request.contextPath}/auctions/new">
