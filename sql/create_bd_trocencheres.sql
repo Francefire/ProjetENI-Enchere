@@ -1,8 +1,9 @@
--- Script de cr�ation de la base de donn�es ENCHERES
+-- Script de création de la base de données ENCHERES
 --   type :      SQL Server 2012
 --
 
-
+USE ENCHERES
+GO
 
 CREATE TABLE CATEGORIES (
     no_categorie   INTEGER IDENTITY(1,1) NOT NULL,
@@ -16,15 +17,16 @@ CREATE TABLE ENCHERES (
     no_article       INTEGER NOT NULL,
     date_enchere     datetime NOT NULL,
 	--Ajout de la contrainte CK_Montant_Positif car une enchere ne peut etre negatif.
-	montant_enchere  INTEGER NOT NULL CONSTRAINT CK_Montant_Positif CHECK (montant_enchere >= 0)
+	montant_enchere  INTEGER NOT NULL
 
 )
 
 ALTER TABLE ENCHERES ADD constraint enchere_pk PRIMARY KEY (no_utilisateur, no_article)
+ALTER TABLE ENCHERES ADD CONSTRAINT CK_Montant_Positif CHECK (montant_enchere >= 0)
 
 CREATE TABLE RETRAITS (
 	no_article         INTEGER NOT NULL,
-    rue              VARCHAR(30) NOT NULL,
+    rue              VARCHAR(60) NOT NULL,
     code_postal      VARCHAR(15) NOT NULL,
     ville            VARCHAR(30) NOT NULL
 )
@@ -36,15 +38,15 @@ CREATE TABLE UTILISATEURS (
     pseudo           VARCHAR(30) NOT NULL,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
-    email            VARCHAR(20) NOT NULL,
+    email            VARCHAR(50) NOT NULL,
     telephone        VARCHAR(15),
-    rue              VARCHAR(30),
+    rue              VARCHAR(60),
     code_postal      VARCHAR(10),
     ville            VARCHAR(30),
 	-- Modification du type du mot de passe pour prevoir le hashage sha256
     mot_de_passe     CHAR(64) NOT NULL,
 	-- Ajout de la contrainte CK_Credit_Positif car un credit ne peut pas etre negatif
-    credit           INTEGER NOT NULL CONSTRAINT CK_Credit_Positif CHECK (credit >= 0),
+    credit           INTEGER NOT NULL CONSTRAINT DF_Credit DEFAULT 0,
 	-- Ajout d'une valeur par defaut a 0 car un utilisateur n'est pas admin par defaut
     administrateur   bit CONSTRAINT DF_Admin_False DEFAULT 0,
 	-- Ajout de la colonne active : qui permet d'activer ou de desactiver le compte, uniquement modifiable par l'administrateur
@@ -52,7 +54,7 @@ CREATE TABLE UTILISATEURS (
 )
 
 ALTER TABLE UTILISATEURS ADD constraint utilisateur_pk PRIMARY KEY (no_utilisateur)
-ALTER TABLE UTILISATEURS ADD CONSTRAINT DF_Credit DEFAULT 0
+ALTER TABLE UTILISATEURS ADD CONSTRAINT CK_Credit_Positif CHECK (credit >= 0)
 
 
 CREATE TABLE ARTICLES_VENDUS (
@@ -61,16 +63,21 @@ CREATE TABLE ARTICLES_VENDUS (
     description                   VARCHAR(300) NOT NULL,
 	date_debut_encheres           DATE NOT NULL,
 	--Ajout des contraintes CK_Date_Fin_Debut, car la date de fin d'une enchere ne peut pas etre anterieur a la date de debut de l'enchere
-    date_fin_encheres             DATE NOT NULL CONSTRAINT CK_Date_Fin_Debut CHECK (date_debut_encheres <= date_fin_encheres),
+    date_fin_encheres             DATE NOT NULL,
 	--Ajout de la contrainte CK_Prix_Initial_Positif car le prix initial ne peut etre negatif
-    prix_initial                  INTEGER NOT NULL CONSTRAINT CK_Prix_Initial_Positif CHECK (prix_initial >= 0),
+    prix_initial                  INTEGER NOT NULL,
 	--Ajout de la contrainte CK_Prix_Vente car le prix de vente doit etre superieur au prix initial.
-    prix_vente                    INTEGER CONSTRAINT CK_Prix_Vente CHECK (prix_vente > prix_initial),
+    prix_vente                    INTEGER,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )
 
 ALTER TABLE ARTICLES_VENDUS ADD constraint articles_vendus_pk PRIMARY KEY (no_article)
+ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Date_Fin_Debut CHECK (date_debut_encheres <= date_fin_encheres)
+ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Initial_Positif CHECK (prix_initial >= 0)
+ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Vente CHECK (prix_vente > prix_initial)
+
+
 
 ALTER TABLE ARTICLES_VENDUS
     ADD CONSTRAINT encheres_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES UTILISATEURS ( no_utilisateur )
