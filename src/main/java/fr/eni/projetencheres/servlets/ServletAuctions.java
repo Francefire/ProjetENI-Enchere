@@ -77,7 +77,7 @@ public class ServletAuctions extends HttpServlet {
 				int articleId = Integer.parseInt(id);
 
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
-				List<Bid> bids = BidsManager.getauctionsByArticleId(articleId);
+				List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
 				
 				request.setAttribute("article", article);
 				request.setAttribute("bids", bids);
