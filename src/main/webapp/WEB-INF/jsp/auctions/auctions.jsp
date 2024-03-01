@@ -7,14 +7,15 @@
 <html>
 <head>
 	<%@ include file="/WEB-INF/jspf/head.jspf"%>
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/bids.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/auctions.css">
 </head>
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
 		<h1>Enchères en cours</h1>
+		<%@ include file="/WEB-INF/jspf/message.jspf" %>
 		<section class="search">
-			<form method="GET" action="${pageContext.request.contextPath}/bids">
+			<form method="GET" action="${pageContext.request.contextPath}/auctions">
 				<div>
 					<label for="name">Nom</label><br>
 					<input type="search" name="name" placeholder="Chaise en bois">
@@ -35,29 +36,30 @@
 					</select>
 				</div>
 				<div>
-					<label for="bidStartDate">Début de l'enchère</label><br>
-					<input type="date" name="bidStartDate">
+					<label for="startDate">Début de l'enchère</label><br>
+					<input type="date" name="startDate">
 				</div>
 				<div>
-					<label for="bidEndDate">Fin de l'enchère</label><br>
-					<input type="date" name="bidEndDate">
+					<label for="endDate">Fin de l'enchère</label><br>
+					<input type="date" name="endDate">
 				</div>
 				<button type="submit">Rechercher</button>
 			</form>
 		</section>
 		<section class="articles">
 			<article>
-				<a href="${pageContext.request.contextPath}/bids?id=0">
+				<a href="${pageContext.request.contextPath}/auctions?id=0">
 					<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder" width="150" height="150">
 					<div>
 						<h1>Article 1</h1>
-						<span>25 points</span><span>En cours</span>
+						<span>25 points</span>
+						<span>En cours</span>
 						<p>Un article en vente</p>
 					</div>
 				</a>
 			</article>
 			<article>
-				<a href="${pageContext.request.contextPath}/bids?id=0">
+				<a href="${pageContext.request.contextPath}/auctions?id=0">
 					<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder" width="150" height="150">
 					<div>
 						<h1>Article 2</h1>
@@ -71,7 +73,7 @@
 				<article>
 					<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
 					<h1>${article.name}</h1>
-					<span>${article.price}</span> <span>${article.bidState}</span>
+					<span>${article.price}</span> <span>${article.auctionstate}</span>
 					<p>${article.description}</p>
 				</article>
 			</c:forEach>

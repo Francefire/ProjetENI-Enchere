@@ -1,5 +1,6 @@
 package fr.eni.projetencheres.bll;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.Article;
@@ -9,7 +10,7 @@ import fr.eni.projetencheres.dal.DAOFactory;
 public class ArticlesManager {
 	private static ArticleDAO articleDAO;
 	
-	private static ArticleDAO getIntance() {
+	public static ArticleDAO getIntance() {
 		if (articleDAO == null) {
 			articleDAO = DAOFactory.getArticleDAO();
 		}
@@ -26,14 +27,37 @@ public class ArticlesManager {
 	}
 	
 	public static Article getArticleByArticleId(int articleId) throws BusinessException {
-		return ArticlesManager.getIntance().selectArticleByArticleId(articleId);
+		Article article = ArticlesManager.getIntance().selectArticleByArticleId(articleId);
+	
+		if (article == null) {
+			throw new BusinessException(BusinessException.BLL_ARTICLE_NULL);
+		}
+		
+		return article;
 	}
 	
 	public static List<Article> getAllArticles() throws BusinessException {
-		return ArticlesManager.getIntance().selectAllArticles();
+		List<Article> articles = ArticlesManager.getIntance().selectAllArticles();
+		
+		if (articles == null || articles.isEmpty()) {
+			throw new BusinessException(BusinessException.BLL_ARTICLES_NULL);
+		}
+		
+		return articles;
 	}
 	
+	public static List<Article> getAllArticlesWhere(String name, int categoryId, LocalDate startDate, LocalDate endDate) throws BusinessException {
+		List<Article> articles = ArticlesManager.getIntance().selectArticlesWhere(name, categoryId, startDate, endDate);
+		
+		if (articles == null || articles.isEmpty()) {
+			throw new BusinessException(BusinessException.BLL_ARTICLES_NULL);
+		}
+		
+		return articles;
+	}
+	
+	
 	public static void deleteArticleByArticleId(int articleId) throws BusinessException {
-		ArticlesManager.getIntance().deleteArticle(articleId);
+		ArticlesManager.getIntance().deleteArticleByArticleId(articleId);
 	}
 }
