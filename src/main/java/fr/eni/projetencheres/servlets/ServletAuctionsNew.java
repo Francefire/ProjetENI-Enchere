@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 
 /**
@@ -23,6 +24,9 @@ public class ServletAuctionsNew extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// List<Category> categories = CategoriesManager.getAllCategories();
+		// request.setAttribute("categories", categories);
+		
 		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 	}
 
@@ -48,8 +52,11 @@ public class ServletAuctionsNew extends HttpServlet {
 			
 			ArticlesManager.addArticle(article);
 			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
-		} catch (Exception e) {
+		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		}
 	}

@@ -26,7 +26,7 @@ public class BidsManager {
 		ArticlesManager.getIntance().updateArticleSellingPrice(b.getArticleId(), b.getAmount());
 	}
 	
-	public static List<Bid> getauctionsByArticleId(int articleId) throws BusinessException {
-		return BidsManager.getIntance().selectauctionsByArticleId(articleId);
+	public static List<Bid> getBidsByArticleId(int articleId) throws BusinessException {
+		return BidsManager.getIntance().selectBidsByArticleId(articleId);
 	}
 }

@@ -2,17 +2,13 @@ body {
 	background-color: var(--tertiary-color);
 }
 
-main {
-	margin: 40px 20%;
-}
-
 .search input, .search select {
 	margin-right: 20px;
 }
 
 .search input[type=search] {
 	min-width: 200px;
-    width: 45%;
+	width: 45%;
 }
 
 .search form {

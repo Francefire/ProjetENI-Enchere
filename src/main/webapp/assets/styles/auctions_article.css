@@ -4,11 +4,6 @@ body {
 	background-color: var(--tertiary-color);
 }
 
-main {
-	display: flex;
-	margin: 20px 20%;
-}
-
 section {
 	background-color: var(--quaternary-color);
 }

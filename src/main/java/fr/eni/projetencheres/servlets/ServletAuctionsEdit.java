@@ -21,7 +21,7 @@ public class ServletAuctionsEdit extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if (id == null || id.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/auctions");
+			response.sendError(404);
 		} else {
 			response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
 		}

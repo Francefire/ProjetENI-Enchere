@@ -1,7 +1,10 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +24,8 @@ import fr.eni.projetencheres.bo.Bid;
 @WebServlet({"/auctions", "/encheres"})
 public class ServletAuctions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,25 +34,50 @@ public class ServletAuctions extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if (id == null || id.isEmpty()) {
-			String name = request.getParameter("name");
-			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-			// LocalDate startDate = request.getParameter("startDate");
-			// LocalDate endDate = request.getParameter("endDate");
-			
 			try {
-				List<Article> articles = ArticlesManager.getAllArticlesWhere(name, categoryId, null, null);
-				request.setAttribute("articles", articles);
-				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
+				if (request.getParameterMap().size() == 0) {
+					List<Article> articles = ArticlesManager.getAllArticles();
+					request.setAttribute("articles", articles);
+					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
+				} else {
+					String name = request.getParameter("name");
+					String paramCategoryId = request.getParameter("categoryId");
+					String paramStartDate = request.getParameter("startDate");
+					String paramEndDate = request.getParameter("endDate");
+					
+					int categoryId = 0;
+					LocalDate startDate = null;
+					LocalDate endDate = null;
+					
+					if (paramCategoryId != null) {
+						categoryId = Integer.parseInt(request.getParameter("categoryId"));
+					}
+					
+					if (paramStartDate != null && !paramStartDate.isEmpty()) {
+						startDate = LocalDate.parse(request.getParameter("startDate"), ServletAuctions.formatter);
+					}
+					
+					if (paramEndDate != null && !paramEndDate.isEmpty()) {
+						endDate = LocalDate.parse(request.getParameter("endDate"), ServletAuctions.formatter);
+					}
+					
+					List<Article> articles = ArticlesManager.getAllArticlesWhere(name, categoryId, startDate, endDate);
+					request.setAttribute("articles", articles);
+					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
+				}
 			} catch (BusinessException e) {
-				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
-			}
-			
+				request.setAttribute("message", e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
+			}			
 		} else {
 			try {
 				int articleId = Integer.parseInt(id);
 
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
-				List<Bid> bids = BidsManager.getauctionsByArticleId(articleId);
+				List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
 				
 				request.setAttribute("article", article);
 				request.setAttribute("bids", bids);
