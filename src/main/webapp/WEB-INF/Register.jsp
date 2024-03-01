@@ -1,21 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    
-    
 <!DOCTYPE html>
 <html>
 <head>
-<%-- <%@ include file="jspf/head.jspf"%> --%>
+<%@ include file="jspf/head.jspf"%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styleRegister.css">
 </head>
 <body>
 <%@ include file="jspf/header.jspf"%>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styleRegister.css">
 <main>
 
 <c:if test="${!empty error}">
-				<h2 class="cards">${error}</h2>
+				<h2 class="msgBox">${error}</h2>
 			</c:if>
 
 	<h2>Créer un compte</h2>
@@ -86,13 +83,12 @@
 		        <label for="confirm_mot_de_passe">Confirmation du mot de passe : </label>
 		        <input type="password" id="idConfirmation" name="CheckPassword"
 		        			required> 
-		        			${ erreurMdp }
 		    			</div>
 		    		</section>
 	    </form>
 		  <section class="button">
-		        <input form="Register" type="submit" value="Créer"/>
-		        <input type="reset" value="Annuler">
+		        <button form= "Register" type ="submit">Créer</button>
+		        <a href="/ProjetENI-Enchere/accueil"><input type="reset" value="Annuler"></a>
 	 	</section>
 </main>
 </body>
