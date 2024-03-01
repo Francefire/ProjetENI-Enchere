@@ -34,6 +34,9 @@ main {
 	color: var(--quinary-color);
 	height: 80vh;
 	display : flex ; 
+	flex-direction: column;
+	justify-content: center; 
+	align-items: center; 
 }
 
 footer {
@@ -46,8 +49,43 @@ footer {
 	height: 10vh;
 }
 
-a {
-	text-decoration: none ;
-	color : black ;
+/* ************************************************** */
+
+form {
+	display: flex;
+/* 	width : 80%; */
+	justify-content: space-evenly;
+/* 	flex-wrap: wrap; */
+	
 }
 
+form section  {
+	width : 40%;
+}
+
+form section div {
+	display : flex;
+	width : 100%;
+	margin-top : 1vh ;
+/* 	align-content: space-between ;  */
+	margin-bottom : 1vh ;
+	background-color: #FAEDCD;
+	border-radius: 3%;
+	height:8vh;
+	padding: 5px;
+	flex-direction: column;
+}
+
+form section div input {
+	border: 1px solid #D4A373;
+    border-radius : 5px;
+    padding: 3px; 
+    height: 50%;
+    background-color: var(--tertiary-color);
+    
+}
+
+.button {
+	display : flex ; 
+	justify-content: center; 
+}
