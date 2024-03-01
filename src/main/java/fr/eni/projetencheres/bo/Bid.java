@@ -6,15 +6,15 @@ public class Bid {
 	private int userId;
 	private int articleId;
 	private LocalDate date;
-	private double total;
+	private double amount;
 	
 	public Bid() {
 		
 	}
 	
-	public Bid(LocalDate date, double total) {
+	public Bid(LocalDate date, double amount) {
 		this.date = date;
-		this.total = total;
+		this.amount = amount;
 	}	
 	
 	public int getUserId() {
@@ -41,11 +41,11 @@ public class Bid {
 		this.date = date;
 	}
 
-	public double getTotal() {
-		return total;
+	public double getAmount() {
+		return amount;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public void setAmount(double total) {
+		this.amount = total;
 	}
 }

@@ -9,15 +9,15 @@ import fr.eni.projetencheres.bo.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
+
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?";
-	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE id=?";
-	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE id=?";
+	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	
 	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
-	
 	@Override
 	public void insert(User user) {
 		try (Connection cnx = ConnectionProvider.getConnection()) {

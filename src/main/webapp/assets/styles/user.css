@@ -1,0 +1,90 @@
+main{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 5%;
+}
+
+form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 80%;
+    margin-top: 5%;
+    flex-wrap: wrap;
+}
+
+form div{
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--quaternary-color);
+    width: 40%;
+}
+form div:nth-last-child(1){
+    margin: 10px;
+    border: none;
+    width: fit-content;
+    height: fit-content;
+    background-color: var(--third-color);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+form div:nth-last-child(1) input{
+    font-weight: bold;
+    font-size: 1.8em;
+    width: 40%;
+}
+
+form input{
+    padding: 10px;
+    outline: none;
+    border : none;
+    border-radius: 5px;
+    display:block;
+    background-color: var(--quaternary-color);
+    color: var(--quinary-color);
+    width: 100%;
+}
+form label{
+    margin-left: 2px;
+    display: block;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.rounded{
+    height: 4px;
+    width: 100%;
+    background-color: var(--quaternary-color);
+    border-radius: 5px;
+    width: 70%;
+}
+
+.edit{
+    display: none;
+}
+
+.show label{
+    background-color: var(--tertiary-color);
+}
+.show input{
+    background-color: var(--tertiary-color);
+}
+.show div{
+    background-color: var(--tertiary-color);
+}
+
+.show div:nth-last-child(1){
+    justify-content: center;
+}
+
+.show div:nth-last-child(1) input{
+    background-color: var(--quaternary-color);
+    font-weight: bold;
+    font-size: 1.8em;
+    width: 80%;
+}
