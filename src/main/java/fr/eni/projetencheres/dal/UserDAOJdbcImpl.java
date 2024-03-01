@@ -8,7 +8,7 @@ import fr.eni.projetencheres.bo.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
-	private static final String INSERT = "INSERT INTO Users(pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM Users WHERE id=?";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM Users WHERE pseudo=?";
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM Users WHERE email=?";
@@ -25,7 +25,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setString(5, user.getPhoneNumber());
 			pstmt.setString(6, user.getStreet());
-			pstmt.setString(7, user.getPostalCode());
+			pstmt.setString(7, user.getZipCode());
 			pstmt.setString(8, user.getCity());
 			pstmt.setString(9, user.getPassword());
 			pstmt.executeUpdate();
@@ -105,7 +105,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setString(5, user.getPhoneNumber());
 			pstmt.setString(6, user.getStreet());
-			pstmt.setString(7, user.getPostalCode());
+			pstmt.setString(7, user.getZipCode());
 			pstmt.setString(8, user.getCity());
 			pstmt.setString(9, user.getPassword());
 			pstmt.setInt(10, user.getId());

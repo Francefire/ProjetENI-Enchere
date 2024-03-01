@@ -1,5 +1,5 @@
 package fr.eni.projetencheres.bo;
-
+//Classe permettant de définir un utilisateur, "qu'est ce qui le caractérise" ? 
 public class User {
 	private int id;
 	private String username;
@@ -8,36 +8,37 @@ public class User {
 	private String email;
 	private String phoneNumber;
 	private String street;
-	private String postalCode;
+	private String zipCode;
 	private String city;
 	private String password;
 	private int credit;
 	private boolean admin;
+
+//	notre premier constructeur vide, celui par défaut
+	public User() {
+		this.credit = 0;
+		this.admin = false;
+	}
 	
-	public User(String username, String lastName, String firstName, String email, String phoneNumber, String street,
-			String postalCode, String city, String password) {
+//constructeur qui permettra la création de l'user via l'interface ihm (site internet) : ce constructeur ne servira QUE lors de la création de sa fiche
+	public User(String username, String lastName, String firstName, String email, String phoneNumber, String street,String zipCode, String city, String password) {
+		this();
 		this.username = username;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.street = street;
-		this.postalCode = postalCode;
+		this.zipCode = zipCode;
 		this.city = city;
 		this.password = password;
-		this.credit = 0;
-		this.admin = false;
 	}
 	
+//constructeur qui permettra de créer un user si on connait déjà son id - (lorsqu'il est déjà inscrit, et qu'il se connecte)
 	public User(int id, String username, String lastName, String firstName, String email, String phoneNumber,
-			String street, String postalCode, String city, String password) {
-		this(username, lastName, firstName, email, phoneNumber, street, postalCode, city, password);
+			String street, String zipCode, String city, String password) {
+		this(username, lastName, firstName, email, phoneNumber, street, zipCode, city, password);
 		this.id = id;
-	}
-	
-	public User() {
-		this.credit = 0;
-		this.admin = false;
 	}
 
 	public int getId() {
@@ -96,12 +97,12 @@ public class User {
 		this.street = street;
 	}
 
-	public String getPostalCode() {
-		return postalCode;
+	public String getZipCode() {
+		return zipCode;
 	}
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 	public String getCity() {
@@ -135,11 +136,5 @@ public class User {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }
