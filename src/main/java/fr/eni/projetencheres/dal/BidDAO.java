@@ -30,8 +30,8 @@ public class BidDAO {
 		}
 	}
 
-	public List<Bid> selectauctionsByArticleId(int articleId) throws BusinessException {
-		List<Bid> auctions = new ArrayList<Bid>();
+	public List<Bid> selectBidsByArticleId(int articleId) throws BusinessException {
+		List<Bid> bids = new ArrayList<Bid>();
 
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -47,7 +47,7 @@ public class BidDAO {
 				bid.setArticleId(rs.getInt(2));
 				bid.setDate(rs.getDate(3).toLocalDate());
 				bid.setAmount(rs.getDouble(4));
-				auctions.add(bid);
+				bids.add(bid);
 			}
 
 			connection.close();
@@ -55,6 +55,6 @@ public class BidDAO {
 			throw new BusinessException(BusinessException.DAL_SELECT_BID_SQLEXCEPTION);
 		}
 
-		return auctions;
+		return bids;
 	}
 }

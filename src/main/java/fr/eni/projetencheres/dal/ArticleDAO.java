@@ -154,29 +154,33 @@ public class ArticleDAO {
 	public List<Article> selectArticlesWhere(String name, int categoryId, LocalDate startDate, LocalDate endDate) throws BusinessException {
 		List<Article> articles = new ArrayList<Article>();
 
-		try {
+		/*try {
 			Connection connection = ConnectionProvider.getConnection();
 
 			StringBuilder query = new StringBuilder(SQL_SELECT_ALL_ARTICLES + " WHERE ");
 			
 			if (name != null && !name.isEmpty()) {
-				query.append("nom_article="+name);
+				query.append("nom_article=?");
 			}
 			
 			if (categoryId > 0) {
-				query.append("no_categorie="+categoryId);
+				query.append("no_categorie=?");
 			}
 			
 			if (startDate != null) {
-				query.append("date_debut_encheres="+startDate);
+				query.append("date_debut_encheres=?");
 			}
 			
 			if (endDate != null) {
-				query.append("date_fin_encheres="+endDate);
+				query.append("date_fin_encheres=?");
 			}
 			
 			PreparedStatement statement = connection.prepareStatement(query.toString());
-
+			statement.setString(1, name);
+			statement.setInt(2, categoryId);
+			statement.setDate(3, Date.valueOf(startDate));
+			statement.setDate(4, Date.valueOf(startDate));
+			
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
@@ -197,7 +201,7 @@ public class ArticleDAO {
 		} catch (SQLException e) {
 			throw new BusinessException(BusinessException.DAL_SELECT_ARTICLE_SQLEXCEPTION);
 		}
-
+		*/
 		return articles;
 	}
 	
