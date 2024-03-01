@@ -16,6 +16,8 @@ public class BusinessException extends Exception {
 
 	public static final String BLL_BID_AMOUNT_NOT_ENOUGH = "Le montant de l'enchère doit être supérieur ou égale à un";
 	public static final String BLL_BID_ENDED = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
+
+	public static final String BLL_PWD_USER_EXCEPTION = "Les mots de passe ne correspondent pas";
 	
 	public BusinessException() {
 	}

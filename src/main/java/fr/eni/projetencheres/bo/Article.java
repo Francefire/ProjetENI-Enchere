@@ -10,7 +10,7 @@ public class Article {
 	private LocalDate endDate;
 	private double initialPrice;
 	private double sellingPrice;
-	private String auctionstate;
+	private String auctionState;
 	private int userId;
 	private int categoryId;
 
@@ -19,21 +19,21 @@ public class Article {
 	}
 
 	public Article(String name, String description, LocalDate startDate, LocalDate endDate, double initialPrice,
-			double sellingPrice, String auctionstate, int userId, int categoryId) {
+			double sellingPrice, String auctionState, int userId, int categoryId) {
 		this.name = name;
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.initialPrice = initialPrice;
 		this.sellingPrice = sellingPrice;
-		this.auctionstate = auctionstate;
+		this.auctionState = auctionState;
 		this.userId = userId;
 		this.categoryId = categoryId;
 	}
 
 	public Article(int id, String name, String description, LocalDate startDate, LocalDate endDate,
-			double initialPrice, double sellingPrice, String auctionstate, int userId, int categoryId) {
-		this(name, description, startDate, endDate, initialPrice, sellingPrice, auctionstate, userId, categoryId);
+			double initialPrice, double sellingPrice, String auctionState, int userId, int categoryId) {
+		this(name, description, startDate, endDate, initialPrice, sellingPrice, auctionState, userId, categoryId);
 		this.id = id;
 	}
 
@@ -61,19 +61,19 @@ public class Article {
 		this.description = description;
 	}
 
-	public LocalDate getauctionstartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setauctionstartDate(LocalDate startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDate getBidEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setBidEndDate(LocalDate endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -93,12 +93,12 @@ public class Article {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public String getauctionstate() {
-		return auctionstate;
+	public String getAuctionState() {
+		return auctionState;
 	}
 
-	public void setauctionstate(String auctionstate) {
-		this.auctionstate = auctionstate;
+	public void setAuctionState(String auctionState) {
+		this.auctionState = auctionState;
 	}
 
 	public int getUserId() {

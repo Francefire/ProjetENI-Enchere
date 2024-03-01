@@ -31,8 +31,8 @@ public class ArticleDAO {
 			PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
 			statement.setString(1, a.getName());
 			statement.setString(2, a.getDescription());
-			statement.setDate(3, Date.valueOf(a.getauctionstartDate()));
-			statement.setDate(4, Date.valueOf(a.getBidEndDate()));
+			statement.setDate(3, Date.valueOf(a.getStartDate()));
+			statement.setDate(4, Date.valueOf(a.getEndDate()));
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
 			statement.setInt(7, a.getUserId());
@@ -58,8 +58,8 @@ public class ArticleDAO {
 			PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ARTICLE);
 			statement.setString(1, a.getName());
 			statement.setString(2, a.getDescription());
-			statement.setDate(3, Date.valueOf(a.getauctionstartDate()));
-			statement.setDate(4, Date.valueOf(a.getBidEndDate()));
+			statement.setDate(3, Date.valueOf(a.getStartDate()));
+			statement.setDate(4, Date.valueOf(a.getEndDate()));
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
 			statement.setInt(7, a.getCategoryId());
@@ -103,8 +103,8 @@ public class ArticleDAO {
 				article.setId(rs.getInt(1));
 				article.setName(rs.getString(2));
 				article.setDescription(rs.getString(3));
-				article.setauctionstartDate(rs.getDate(4).toLocalDate());
-				article.setBidEndDate(rs.getDate(5).toLocalDate());
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
 				article.setInitialPrice(rs.getDouble(6));
 				article.setSellingPrice(rs.getDouble(7));
 				article.setUserId(rs.getInt(8));
@@ -134,8 +134,8 @@ public class ArticleDAO {
 				article.setId(rs.getInt(1));
 				article.setName(rs.getString(2));
 				article.setDescription(rs.getString(3));
-				article.setauctionstartDate(rs.getDate(4).toLocalDate());
-				article.setBidEndDate(rs.getDate(5).toLocalDate());
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
 				article.setInitialPrice(rs.getDouble(6));
 				article.setSellingPrice(rs.getDouble(7));
 				article.setUserId(rs.getInt(8));
@@ -184,8 +184,8 @@ public class ArticleDAO {
 				article.setId(rs.getInt(1));
 				article.setName(rs.getString(2));
 				article.setDescription(rs.getString(3));
-				article.setauctionstartDate(rs.getDate(4).toLocalDate());
-				article.setBidEndDate(rs.getDate(5).toLocalDate());
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
 				article.setInitialPrice(rs.getDouble(6));
 				article.setSellingPrice(rs.getDouble(7));
 				article.setUserId(rs.getInt(8));

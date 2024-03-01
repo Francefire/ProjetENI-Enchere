@@ -41,12 +41,12 @@ public class ServletAuctionsNew extends HttpServlet {
 			Article article = new Article();
 			article.setName(name);
 			article.setDescription(description);
-			article.setauctionstartDate(startDate);
-			article.setBidEndDate(endDate);
+			article.setStartDate(startDate);
+			article.setEndDate(endDate);
 			article.setInitialPrice(initialPrice);
 			article.setCategoryId(categoryId);
 			
-			// ArticlesManager.addArticle(article);
+			ArticlesManager.addArticle(article);
 			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
 		} catch (Exception e) {
 			request.setAttribute("message", e.getMessage());
