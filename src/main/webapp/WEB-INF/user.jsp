@@ -10,7 +10,7 @@
         <h1>
             Mon Profil.
         </h1>
-        <form action="" method="post" class="edit">
+        <form action="user/edit" method="post" class="edit">
             <div>
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" name="username" id="username">
