@@ -25,7 +25,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setString(5, user.getPhoneNumber());
 			pstmt.setString(6, user.getStreet());
-			pstmt.setString(7, user.getPostalCode());
+			pstmt.setString(7, user.getZipCode());
 			pstmt.setString(8, user.getCity());
 			pstmt.setString(9, user.getPassword());
 			pstmt.executeUpdate();
@@ -105,7 +105,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(4, user.getEmail());
 			pstmt.setString(5, user.getPhoneNumber());
 			pstmt.setString(6, user.getStreet());
-			pstmt.setString(7, user.getPostalCode());
+			pstmt.setString(7, user.getZipCode());
 			pstmt.setString(8, user.getCity());
 			pstmt.setString(9, user.getPassword());
 			pstmt.setInt(10, user.getId());
