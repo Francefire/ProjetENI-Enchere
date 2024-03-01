@@ -52,7 +52,7 @@
 				<article>
 					<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
 					<h1>${article.name}</h1>
-					<span>${article.price}</span> <span>${article.auctionstate}</span>
+					<span>${article.sellingPrice}</span>
 					<p>${article.description}</p>
 				</article>
 			</c:forEach>	

@@ -13,6 +13,8 @@ public class BusinessException extends Exception {
 	
 	public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
 	public static final String BLL_ARTICLES_NULL = "Aucun articles n'ont pu être trouvés";
+	
+	public static final String BLL_EMPTY_FIELDS = "Champ non renseigné";
 
 	public static final String BLL_BID_AMOUNT_NOT_ENOUGH = "Le montant de l'enchère doit être supérieur ou égale à un";
 	public static final String BLL_BID_ENDED = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
