@@ -81,13 +81,13 @@ ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Vente CHECK (prix_vente > pri
 
 ALTER TABLE ARTICLES_VENDUS
     ADD CONSTRAINT encheres_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES UTILISATEURS ( no_utilisateur )
-ON DELETE NO ACTION 
+ON DELETE CASCADE 
     ON UPDATE no action 
 
 ALTER TABLE ENCHERES
     ADD CONSTRAINT encheres_articles_vendus_fk FOREIGN KEY ( no_article )
         REFERENCES ARTICLES_VENDUS ( no_article )
-ON DELETE NO ACTION 
+ON DELETE CASCADE
     ON UPDATE no action 
 
 ALTER TABLE RETRAITS
@@ -105,6 +105,6 @@ ON DELETE NO ACTION
 ALTER TABLE ARTICLES_VENDUS
     ADD CONSTRAINT ventes_utilisateur_fk FOREIGN KEY ( no_utilisateur )
         REFERENCES utilisateurs ( no_utilisateur )
-ON DELETE NO ACTION 
+ON DELETE CASCADE 
     ON UPDATE no action 
 

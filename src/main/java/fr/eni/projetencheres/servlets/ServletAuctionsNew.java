@@ -13,44 +13,44 @@ import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bo.Article;
 
 /**
- * Servlet implementation class ServletBidsEdit
+ * Servlet implementation class ServletauctionsNew
  */
-@WebServlet({"/bids/new", "/encheres/nouvelle"})
-public class ServletBidsNew extends HttpServlet {
+@WebServlet({"/auctions/new", "/encheres/nouvelle"})
+public class ServletAuctionsNew extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/bids/bids_new.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Article article = new Article();
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		try {
 			String name = (String) request.getAttribute("name");
 			String description = (String) request.getAttribute("description");
-			LocalDate bidStartDate = (LocalDate) request.getAttribute("bidStartDate");
-			LocalDate bidEndDate = (LocalDate) request.getAttribute("bidEndDate");
-			double initialPrice = (double) request.getAttribute("initialPrice");
-			int categoryId = (int) request.getAttribute("categoryId");
+			LocalDate startDate = (LocalDate) request.getAttribute("startDate");
+			LocalDate endDate = (LocalDate) request.getAttribute("endDate");
+			double initialPrice = Double.parseDouble((String) request.getAttribute("initialPrice"));
+			int categoryId = Integer.parseInt((String) request.getAttribute("categoryId"));
 			
+			Article article = new Article();
 			article.setName(name);
 			article.setDescription(description);
-			article.setBidStartDate(bidStartDate);
-			article.setBidEndDate(bidEndDate);
+			article.setStartDate(startDate);
+			article.setEndDate(endDate);
 			article.setInitialPrice(initialPrice);
 			article.setCategoryId(categoryId);
+			
+			ArticlesManager.addArticle(article);
+			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
 		} catch (Exception e) {
-			request.setAttribute("article", article);	
-			request.getRequestDispatcher("/WEB-INF/jsp/bids/bids_new.jsp").forward(request, response);
+			request.setAttribute("message", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		}
-		
-		// response.sendRedirect(request.getContextPath() + "/bids?id=" + article.getId());
 	}
 }
