@@ -40,7 +40,7 @@ public class ServletUser extends HttpServlet {
 			User u = (User) request.getSession().getAttribute("user");
 			request.setAttribute("user", u);
 		}
-
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
 		rd.forward(request, response);
 	}
