@@ -53,6 +53,6 @@
 		    <a href="${pageContext.request.contextPath}/Register"><input type="submit" value="Créer un compte"/></a>
 	</div>	    
 	</main>
-	<jsp:include page="jspf/footer.jspf"></jsp:include> 
+	<%@ include file="jspf/footer.jspf"%>
 </body>
 </html>
