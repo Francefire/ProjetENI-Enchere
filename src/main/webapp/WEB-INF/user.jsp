@@ -15,11 +15,9 @@
         <h1>
             Mon Profil.
         </h1>
-		<h2 class="error">
 			<c:if test="${message != null}">
-                ${message}
-            </c:if>
-		</h2>
+			<h2 class="error">${message}</h2>
+		</c:if>
 			<form action="${pageContext.request.contextPath}/user/edit"
 				method="post" class="edit">
 				<div>
@@ -67,8 +65,9 @@
 					<br>
 				</div>
 				<div>
-					<input type="submit" value="Créer"> <input type="submit"
-						value="Annuler" id="cancelEdit">
+					<input type="submit" value="Annuler" id="cancelEdit">
+					<input type="submit" value="Valider"> 
+						<input type="submit" value="Supprimer les compte" id="deleteButton" formaction="${pageContext.request.contextPath}/user/delete">
 				</div>
 			</form>
 			<form action="" method="post" class="show">
@@ -112,6 +111,28 @@
 					<br>
 				</div>
 			</form>
+			<form action="${pageContext.request.contextPath}/user/delete"
+				method="post" class="delete">
+				<h2>Êtes vous sur de vouloir supprimer votre compte ?</h2>
+				<h4>Entrez votre mot deux fois afin de confirmer la suppresion</h4>
+				<div>
+					<label for="password">Mot de passe</label> <input type="password"
+						name="password" id="password" required>
+				</div>
+				<div>
+					<label for="confirmPassword">Confirmer la suppresion</label> <input
+						type="password" name="confirmPassword" id="confirmPassword"
+						required>
+				</div>
+				<div class="rounded">
+					<br>
+				</div>
+				<div>
+					<input type="submit" value="Annuler" id="cancelDelete">
+					<input type="submit" value="Supprimer les compte" id="deleteButtonConfirm" formaction="${pageContext.request.contextPath}/user/delete">
+				</div>
+			</form>
+			
 			<div>
 				<input type="submit" value="Modifier" id="editButton">
 			</div>

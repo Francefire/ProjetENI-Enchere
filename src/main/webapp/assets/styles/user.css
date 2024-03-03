@@ -33,12 +33,15 @@ form div:nth-last-child(1) {
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
+	flex-direction: row-reverse;
+	flex-wrap: wrap;
 }
 
 form div:nth-last-child(1) input {
 	font-weight: bold;
 	font-size: 1.8em;
 	width: 40%;
+	margin-bottom: 10px;
 }
 
 form input {
@@ -65,6 +68,23 @@ form label {
 	background-color: var(--quaternary-color);
 	border-radius: 5px;
 	width: 70%;
+}
+
+.delete {
+	display: none;
+}
+
+.delete>div {
+	width: 100%;
+}
+
+.delete>h2 {
+	color: var(--senary-color);
+}
+
+.delete>h2, h4 {
+	width: 100%;
+	text-align: right;
 }
 
 .edit {
@@ -104,4 +124,12 @@ form label {
 	color: var(--quinary-color);
 	font-weight: bold;
 	font-size: 1.8em;
+}
+
+#deleteButton {
+	color: var(--primary-color);
+}
+
+#deleteButtonConfirm {
+	color: var(--senary-color);
 }

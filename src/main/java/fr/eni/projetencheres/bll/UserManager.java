@@ -37,6 +37,14 @@ public class UserManager {
 			throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
 		}
 	}
+	
+	//Creation d'une méthode qui verifie le mot de passe de l'utilisateur
+	public static boolean checkPwd(User u, String password) throws BusinessException {
+		if ( !(u.getPassword().trim().equals(password.trim())) ) {
+			throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
+		}
+		return true;
+	}
 
 	public static User login(String userName, String password) throws BusinessException {
 //			String pass = User.hashPwd(password);

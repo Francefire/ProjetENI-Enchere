@@ -15,7 +15,7 @@ public class BusinessException extends Exception {
   
 	
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
-	public static final String BLL_PWD_USER_EXCEPTION = "Il y a une erreur sur la vérification du mot de passe : veuillez essayer à nouveau";
+	public static final String BLL_PWD_USER_EXCEPTION = "Le mot de passe ne correspond pas";
   public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
 	public static final String BLL_ARTICLES_NULL = "Aucun articles n'ont pu être trouvés";
 
