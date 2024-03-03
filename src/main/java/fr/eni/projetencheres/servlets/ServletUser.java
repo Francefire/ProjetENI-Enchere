@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
 
 /**
@@ -27,7 +29,8 @@ public class ServletUser extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
-		
+		String idParam = request.getParameter("id");
+		User u = null;
 		if (session.getAttribute("userConnected") == null) {
 			
 			request.setAttribute("from", rd);
@@ -36,8 +39,24 @@ public class ServletUser extends HttpServlet {
 			rd.forward(request, response);
 			return;
 		} else {
-			User u = (User) session.getAttribute("userConnected");
-			request.setAttribute("user", u);
+			if (idParam != null) {
+				try {
+                    int id = Integer.parseInt(idParam);
+                    
+                    u = UserManager.getUserById(id);
+                    request.setAttribute("user", u);
+                } catch (NumberFormatException e) {
+                    request.setAttribute("message", "ID non valide");
+                    response.sendError(500);
+                    return;
+				} catch (BusinessException e) {
+					request.setAttribute("message", e.getMessage());
+					response.sendError(500);
+					return;
+				}
+				
+			}
+			
 		}
 
 		rd.forward(request, response);

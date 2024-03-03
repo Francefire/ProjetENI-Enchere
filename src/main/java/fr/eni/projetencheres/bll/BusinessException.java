@@ -12,6 +12,8 @@ public class BusinessException extends Exception {
 	public static final String DAL_SELECT_BID_SQLEXCEPTION = "Erreur lors de l'obtention d'enchères dans la base de données";
   
 	public static final String DAL_INSERT_USER_SQLEXCEPTION = "Erreur lors de la création du compte" ;
+	public static final String DAL_SELECT_USER_EXCEPTION = "Erreur lors de la récupération de l'utilisateur";
+	public static final String DAL_USER_NOT_FOUND = "Utilisateur non trouvé";
   
 	
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";

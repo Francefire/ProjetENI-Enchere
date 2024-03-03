@@ -58,8 +58,12 @@ public class UserManager {
 	}
 
 	// Creation d'une méthode pour recuperer un utilisateur
-	public static User getUserById(int userId) {
-		return UserManager.getInstance().selectById(userId);
+	public static User getUserById(int userId) throws BusinessException {
+		try {
+			return UserManager.getInstance().selectById(userId);
+		} catch (BusinessException e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	public static void editUser(User u) {
