@@ -67,7 +67,7 @@
 				<div>
 					<input type="submit" value="Annuler" id="cancelEdit">
 					<input type="submit" value="Valider"> 
-						<input type="submit" value="Supprimer les compte" id="deleteButton" formaction="${pageContext.request.contextPath}/user/delete">
+					<input type="button" value="Supprimer le compte" id="deleteButton">
 				</div>
 			</form>
 			<form action="" method="post" class="show">
@@ -128,7 +128,7 @@
 					<br>
 				</div>
 				<div>
-					<input type="submit" value="Annuler" id="cancelDelete">
+					<input type="button" value="Annuler" id="cancelDelete">
 					<input type="submit" value="Supprimer les compte" id="deleteButtonConfirm" formaction="${pageContext.request.contextPath}/user/delete">
 				</div>
 			</form>

@@ -21,9 +21,17 @@ document.getElementById('deleteButton').addEventListener('click', function() {
 	editForm = document.querySelector('.edit');
 	showForm = document.querySelector('.show');
 	deleteForm = document.querySelector('.delete');
-
 	editForm.style.display = 'none';
 	showForm.style.display = 'none';
 	deleteForm.style.display = 'flex';
 
+});
+
+document.getElementById('cancelDelete').addEventListener('click', function() {
+	editForm = document.querySelector('.edit');
+	showForm = document.querySelector('.show');
+	deleteForm = document.querySelector('.delete');
+	editForm.style.display = 'flex';
+	showForm.style.display = 'none';
+	deleteForm.style.display = 'none';
 });
