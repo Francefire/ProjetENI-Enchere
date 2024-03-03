@@ -5,6 +5,8 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/jspf/head.jspf"%>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/assets/styles/error.css">
 </head>
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
