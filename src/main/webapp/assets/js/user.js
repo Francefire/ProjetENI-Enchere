@@ -9,3 +9,11 @@ document.getElementById('editButton').addEventListener('click', function() {
     showForm.style.display = 'none';
     document.getElementById('editButton').style.display = 'none';
 });
+
+document.getElementById('cancelEdit').addEventListener('click', function() {
+	editForm = document.querySelector('.edit');
+	showForm = document.querySelector('.show');
+	editForm.style.display = 'none';
+	showForm.style.display = 'flex';
+	document.getElementById('editButton').style.display = 'flex';
+});
