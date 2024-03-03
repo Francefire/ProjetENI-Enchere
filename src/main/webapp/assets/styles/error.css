@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+main {
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	width: 100%;
+	flex-wrap: wrap;
+}
+h2 {
+	width: 100%;
+	text-align: center;
+ }
+ 
