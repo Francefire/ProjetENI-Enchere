@@ -159,7 +159,7 @@ public class ArticleDAO {
 
 			StringBuilder query = new StringBuilder(SQL_SELECT_ALL_ARTICLES + " WHERE ");
 			
-			if (name != null && !name.isEmpty()) {
+			if (name != aull && !name.isEmpty()) {
 				query.append("nom_article LIKE '%?%'");
 			}
 			

@@ -1,6 +1,7 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.dal.ArticleDAO;
 
 /**
  * Servlet implementation class ServletHome
@@ -20,10 +25,18 @@ public class ServletHome extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
-		rd.forward(request, response);
-		
+		List<Article> articles = null;
+	    try {
+	        ArticleDAO articleDAO = new ArticleDAO();
+	        articles = articleDAO.selectAllArticles();
+	    } catch (BusinessException e) {
+	        // Gérer les exceptions
+	    }
+	    request.setAttribute("articles", articles);
+	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+	    rd.forward(request, response);
 	}
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
