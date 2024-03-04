@@ -13,15 +13,17 @@ import fr.eni.projetencheres.bo.Bid;
 
 public class BidDAO {
 	private static final String SQL_INSERT_BID = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
-	private static final String SQL_SELECT_auctions_BY_ARTICLE_ID = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article=?";
+	private static final String SQL_SELECT_BIDS_BY_ARTICLE_ID = "SELECT (no_utilisateur, date_enchere, montant_enchere) FROM ENCHERES WHERE no_article=?";
 
 	public void insertBid(Bid b) throws BusinessException {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(SQL_INSERT_BID);
-			statement.setDate(1, Date.valueOf(b.getDate()));
-			statement.setDouble(2, b.getAmount());
+			statement.setInt(1, b.getUserId());
+			statement.setInt(2, b.getArticleId());
+			statement.setDate(3, Date.valueOf(b.getDate()));
+			statement.setDouble(4, b.getAmount());
 			statement.execute();
 
 			connection.close();	
@@ -36,7 +38,7 @@ public class BidDAO {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 
-			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_auctions_BY_ARTICLE_ID);
+			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_BIDS_BY_ARTICLE_ID);
 			statement.setInt(1, articleId);
 
 			ResultSet rs = statement.executeQuery();

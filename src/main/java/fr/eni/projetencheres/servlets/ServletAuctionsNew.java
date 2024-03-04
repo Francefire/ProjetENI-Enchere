@@ -2,6 +2,8 @@ package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,47 +18,60 @@ import fr.eni.projetencheres.bo.Article;
 /**
  * Servlet implementation class ServletauctionsNew
  */
-@WebServlet({"/auctions/new", "/encheres/nouvelle"})
+@WebServlet({ "/auctions/new", "/encheres/nouvelle" })
 public class ServletAuctionsNew extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// List<Category> categories = CategoriesManager.getAllCategories();
 		// request.setAttribute("categories", categories);
+
+		//TODO Add dateNow attribute to auction_new.jsp and set it as default date for startDate and endDate fields 
+		//request.setAttribute("dateNow", LocalDate.now());
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-			String name = (String) request.getAttribute("name");
-			String description = (String) request.getAttribute("description");
-			LocalDate startDate = (LocalDate) request.getAttribute("startDate");
-			LocalDate endDate = (LocalDate) request.getAttribute("endDate");
-			double initialPrice = Double.parseDouble((String) request.getAttribute("initialPrice"));
-			int categoryId = Integer.parseInt((String) request.getAttribute("categoryId"));
-			
+			String name = request.getParameter("name").trim();
+			String description = request.getParameter("description").trim();
+			LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
+			LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
+			double initialPrice = Double.parseDouble(request.getParameter("initialPrice"));
+			//User user = (User) request.getSession().getAttribute("user");
+			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+
 			Article article = new Article();
 			article.setName(name);
 			article.setDescription(description);
 			article.setStartDate(startDate);
 			article.setEndDate(endDate);
 			article.setInitialPrice(initialPrice);
+			//article.setUserId(user.getId());
+			article.setUserId(0);
 			article.setCategoryId(categoryId);
 			
 			ArticlesManager.addArticle(article);
+
 			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
 		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (NumberFormatException | DateTimeParseException e) {
+			request.setAttribute("message", BusinessException.BLL_EMPTY_FIELDS_ERROR);
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		}
 	}
