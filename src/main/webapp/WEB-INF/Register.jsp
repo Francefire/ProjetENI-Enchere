@@ -9,6 +9,10 @@
 </head>
 <body>
 <%@ include file="jspf/header.jspf"%>
+<div class="breadcrumb">
+    <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil</a> &raquo;
+    <span>Créer un compte</span>
+</div>
 <main>
 
 <c:if test="${!empty error}">
