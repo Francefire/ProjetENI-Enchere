@@ -1,5 +1,7 @@
 package fr.eni.projetencheres.bll;
 
+import java.util.List;
+
 import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.dal.BidDAO;
 import fr.eni.projetencheres.dal.DAOFactory;
@@ -16,10 +18,15 @@ public class BidsManager {
 	}
 	
 	public static void addBid(Bid b) throws BusinessException {
+		if (b.getAmount() < 1) {
+			throw new BusinessException(BusinessException.BLL_BID_AMOUNT_NOT_ENOUGH);
+		}
+		
 		BidsManager.getIntance().insertBid(b);
+		ArticlesManager.getIntance().updateArticleSellingPrice(b.getArticleId(), b.getAmount());
 	}
 	
-	public static Bid getBidByArticleId(int articleId) throws BusinessException {
-		return BidsManager.getIntance().selectBidByArticleId(articleId);
+	public static List<Bid> getBidsByArticleId(int articleId) throws BusinessException {
+		return BidsManager.getIntance().selectBidsByArticleId(articleId);
 	}
 }

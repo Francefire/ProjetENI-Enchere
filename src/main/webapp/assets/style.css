@@ -33,20 +33,21 @@ main {
 	font-family: 'Century Gothic', sans-serif;
 	color: var(--quinary-color);
 	height: 80vh;
-	display : flex ; 
+	display: flex;
 }
 
 footer {
-	display : flex ; 
-	flex-wrap : wrap;
-	flex-direction : row ;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
 	background-color: var(--secondary-color);
-	justify-content: center ;
+	justify-content: center;
 	color: var(--senary-color);
 	height: 10vh;
 }
 
 a {
+<<<<<<< HEAD
 	text-decoration: none ;
 	color : black ;
 }
@@ -73,3 +74,8 @@ a {
 }
 
 /* ************************************************** */
+=======
+	text-decoration: none;
+	color: black;
+}
+>>>>>>> 9831446c5f11d4ec7acf6db1a858202ec8b572d4

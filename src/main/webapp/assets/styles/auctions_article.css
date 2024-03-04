@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+body {
+	background-color: var(--tertiary-color);
+}
+
+section {
+	background-color: var(--quaternary-color);
+}
+
+.article {
+	margin-right: 20px;
+}
+
+.article div {
+	padding: 5px;
+}

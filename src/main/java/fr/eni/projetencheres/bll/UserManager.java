@@ -7,8 +7,7 @@ import fr.eni.projetencheres.dal.UserDAO;
 public class UserManager {
 	// on souhaite créer une unique instance du UserManager, de sorte à ce que ce
 	// soit toujours le même qui soit utilisé
-	private static UserDAO instance = null;
-//	private UserDAO userDAO ;
+	private static UserDAO instance = null; 
 
 	// SINGLETON du UserDAO
 	public static UserDAO getInstance() {
@@ -49,4 +48,24 @@ public class UserManager {
 		User user = UserManager.getInstance().selectById(u_id);
 		return user;
 	}
+
+	// Creation d'une méthode pour recuperer un utilisateur
+	public static User getUserById(int userId) {
+		return UserManager.getInstance().selectById(userId);
+	}
+
+	public static void editUser(User u) {
+		UserManager.getInstance().update(u);
+	}
+
+	// création d'une méthode pour se connecter
+//		public static login(String username, String password) throws BusinessException {
+//		String pass = User.hashPwd(pwd);
+//		System.out.println(pass);
+//		User u = user.login(username, password); ;
+//
+//		return 
+
+//		}
+
 }

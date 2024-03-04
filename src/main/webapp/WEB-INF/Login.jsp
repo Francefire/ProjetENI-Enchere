@@ -60,6 +60,6 @@
 		</div>
 	</div>	    
 	</main>
-	<jsp:include page="jspf/footer.jspf"></jsp:include> 
+	<%@ include file="jspf/footer.jspf"%>
 </body>
 </html>
