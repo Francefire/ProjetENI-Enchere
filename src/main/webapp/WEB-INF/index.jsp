@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="fr.eni.projetencheres.bo.Article" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -27,13 +27,16 @@
     <h2>Liste des enchères</h2>
     <p>Achetez, Vendez en toute sécurité et simplicité</p>
     <ul>
-        <% if (articles != null && !articles.isEmpty()) { %>
-            <% for (Article article : articles) { %>
-                <li><a href="#"><%= article.getName() %></a></li>
-            <% } %>
-        <% } else { %>
-            <li>Aucune enchère disponible pour le moment.</li>
-        <% } %>
+       <c:choose>
+     <c:if test="${not empty articles}">
+      <c:forEach items="${articles}" var="article">
+      		<li><a href="${article.name}"></a>
+      </c:forEach>
+     </c:if>
+     <c:otherwise>
+     <li>Aucune enchère disponible pour le moment.</li>
+     </c:otherwise>
+       </c:choose>
     </ul>
 </section>
 			
