@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -23,6 +24,24 @@
 				<button>Rechercher <i class="fa-solid fa-magnifying-glass" style="color: #0c3404;"></i></button>
 			</section>
 			<section id="auctions-list">
+    <h2>Liste des enchères</h2>
+    <p>Achetez, Vendez en toute sécurité et simplicité</p>
+    <ul>
+       <c:choose>
+     <c:if test="${not empty articles}">
+      <c:forEach items="${articles}" var="article">
+      		<li><a href="${article.name}"></a>
+      </c:forEach>
+     </c:if>
+     <c:otherwise>
+     <li>Aucune enchère disponible pour le moment.</li>
+     </c:otherwise>
+       </c:choose>
+    </ul>
+</section>
+			
+			
+			<!-- <section id="auctions-list">
 				<h2>Liste des enchères</h2>
 				 <p>Achetez, Vendez en toute sécurité et simplicité</p>
             <ul>
@@ -30,8 +49,8 @@
                 <li><a href="#">Table</a></li>
                 <li><a href="#">Chaise</a></li>
             </ul>
-				<!-- Ajouter des éléments d’enchères ici -->
-			</section>
+				Ajouter des éléments d’enchères ici
+			</section> -->
 		</main>
 		<%@ include file="jspf/footer.jspf"%>
 	</body>
