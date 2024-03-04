@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
-import fr.eni.projetencheres.bo.User;
 
 /**
  * Servlet implementation class ServletauctionsNew
@@ -34,7 +33,8 @@ public class ServletAuctionsNew extends HttpServlet {
 		// List<Category> categories = CategoriesManager.getAllCategories();
 		// request.setAttribute("categories", categories);
 
-		request.setAttribute("dateNow", LocalDate.now());
+		//TODO Add dateNow attribute to auction_new.jsp and set it as default date for startDate and endDate fields 
+		//request.setAttribute("dateNow", LocalDate.now());
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 	}

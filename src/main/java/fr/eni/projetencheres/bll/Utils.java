@@ -14,7 +14,7 @@ public class Utils {
 	
 	public static void verifyMoneyField(String fieldName, double fieldPrice, int min) throws BusinessException {
 		if (fieldPrice < min) {
-			throw new BusinessException(BusinessException.BLL_ADD_ARTICLE_PRICE_NOT_ENOUGH_ERROR);
+			throw new BusinessException(String.format(BusinessException.BLL_MONEY_NOT_ENOUGH_ERROR, fieldName, min));
 		}
 	}
 }
