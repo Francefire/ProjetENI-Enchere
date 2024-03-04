@@ -12,25 +12,17 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class ServletLogout
  */
-@WebServlet("/ServletLogout")
+@WebServlet("/logout")
 public class ServletLogout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ServletLogout() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
         session.invalidate();
-        response.sendRedirect("index;jsp");
+        response.sendRedirect(request.getContextPath());
 	}
 
 
