@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
@@ -63,10 +64,16 @@ public class ServletRegister extends HttpServlet {
         try {
 // 			Vérification saisie du pseudo
         	UserManager.check_username(userName);
+        	
+//        	TODO virer le doublon de comparaison des mots de passe (la meme méthode est appelée en dessous)
 //      	Comparaison des saisies mot de passe
         	UserManager.comparePwd(password, checkPassword);
-//      	Vérification concordance pseudo et mot de passe dans la BDD
+
+//        	Vérification concordance pseudo et mot de passe dans la BDD
         	UserManager.createUser(new_user, checkPassword);
+        	
+        	HttpSession session = request.getSession();
+        	session.setAttribute("userConnected", new_user);
         }catch (BusinessException e) {
         	String errorMessage = e.getMessage();
         	request.setAttribute("error", errorMessage);

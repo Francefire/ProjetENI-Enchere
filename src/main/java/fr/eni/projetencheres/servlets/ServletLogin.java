@@ -40,7 +40,7 @@ public class ServletLogin extends HttpServlet {
 			throws ServletException, IOException {
 		String userName, password;
 		String rememberMe = request.getParameter("rememberMe");
-		Cookie cook;
+		Cookie cook = null;
 		
 		
 		// Mise en place de la session
@@ -58,8 +58,8 @@ public class ServletLogin extends HttpServlet {
 		userName = request.getParameter("UserName");
 		password = request.getParameter("Password");
 		User u;
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		UserManager um = new UserManager();
-		System.out.println("je suis sur le point de me connecter");
 		try {
 			u = um.login(userName, password);
 			System.out.println("je suis dans le login");
@@ -68,23 +68,24 @@ public class ServletLogin extends HttpServlet {
 			} else {
 				session.setAttribute("userConnected", u);
 				System.out.println("je suis connecté");
-				request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+					// User est connecté, donc si Case Se Souvenir de Moi cochée : création d'un cookie
+//					if () {
+						
+//						cook = new Cookie("lastLogin", userName + ":" + password);
+//						cook.setMaxAge(timing); 
+//						response.addCookie(cook);
+//					}
+				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 			}
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+			request.setAttribute("error", errorMessage);
+			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 			System.out.println("je suis dans le catch");
 		}
-
-		// Case Se Souvenir de Moi : création d'un cookie
-		cook = new Cookie("lastLogin", userName);
-		cook.setMaxAge(timing); 
-		response.addCookie(cook);
-		response.sendRedirect(request.getContextPath());
-
-		// Redirection vers la page d'accueil lors de la connexion
-//		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		finally {
+			rd.forward(request, response) ;
+		}
 	}
 }
 
