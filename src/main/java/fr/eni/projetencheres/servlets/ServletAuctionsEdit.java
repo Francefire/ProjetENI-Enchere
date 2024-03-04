@@ -8,22 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletBidsEdit
+ * Servlet implementation class ServletauctionsEdit
  */
-@WebServlet({"/bids/edit", "/encheres/modifier"})
-public class ServletBidsEdit extends HttpServlet {
+@WebServlet({"/auctions/edit", "/auctions/modifier"})
+public class ServletAuctionsEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String articleId = request.getParameter("id");
+		String id = request.getParameter("id");
 		
-		if (articleId == null || articleId.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/bids");
+		if (id == null || id.isEmpty()) {
+			response.sendError(404);
 		} else {
-			request.getRequestDispatcher("/WEB-INF/jsp/bids/bids_edit.jsp").forward(request, response);	
+			response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
 		}
 	}
 
@@ -31,12 +31,6 @@ public class ServletBidsEdit extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String articleId = request.getParameter("id");
-		
-		if (articleId == null || articleId.isEmpty()) {
-			response.sendRedirect(request.getContextPath() + "/bids");
-		}
-		
-		request.getRequestDispatcher("/WEB-INF/jsp/bids/bids_edit.jsp").forward(request, response);
+		doGet(request, response);
 	}
 }

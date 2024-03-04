@@ -1,20 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+
 <!DOCTYPE html>
 <html>
+<head>
 <%@ include file="jspf/head.jspf"%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styleLogin.css">
+</head>
 <body>
 <%@ include file="jspf/header.jspf"%>
-  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styleLogin.css">
 <main>
 	<h2>Se connecter</h2>
 	<div class ="container">
-		<form action="Connection" method="post">
+		<form action="" method="post">
 			<div class = "item">
 		    
 		    <label for="pseudo">Identifiant : </label>
-		    <input type="text" id="idPseudo" name="pseudo" 
+		    <input type="text" id="idUserName" name="UserName" 
 		    		autofocus 
 		    		required 
 		    		placeholder="pseudo" 
@@ -24,10 +27,10 @@
 		    <label for="mot_de_passe">Mot de Passe: </label>
 		    <input type="password" 
 				    id="idPwd" 
-				    name="password" 
+				    name="Password" 
 				    required 
 				    placeholder="********" 
-				    pattern ="( ?=.*\d)( ?=.*[a-z])( ?=.*[A-Z]).{8,12}"
+				    
 				    title= "Veuillez saisir votre mot de passe"/> 
 		<%-- 		    ${erreur} --%>
 				    <br/>
@@ -47,7 +50,7 @@
 		    
 			<br>
 <!-- 		    BOUTON CREER UN COMPTE -->
-		    <input type="submit" value="Créer un compte"/></input>
+		    <a href="${pageContext.request.contextPath}/Register"><input type="submit" value="Créer un compte"/></a>
 	</div>	    
 	</main>
 	<%@ include file="jspf/footer.jspf"%>
