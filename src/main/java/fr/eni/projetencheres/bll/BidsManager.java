@@ -18,10 +18,8 @@ public class BidsManager {
 	}
 	
 	public static void addBid(Bid b) throws BusinessException {
-		if (b.getAmount() < 1) {
-			throw new BusinessException(BusinessException.BLL_BID_AMOUNT_NOT_ENOUGH);
-		}
-		
+		Utils.verifyMoneyField("montant", b.getAmount(), 1);
+				
 		BidsManager.getIntance().insertBid(b);
 		ArticlesManager.getIntance().updateArticleSellingPrice(b.getArticleId(), b.getAmount());
 	}

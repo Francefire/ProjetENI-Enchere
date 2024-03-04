@@ -20,7 +20,16 @@ public class ArticlesManager {
 	}
 
 	public static void addArticle(Article a) throws BusinessException {
-		//ArticlesManager.getIntance().insertArticle(a);
+		Utils.verifyStringField("nom", a.getName(), 0, 30);
+		Utils.verifyStringField("description", a.getDescription(), 0, 300);
+
+		if (a.getStartDate().isAfter(a.getEndDate())) {
+			throw new BusinessException(BusinessException.BLL_ADD_ARTICLE_START_DATE_AFTER_END_DATE_ERROR);
+		}
+
+		Utils.verifyMoneyField("prix initial", a.getInitialPrice(), 0);
+
+		ArticlesManager.getIntance().insertArticle(a);
 	}
 
 	public static void editArticle(Article a) throws BusinessException {
@@ -31,7 +40,7 @@ public class ArticlesManager {
 		Article article = ArticlesManager.getIntance().selectArticleByArticleId(articleId);
 
 		if (article == null) {
-			throw new BusinessException(BusinessException.BLL_ARTICLE_NULL);
+			throw new BusinessException(BusinessException.BLL_GET_ARTICLE_NULL);
 		}
 
 		return article;
@@ -40,8 +49,8 @@ public class ArticlesManager {
 	public static List<Article> getAllArticles() throws BusinessException {
 		List<Article> articles = ArticlesManager.getIntance().selectAllArticles();
 
-		if (articles == null || articles.isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_ARTICLES_NULL);
+		if (articles == null) {
+			throw new BusinessException(BusinessException.BLL_GET_ALL_ARTICLES_NULL);
 		}
 
 		return articles;
@@ -51,8 +60,8 @@ public class ArticlesManager {
 			throws BusinessException {
 		List<Article> articles = ArticlesManager.getIntance().selectArticlesWhere(name, categoryId, startDate, endDate);
 
-		if (articles == null || articles.isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_ARTICLES_NULL);
+		if (articles == null) {
+			throw new BusinessException(BusinessException.BLL_GET_ALL_ARTICLES_NULL);
 		}
 
 		return articles;
