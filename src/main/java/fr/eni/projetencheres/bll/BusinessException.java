@@ -17,13 +17,14 @@ public class BusinessException extends Exception {
   
 	
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
+	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Erreur de saisie pseudo et/ou mot de passe";
 	public static final String BLL_PWD_USER_EXCEPTION = "Le mot de passe ne correspond pas";
-  public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
-	public static final String BLL_ARTICLES_NULL = "Aucun articles n'ont pu être trouvés";
+	public static final String BLL_ARTICLE_NULL = "Aucun article n'a pu être trouvé";
+	public static final String BLL_ARTICLES_NULL = "Aucun article n'a pu être trouvé";
 
 	public static final String BLL_BID_AMOUNT_NOT_ENOUGH = "Le montant de l'enchère doit être supérieur ou égale à un";
 	public static final String BLL_BID_ENDED = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
-	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Il y a un probleme avec votre statut -en ligne- !";
+
 	
 	public static final String BLL_USERNAME_EMPTY = "Le pseudo ne peut pas être vide";
 	public static final String BLL_USERNAME_TOO_LONG = "Le pseudo ne peut pas dépasser 30 caractères";
@@ -46,7 +47,6 @@ public class BusinessException extends Exception {
 	public static final String BLL_CITY_TOO_LONG = "La ville ne peut pas dépasser 30 caractères";
 	public static final String BLL_ZIPCODE_EMPTY = "Le code postal ne peut pas être vide";
 	public static final String BLL_ZIPCODE_TOO_LONG = "Le code postal ne peut pas dépasser 10 caractères";
-	
 	
 	
 	public BusinessException() {
