@@ -42,7 +42,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	}
 
 	@Override
-	public User selectById(int id) {
+	public User selectById(int id) throws BusinessException {
 		User user = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -53,8 +53,11 @@ public class UserDAOJdbcImpl implements UserDAO {
 						rs.getString("email"), rs.getString("telephone"), rs.getString("rue"),
 						rs.getString("code_postal"), rs.getString("ville"), rs.getString("mot_de_passe"));
 			}
+			else {
+				throw new BusinessException(BusinessException.DAL_USER_NOT_FOUND);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BusinessException(BusinessException.DAL_SELECT_USER_EXCEPTION);
 		}
 		return user;
 	}
