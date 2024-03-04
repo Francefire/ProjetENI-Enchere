@@ -8,7 +8,7 @@ public interface UserDAO {
 //Pattern de méthodes permettant de faire les requetes vers la BDD
 	public void insert(User user);
 
-	public User selectById(int id);
+	public User selectById(int id) throws BusinessException;
 
 	public User selectByUsername(String username);
 
