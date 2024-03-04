@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,17 +15,18 @@
 		<%@ include file="/WEB-INF/jspf/message.jspf" %>
 		<form method="POST" action="${pageContext.request.contextPath}/auctions/new">
 			<label for="name">Nom</label><br>
-			<input type="text" name="name" id="name" value="${article.name}"><br>
+			<input type="text" name="name" id="name" placeholder="Chaise en bois" value="${param.name}" required><br>
 			<label for="description">Description</label><br>
-			<textarea name="description" id="description" cols="40" rows="5">${article.description}</textarea><br>
+			<textarea name="description" id="description" cols="40" rows="5" placeholder="Une magnifique chaise en bois" required>${param.description}</textarea><br>
 			<label for="startDate">Début de l'enchère</label><br>
-			<input type="date" name="startDate" id="startDate" value="${article.startDate}"><br>
+			<input type="date" name="startDate" id="startDate" min="${parsedDateNow}" value="${parsedDateNow}" required><br>
 			<label for="endDate">Fin de l'enchère</label><br>
-			<input type="date" name="endDate" id="endDate" value="${article.endDate}"><br>
+			<input type="date" name="endDate" id="endDate" min="${parsedDateNow}" value="${parsedDateNow}" required><br>
 			<label for="initialPrice">Prix de mise à vente (crédits)</label><br>
-			<input type="number" name="initialPrice" id="initialPrice" min="0.00"step="1"><br>
+			<input type="number" name="initialPrice" id="initialPrice" min="0.00" step="1" placeholder="5" value="${param.initialPrice}" required><br>
 			<label for="categoryId">Catégorie</label><br>
-			<select name="categoryId" id="categoryId">
+			<select name="categoryId" id="categoryId" required>
+				<option value="0">Catégorie temporaire</option>
 				<!--
 				<c:forEach items="${categories}" var="category">
 					<option value="${category.id}">${category.name}</option>

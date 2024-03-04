@@ -35,7 +35,7 @@
 			<p>Nom Prénom XX crédits</p>
 			<p>Nom Prénom X crédits</p>
 			<p>Nom Prénom XXX crédits</p>
-			<c:forEach items="${auctions}" var="bid">
+			<c:forEach items="${bids}" var="bid">
 				<p>Nom Prénom ${bid.amount} crédits</p>
 			</c:forEach>
 		</section>

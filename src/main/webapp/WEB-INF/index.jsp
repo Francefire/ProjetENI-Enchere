@@ -28,11 +28,11 @@
     <p>Achetez, Vendez en toute sécurité et simplicité</p>
     <ul>
        <c:choose>
-     <c:if test="${not empty articles}">
+     <c:when test="${not empty articles}">
       <c:forEach items="${articles}" var="article">
       		<li><a href="${article.name}"></a>
       </c:forEach>
-     </c:if>
+     </c:when>
      <c:otherwise>
      <li>Aucune enchère disponible pour le moment.</li>
      </c:otherwise>
