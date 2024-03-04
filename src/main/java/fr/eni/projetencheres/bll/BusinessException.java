@@ -13,7 +13,6 @@ public class BusinessException extends Exception {
 	public static final String DAL_INSERT_USER_SQLEXCEPTION = "Erreur lors de la création du compte";
 
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
-	public static final String BLL_PWD_USER_EXCEPTION = "Il y a une erreur sur la vérification du mot de passe : veuillez essayer à nouveau";
 
 	public static final String BLL_ADD_ARTICLE_START_DATE_AFTER_END_DATE_ERROR = "La date du début de l'enchère ne peut pas être après la fin de celle-ci";
 	public static final String BLL_GET_ARTICLE_NULL = "L'article n'a pu être trouvé";
@@ -24,25 +23,21 @@ public class BusinessException extends Exception {
 	public static final String BLL_MONEY_NOT_ENOUGH_ERROR = "Le %s doit être supérieur ou égal à %d";
 	
 	public static final String BLL_EMPTY_FIELDS_ERROR = "Tous les champs doivent être renseignés";
-  
-	public static final String DAL_INSERT_USER_SQLEXCEPTION = "Erreur lors de la création du compte" ;
+
 	public static final String DAL_SELECT_USER_EXCEPTION = "Erreur lors de la récupération de l'utilisateur";
 	public static final String DAL_USER_NOT_FOUND = "Utilisateur non trouvé";
  
-	
-	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
 	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Erreur de saisie pseudo et/ou mot de passe";
 	public static final String BLL_PWD_USER_EXCEPTION = "Le mot de passe ne correspond pas";
 
-	public static final String BLL_ADD_BID_ENDED_ERROR = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci"
+	public static final String BLL_ADD_BID_ENDED_ERROR = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
 
-	
-  // Obsolète
-  public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
+	// Obsolète
+	public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
 	public static final String BLL_ARTICLES_NULL = "Aucun articles n'ont pu être trouvés";
 	public static final String BLL_BID_AMOUNT_NOT_ENOUGH = "Le montant de l'enchère doit être supérieur ou égale à un";
   
-  public static final String BLL_USERNAME_EMPTY = "Le pseudo ne peut pas être vide";
+	public static final String BLL_USERNAME_EMPTY = "Le pseudo ne peut pas être vide";
 	public static final String BLL_USERNAME_TOO_LONG = "Le pseudo ne peut pas dépasser 30 caractères";
 	public static final String BLL_PASSWORD_EMPTY = "Le mot de passe ne peut pas être vide";
 	public static final String BLL_PASSWORD_TOO_LONG = "Le mot de passe ne peut pas dépasser 30 caractères";
