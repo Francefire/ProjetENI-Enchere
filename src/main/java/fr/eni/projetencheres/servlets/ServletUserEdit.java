@@ -60,7 +60,7 @@ public class ServletUserEdit extends HttpServlet {
 			UserManager.checkUser(editedUser);
 			UserManager.comparePwd(editedUser.getPassword(), confirmPassword);
 			UserManager.editUser(editedUser);
-			request.getSession().setAttribute("user", editedUser);
+			request.getSession().setAttribute("userConnected", editedUser);
 			request.setAttribute("message", null);
 			
 		} catch (BusinessException e) {
