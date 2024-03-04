@@ -1,0 +1,124 @@
+<h1>Mon Profil.</h1>
+<c:if test="${message != null}">
+	<h2 class="error">${message}</h2>
+</c:if>
+
+<form action="${pageContext.request.contextPath}/user/edit"
+	method="post" class="edit">
+	<div class="input-container">
+		<label for="editUsername">Nom d'utilisateur</label> <input type="text"
+			name="editUsername" id="editUsername"
+			value="${sessionScope.userConnected.getUsername()}">
+	</div>
+	<div class="input-container">
+		<label for="editLastName">Nom</label> <input type="text" name="editLastName"
+			id="editLastName" value="${userConnected.getLastName()}">
+	</div>
+	<div class="input-container">
+		<label for="editFirstName">Prenom</label> <input type="text"
+			name="editFirstName" id="editFirstName"
+			value="${userConnected.getFirstName()}">
+	</div>
+	<div class="input-container">
+		<label for="editEmail">Email</label> <input type="email" name="editEmail"
+			id="editEmail" value="${userConnected.getEmail()}">
+	</div>
+	<div class="input-container">
+		<label for="editPhone">Téléphone</label> <input type="tel" name="editPhone"
+			id="editPhone" value="${userConnected.getPhoneNumber()}">
+	</div>
+	<div class="input-container">
+		<label for="editStreet">Rue</label> <input type="text" name="editStreet"
+			id="editStreet" value="${userConnected.getStreet()}">
+	</div>
+	<div class="input-container">
+		<label for="editZipCode">Code postal</label> <input type="text"
+			name="editZipCode" id="editZipCode" value="${userConnected.getZipCode()}">
+	</div>
+	<div class="input-container">
+		<label for="editCity">Ville</label> <input type="text" name="editCity"
+			id="editCity" value="${userConnected.getCity()}">
+	</div>
+	<div class="input-container">
+		<label for="editPassword">Nouveau mot de passe</label> <input
+			type="password" name="editPassword" id="editPassword" required>
+	</div>
+	<div class="input-container">
+		<label for="editConfirmPassword">Confirmer le mot de passe</label> <input
+			type="password" name="editConfirmPassword" id="editConfirmPassword" required>
+	</div>
+	<div class="rounded">
+		<br>
+	</div>
+	<div>
+		<input type="submit" value="Annuler" id="cancelEdit"> <input
+			type="submit" value="Valider"> <input type="button"
+			value="Supprimer le compte" id="deleteButton">
+	</div>
+</form>
+	
+
+<form action="" method="post" class="show">
+	<div class="input-container">
+		<label for="username">Nom d'utilisateur</label> <input type="text"
+			name="username" id="username" value="${userConnected.getUsername()}"
+			disabled>
+	</div>
+	<div class="input-container">
+		<label for="lastName">Nom</label> <input type="text" name="lastName"
+			id="lastName" value="${userConnected.getLastName()}" disabled>
+	</div>
+	<div class="input-container">
+		<label for="firstName">Prenom</label> <input type="text"
+			name="firstName" id="firstName"
+			value="${userConnected.getFirstName()}" disabled>
+	</div>
+	<div class="input-container">
+		<label for="email">Email</label> <input type="email" name="email"
+			id="email" value="${userConnected.getEmail()}" disabled>
+	</div>
+	<div class="input-container">
+		<label for="mobile">Téléphone</label> <input type="tel" name="mobile"
+			id="mobile" value="${userConnected.getPhoneNumber()}" disabled>
+	</div>
+	<div class="input-container">
+		<label for="street">Rue</label> <input type="text" name="street"
+			id="street" value="${userConnected.getStreet()}" disabled>
+	</div>
+	<div class="input-container">
+		<label for="zipCode">Code postal</label> <input type="text"
+			name="zipCode" id="zipCode" value="${userConnected.getZipCode()}"
+			disabled>
+	</div>
+	<div class="input-container">
+		<label for="city">Ville</label> <input type="text" name="city"
+			id="city" value="${userConnected.getCity()}" disabled>
+	</div>
+	<div class="rounded">
+		<br>
+	</div>
+</form>
+<form action="${pageContext.request.contextPath}/user/delete"
+	method="post" class="delete">
+	<h2>Êtes vous sur de vouloir supprimer votre compte ?</h2>
+	<h4>Entrez votre mot deux fois afin de confirmer la suppresion</h4>
+	<div>
+		<label for="deletePassword">Mot de passe</label> <input type="password"
+			name="deletePassword" id="deletePassword" required>
+	</div>
+	<div>
+		<label for="deleteConfirmPassword">Confirmer la suppresion</label> <input
+			type="password" name="deleteConfirmPassword" id="deleteConfirmPassword" required>
+	</div>
+	<div class="rounded">
+		<br>
+	</div>
+	<div>
+		<input type="button" value="Annuler" id="cancelDelete"> <input
+			type="submit" value="Supprimer les compte" id="deleteButtonConfirm"
+			formaction="${pageContext.request.contextPath}/user/delete">
+	</div>
+</form>
+<div>
+	<input type="submit" value="Modifier" id="editButton">
+</div>
