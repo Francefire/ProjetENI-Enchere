@@ -11,7 +11,9 @@
 	</head> 
 	<body>
 		<%@ include file="jspf/header.jspf"%>
-	
+	<div class="breadcrumb">
+	    <span><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</span>
+	</div>
 		<main>
 			<section id="filters">
 				<input type="text" placeholder="Rechercher un article..."> <select>

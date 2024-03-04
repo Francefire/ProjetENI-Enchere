@@ -31,10 +31,11 @@ public class BusinessException extends Exception {
  
 	
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
+	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Erreur de saisie pseudo et/ou mot de passe";
 	public static final String BLL_PWD_USER_EXCEPTION = "Le mot de passe ne correspond pas";
-    
-	public static final String BLL_BID_ENDED = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
-	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Il y a un probleme avec votre statut -en ligne- !";
+
+	public static final String BLL_ADD_BID_ENDED_ERROR = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci"
+
 	
   // Obsolète
   public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
@@ -64,10 +65,6 @@ public class BusinessException extends Exception {
 	public static final String BLL_ZIPCODE_TOO_LONG = "Le code postal ne peut pas dépasser 10 caractères";
 	// Fin obsolète
 	
-	public static final String BLL_ADD_BID_ENDED_ERROR = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
-
-	public static final String BLL_ERROR_SQLEXCEPTION_LOGIN = "Il y a un probleme avec votre statut -en ligne- !";
-
 	public BusinessException() {
 	}
 

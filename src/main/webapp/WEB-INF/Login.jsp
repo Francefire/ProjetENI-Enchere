@@ -10,9 +10,20 @@
 </head>
 <body>
 <%@ include file="jspf/header.jspf"%>
+<div class="breadcrumb">
+    <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</a> &raquo;
+    <span>Se connecter</span>
+</div>
 <main>
-	<h2>Se connecter</h2>
+<c:if test="${!empty error}">
+				<h2 class="msgBox">${error}</h2>
+			</c:if>
+<c:if test="${!empty message}">
+				<h2 class="msgBox">${message}</h2>
+			</c:if>			
+			
 	<div class ="container">
+	<h2>Se connecter</h2>
 		<form action="" method="post">
 			<div class = "item">
 		    
@@ -38,9 +49,9 @@
 			
 		    <input type="submit" value="Connexion"/></input>
 <!-- 		    SE SOUVENIR DE MOI -->
-		    <input type ="radio"
-				    name ="remember"
-				    id ="idRemember"
+		    <input type ="checkbox"
+				    name ="rememberMe"
+				    id ="idRememberMe"
 				    value ="Se souvenir de moi">Se souvenir de moi 
 				    <br>
 		    
@@ -50,7 +61,9 @@
 		    
 			<br>
 <!-- 		    BOUTON CREER UN COMPTE -->
+		<div class="buttonReg">
 		    <a href="${pageContext.request.contextPath}/Register"><input type="submit" value="Créer un compte"/></a>
+		</div>
 	</div>	    
 	</main>
 	<%@ include file="jspf/footer.jspf"%>

@@ -1,13 +1,16 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
@@ -18,7 +21,7 @@ import fr.eni.projetencheres.bo.User;
 @WebServlet("/Login")
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private final int timing = 1296000 ; //durée équivalente à 15jours
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -35,23 +38,28 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String userName, password;
+		String rememberMe = request.getParameter("rememberMe");
+		Cookie cook = null;
+		
+		
 		// Mise en place de la session
-		HttpSession session = request.getSession(); // cette méthode retourne une nouvelle session si aucune session
-													// n'existe
-		int countSession = 0;
-		if (session.getAttribute("compteurAcces") != null) {
-			countSession = (int) session.getAttribute("compteurAcces");
-		}
-		countSession += 1;
-		session.setAttribute("compteurAcces", countSession);
+		HttpSession session = request.getSession(); // cette méthode retourne une nouvelle session si aucune session n'existe
+		
+		
+		//		int countSession = 0;
+//		if (session.getAttribute("compteurAcces") != null) {
+//			countSession = (int) session.getAttribute("compteurAcces");
+//		}
+//		countSession += 1;
+//		session.setAttribute("compteurAcces", countSession);
 
 		// vérification avec la BDD des infos fournies par l'user.
-		String userName, password;
 		userName = request.getParameter("UserName");
 		password = request.getParameter("Password");
 		User u;
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		UserManager um = new UserManager();
-		System.out.println("je suis sur le point de me connecter");
 		try {
 			u = um.login(userName, password);
 			System.out.println("je suis dans le login");
@@ -60,23 +68,24 @@ public class ServletLogin extends HttpServlet {
 			} else {
 				session.setAttribute("userConnected", u);
 				System.out.println("je suis connecté");
-				request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+					// User est connecté, donc si Case Se Souvenir de Moi cochée : création d'un cookie
+//					if () {
+						
+//						cook = new Cookie("lastLogin", userName + ":" + password);
+//						cook.setMaxAge(timing); 
+//						response.addCookie(cook);
+//					}
+				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 			}
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/Login.jsp").forward(request, response);
+			request.setAttribute("error", errorMessage);
+			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 			System.out.println("je suis dans le catch");
 		}
-
-		// Redirection vers la page d'accueil lors de la connexion
-//		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		finally {
+			rd.forward(request, response) ;
+		}
 	}
 }
 
-//from annuaire
-//Cookie gato;
-//gato = new Cookie("lastLogin", u.getEmail());
-//gato.setMaxAge(60 * 60 * 24 * 30);
-//response.addCookie(gato);
-//response.sendRedirect("lister");

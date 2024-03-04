@@ -34,6 +34,9 @@ main {
 	color: var(--quinary-color);
 	height: 80vh;
 	display : flex ; 
+	flex-direction: column;
+	justify-content: center; 
+	align-items: center; 
 }
 
 footer {
@@ -43,19 +46,44 @@ footer {
 	background-color: var(--secondary-color);
 	justify-content: center ;
 	color: var(--senary-color);
-	height: 25vh;
+	height: 10vh;
 }
 
 
 /* ************************************************** */
+/* ***************FIL D'ARIANE' ********************* */
+/* ************************************************** */
+
+.breadcrumb {
+    background-color: var(--secondary-color);
+    padding: 10px;
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: #333;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+    color: #007bff;
+}
+
+/* ************************************************** */
+
+main div h2 {
+	margin-bottom : 30px;
+}
+
 .container {
 	display : flex;
 	flex-direction : column;
 	justify-content : center;
 	align-content : space-between; 	
 	flex: wrap; 
-	margin-left: 35%;
-	width: 18%;
+	margin-left: 10%;
+	width: 20%;
 }
 
 label {
@@ -64,4 +92,15 @@ label {
 
 input {
 	margin-right: 10px;
+}
+
+.buttonReg input {
+	padding-top : 25px ;
+	padding-bottom : 25px ;
+	padding-left : 40px ;
+	padding-right: 40px ;
+	justify-content : center;
+	display: flex;
+	flex-flow: row;
+	gap : 50px;
 }
