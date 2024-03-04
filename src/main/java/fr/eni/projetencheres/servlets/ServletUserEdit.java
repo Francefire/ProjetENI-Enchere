@@ -44,21 +44,21 @@ public class ServletUserEdit extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/home");
 			return;
 		}
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		String checkPassword = request.getParameter("confirmPassword");
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
-		String street = request.getParameter("street");
-		String postalCode = request.getParameter("zipCode");
-		String city = request.getParameter("city");
-		User editedUser = new User(u.getId(), username, lastName, firstName, email, phone, street, postalCode, city, password);
+		String username = request.getParameter("editUsername");
+		String password = request.getParameter("editPassword");
+		String confirmPassword = request.getParameter("editConfirmPassword");
+		String firstName = request.getParameter("editFirstName");
+		String lastName = request.getParameter("editLastName");
+		String email = request.getParameter("editEmail");
+		String phone = request.getParameter("editPhone");
+		String street = request.getParameter("editStreet");
+		String zipCode = request.getParameter("editZipCode");
+		String city = request.getParameter("editCity");
+		User editedUser = new User(u.getId(), username, lastName, firstName, email, phone, street, zipCode, city, password);
 
 		try {
 			UserManager.checkUser(editedUser);
-			UserManager.comparePwd(editedUser.getPassword(), checkPassword);
+			UserManager.comparePwd(editedUser.getPassword(), confirmPassword);
 			UserManager.editUser(editedUser);
 			request.getSession().setAttribute("user", editedUser);
 			request.setAttribute("message", null);

@@ -2,26 +2,44 @@ main {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
-	padding-top: 5%;
+	padding-top: 5vh;
+	overflow: auto;
 }
+
+main h1 {
+	text-align: center;
+	width: 100%;
+	border-top: 2px solid var(--quinary-color);
+	border-bottom: 2px solid var(--quinary-color);
+ }
 
 form {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	width: 80%;
-	margin-top: 5%;
+	width: 100%;
+	margin-top: 5vh;
 	flex-wrap: wrap;
+	max-width: 600px;
+	min-width: 250px;
 }
+* {
+ 	
+	min-width: fit-content;
+ }
+form > * {
+	min-width: fit-content;
+ }
 
 form div {
-	margin: 10px;
+	margin-top: 10px;
+	margin-left: 0.5vw;
+	margin-right: 0.5vw;
 	border: none;
 	border-radius: 5px;
-	width: fit-content;
+	width: 40%;
 	height: fit-content;
 	background-color: var(--quaternary-color);
-	width: 40%;
 }
 
 form div:nth-last-child(1) {
@@ -103,6 +121,27 @@ form label {
 	background-color: var(--tertiary-color);
 }
 
+.input-container:nth-child(even) > * {
+    text-align: right;
+}
+
+.view div:nth-child(even) > *{
+    text-align: right;
+}
+
+.view label {
+	background-color: var(--tertiary-color);
+}
+
+.view input {
+	background-color: var(--tertiary-color);
+}
+
+.view div {
+	background-color: var(--tertiary-color);
+}
+
+
 .show div:nth-last-child(1) {
 	justify-content: center;
 }
@@ -128,8 +167,12 @@ form label {
 
 #deleteButton {
 	color: var(--primary-color);
+	min-width: fit-content;
+	font-size: 1.6em;
+	font-size: clamp(1em, 5vw, 2em);
 }
 
 #deleteButtonConfirm {
 	color: var(--senary-color);
+	min-width: fit-content;
 }

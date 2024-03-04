@@ -28,10 +28,11 @@ public class ServletUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		User userConnected = (User) session.getAttribute("userConnected");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
 		String idParam = request.getParameter("id");
 		User u = null;
-		if (session.getAttribute("userConnected") == null) {
+		if (userConnected == null) {
 			
 			request.setAttribute("from", rd);
 			request.setAttribute("message", "Vous devez être connecté pour accéder à cette page.");
@@ -44,7 +45,12 @@ public class ServletUser extends HttpServlet {
                     int id = Integer.parseInt(idParam);
                     
                     u = UserManager.getUserById(id);
-                    request.setAttribute("user", u);
+                    if(u.getId() != userConnected.getId()){
+                    	request.setAttribute("user", u);
+                    }else {
+                    	request.setAttribute("user", null);//Ceci permettra d'afficher directement la page de modification du profil si l'utilisateur veut voir son propre profile
+                    }
+                    
                 } catch (NumberFormatException e) {
                     request.setAttribute("message", "ID non valide");
                     response.sendError(500);

@@ -34,14 +34,16 @@ public class ServletUserDelete extends HttpServlet {
 		HttpSession session = request.getSession();
 		User u = (User) request.getSession().getAttribute("userConnected");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
+		String password = request.getParameter("deletePassword");
+		String confirmPassword = request.getParameter("deleteConfirmPassword");
 		if (u == null) {
 			response.sendRedirect(request.getContextPath() + "/home");
 			return;
 		}
 		try {
-			System.out.println(u.getPassword().trim() + " " + request.getParameter("password").trim());
-			UserManager.checkPwd(u, request.getParameter("password"));
-			UserManager.comparePwd(request.getParameter("password"), request.getParameter("confirmPassword"));
+			System.out.println(u.getPassword().trim() + " " + password.trim());
+			UserManager.checkPwd(u, password);
+			UserManager.comparePwd(password, confirmPassword);
 			UserManager.getInstance().delete(u.getId());
 			session.invalidate();
 			rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
