@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="fr.eni.projetencheres.bo.Article" %>
 
 
 <!DOCTYPE html>
@@ -23,6 +24,21 @@
 				<button>Rechercher <i class="fa-solid fa-magnifying-glass" style="color: #0c3404;"></i></button>
 			</section>
 			<section id="auctions-list">
+    <h2>Liste des enchères</h2>
+    <p>Achetez, Vendez en toute sécurité et simplicité</p>
+    <ul>
+        <% if (articles != null && !articles.isEmpty()) { %>
+            <% for (Article article : articles) { %>
+                <li><a href="#"><%= article.getName() %></a></li>
+            <% } %>
+        <% } else { %>
+            <li>Aucune enchère disponible pour le moment.</li>
+        <% } %>
+    </ul>
+</section>
+			
+			
+			<!-- <section id="auctions-list">
 				<h2>Liste des enchères</h2>
 				 <p>Achetez, Vendez en toute sécurité et simplicité</p>
             <ul>
@@ -30,8 +46,8 @@
                 <li><a href="#">Table</a></li>
                 <li><a href="#">Chaise</a></li>
             </ul>
-				<!-- Ajouter des éléments d’enchères ici -->
-			</section>
+				Ajouter des éléments d’enchères ici
+			</section> -->
 		</main>
 		<%@ include file="jspf/footer.jspf"%>
 	</body>

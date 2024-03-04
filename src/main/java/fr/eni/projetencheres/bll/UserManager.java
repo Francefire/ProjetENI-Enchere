@@ -48,7 +48,6 @@ public class UserManager {
 		User user = UserManager.getInstance().selectById(u_id);
 		return user;
 	}
-}
 
 	// Creation d'une méthode pour recuperer un utilisateur
 	public static User getUserById(int userId) {
