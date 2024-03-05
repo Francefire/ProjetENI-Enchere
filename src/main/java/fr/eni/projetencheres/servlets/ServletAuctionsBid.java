@@ -59,7 +59,10 @@ public class ServletAuctionsBid extends HttpServlet {
 
 				request.setAttribute("message", "Enchère effectuée");
 				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
-			} catch (Exception e) {
+			} catch (BusinessException e) {
+				request.setAttribute("message", e.getMessage());
+				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
+			} catch (NumberFormatException e) {
 				request.setAttribute("message", e.getMessage());
 				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
 			}

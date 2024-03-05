@@ -16,9 +16,9 @@
 		<section class="article">
 			<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="Article placeholder" width="800" height="400"> 
 			<div>
-				<h1>Nom article</h1>
-				<span>?? crédits</span>
-				<p>Description article</p>
+				<h1>${article.name}</h1>
+				<span>${article.sellingPrice} crédits</span>
+				<p>${article.description}</p>
 			</div>
 		</section>
 		<section class="seller">
@@ -27,7 +27,7 @@
 			<a href="${pageContext.request.contextPath}/auctions/delete?id=${param.id}">Supprimer</a>
 			<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${param.id}">
 				<label for="bid">Crédits</label><br>
-				<input type="number" name="bid" id="bid" min="0.00" step="1" required><br>
+				<input type="number" name="bid" id="bid" min="1" step="1" placeholder="1" required><br>
 				<input type="submit" value="Enchérir">
 			</form>
 		</section>

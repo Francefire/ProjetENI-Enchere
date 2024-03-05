@@ -3,6 +3,7 @@ package fr.eni.projetencheres.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
 
@@ -69,7 +70,7 @@ public class ServletAuctions extends HttpServlet {
 			} catch (BusinessException e) {
 				request.setAttribute("message", e.getMessage());
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
-			} catch (Exception e) {
+			} catch (NumberFormatException | DateTimeParseException e) {
 				System.out.println(e.getMessage());
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
 			}			

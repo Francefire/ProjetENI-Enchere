@@ -15,7 +15,7 @@ import fr.eni.projetencheres.bo.Article;
 public class ArticleDAO {
 	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS "
 			+ "(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) "
-			+ "VALUES (?, ?, ?, ?, ? , ?, ? , ?, ?)";
+			+ "VALUES (?,? ,? ,? ,? ,? ,? ,?)";
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS"
 			+ "SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_categorie=?"
 			+ "WHERE no_article=?";
