@@ -9,17 +9,16 @@
 				 <a href="/ProjetENI-Enchere/Login">Se connecter <i class="fa-solid fa-right-to-bracket" style="color: #D4A373;"></i></a> 
 			</c:if>
 		
-		
 <!-- 		 Si connecté -->
 		 <c:if test="${!empty userConnected}">
 					Bonjour ${userConnected.username } <i class="fa-regular fa-face-smile"></i><a href="/ProjetENI-Enchere/user"> | Mon Profil | </a>
 					<a href="/ProjetENI-Enchere/logout">Se déconnecter <i class="fa-solid fa-right-from-bracket"></i></a>
 			</c:if>
-			
 	</nav>
-<!-- 		<div class="breadcrumb"> -->
-<%-- 	    <i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> <a href="">${pageContext.request.contextPath} </a>&raquo; --%>
-<!-- 	</div> -->
+		
+		<div class="breadcrumb">
+	    <i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> <a href="">${pageContext.request.contextPath} </a>&raquo;
+	</div>
 
 <div class="breadcrumb">
     <a href="${pageContext.request.contextPath}">Accueil</a> &raquo;

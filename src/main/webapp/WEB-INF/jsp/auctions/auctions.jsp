@@ -22,7 +22,7 @@
 					<input type="search" name="name" value="${param.name}" placeholder="Chaise en bois">
 				</div>
 				<div>
-					<label for="category">Categorie</label><br>
+					<label for="category">Catégorie</label><br>
 					<select name="category" id="category">
 						<option value="all">Toutes les catégories</option>
 						<!--
@@ -52,7 +52,7 @@
 				<article>
 					<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
 					<h1>${article.name}</h1>
-					<span>${article.price}</span> <span>${article.auctionstate}</span>
+					<span>${article.sellingPrice}</span>
 					<p>${article.description}</p>
 				</article>
 			</c:forEach>	

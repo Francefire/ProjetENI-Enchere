@@ -31,4 +31,5 @@ public class ServletLogout extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 	}
+
 }

@@ -6,7 +6,7 @@ import fr.eni.projetencheres.bo.User;
 public interface UserDAO {
 
 //Pattern de méthodes permettant de faire les requetes vers la BDD
-	public void insert(User user);
+	public void insert(User user) throws BusinessException; 
 
 	public User selectById(int id) throws BusinessException;
 

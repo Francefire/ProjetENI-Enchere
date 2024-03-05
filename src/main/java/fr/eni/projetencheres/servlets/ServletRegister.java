@@ -2,6 +2,7 @@ package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +27,6 @@ public class ServletRegister extends HttpServlet {
 	  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	  this.getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
 	  }
-
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,13 +55,13 @@ public class ServletRegister extends HttpServlet {
         System.out.println("Mot de passe : " + password);
         System.out.println("Vérification du mot de passe : " + checkPassword );
         
-        
 //  	Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
         User new_user = new User(userName, lastName, firstName, email, phone, street, zipCode, city, password);
 
         try {
 // 			Vérification saisie du pseudo
-        	UserManager.check_username(userName);
+//        	UserManager.check_username(userName);
+        	UserManager.check_cheaters(userName, lastName, firstName, email, street, zipCode, city, password);
         	
 //        	TODO virer le doublon de comparaison des mots de passe (la meme méthode est appelée en dessous)
 //      	Comparaison des saisies mot de passe
@@ -72,21 +72,15 @@ public class ServletRegister extends HttpServlet {
         	
         	HttpSession session = request.getSession();
         	session.setAttribute("userConnected", new_user);
+        	RequestDispatcher rd =request.getRequestDispatcher("/WEB-INF/index.jsp");
+        	rd.forward(request, response) ;
+        	
         }catch (BusinessException e) {
         	String errorMessage = e.getMessage();
         	request.setAttribute("error", errorMessage);
         	doGet(request,response);
         }
         
-        response.sendRedirect(request.getContextPath());
-        
-//		Ci-dessous, commande pour afficher l'ID de l'utilisateur maintenant crée et inscrit dans la BDD
-//		System.out.println(new_user.getId());
-//    }
-    
-        
-//    request.setAttribute("error", "Il y a une erreur de base de données");
-        
-        
+//      response.sendRedirect(request.getContextPath());
     }
     }

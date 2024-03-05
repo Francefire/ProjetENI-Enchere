@@ -41,7 +41,7 @@
 				        <div><label for="prenom">Prénom : </label>
 				        <input type="text" id="idFirstName" name="FirstName" 
 				        			required
-				        			placeholder="Prénom"
+				        			placeholder="votre Prénom"
 				        			title = "Saisissez votre Prénom"
 				        			placeholder="votre prénom" >
 				        </div> 
@@ -49,12 +49,14 @@
 				        <label for="email">Email : </label>
 				        <input type="email" id="idEmail" name="Email"
 									title ="Saisissez votre adresse email"
+				        			pattern ="[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
 				        			placeholder ="adresse@mail.com"
 				        			required>
 						</div>
 						<div>
 				        <label for="telephone">Téléphone : </label>
 				        <input type="text" id="idPhone" name="Phone"
+									placeholder="ex : 0601020304"
 									pattern ="[0]{1}[1-9]{1}[0-9]{8}"
 									title ="Saisissez votre numéro de téléphone">
 				       
@@ -76,7 +78,7 @@
 				        <input type="text" id="idZipCode" name="ZipCode"
 				        			min = "00000"
 				        			max = "99999"
-				        			placeholder="00000" 
+				        			placeholder="ex : 12345" 
 				        			required
 				        			pattern ="[0-9]{5}">
 		       			</div>
@@ -85,7 +87,7 @@
 		        <input type="password" id="idPwd" name="Password"
 		        			required
 		        			pattern = ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$
-							title ="Saisissez un mot de passe de minimum 8 caractères comportant des lettres minuscules et majuscules et des chiffres">
+							title ="Saisissez un mot de passe de minimum 8 caractères, comportant des lettres en minuscules et majuscules, et des chiffres">
 		        		</div>
 		        		<div>	
 		        <label for="confirm_mot_de_passe">Confirmation du mot de passe : </label>

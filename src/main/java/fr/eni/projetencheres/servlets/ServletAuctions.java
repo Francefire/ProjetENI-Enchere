@@ -40,7 +40,7 @@ public class ServletAuctions extends HttpServlet {
 					request.setAttribute("articles", articles);
 					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
 				} else {
-					String name = request.getParameter("name");
+					String paramName = request.getParameter("name");
 					String paramCategoryId = request.getParameter("categoryId");
 					String paramStartDate = request.getParameter("startDate");
 					String paramEndDate = request.getParameter("endDate");
@@ -50,18 +50,19 @@ public class ServletAuctions extends HttpServlet {
 					LocalDate endDate = null;
 					
 					if (paramCategoryId != null) {
-						categoryId = Integer.parseInt(request.getParameter("categoryId"));
+						categoryId = Integer.parseInt(paramCategoryId);
 					}
 					
 					if (paramStartDate != null && !paramStartDate.isEmpty()) {
-						startDate = LocalDate.parse(request.getParameter("startDate"), ServletAuctions.formatter);
+						startDate = LocalDate.parse(paramStartDate, ServletAuctions.formatter);
 					}
 					
 					if (paramEndDate != null && !paramEndDate.isEmpty()) {
-						endDate = LocalDate.parse(request.getParameter("endDate"), ServletAuctions.formatter);
+						endDate = LocalDate.parse(paramEndDate, ServletAuctions.formatter);
 					}
 					
-					List<Article> articles = ArticlesManager.getAllArticlesWhere(name, categoryId, startDate, endDate);
+					List<Article> articles = ArticlesManager.getAllArticlesWhere(paramName, categoryId, startDate, endDate);
+					
 					request.setAttribute("articles", articles);
 					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
 				}

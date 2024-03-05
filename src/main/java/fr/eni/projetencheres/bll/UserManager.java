@@ -29,12 +29,20 @@ public class UserManager {
 		System.out.println("mot de passe mdphashé: " + mdphashe + " u.getPassword () : " + user.getPassword());
 	}
 
-	// INSCRIPTION : vérification du contenu de la saisie du pseudo
-	public static void check_username(String username) throws BusinessException {
-		if (username == null || username.isEmpty()) {
-			throw new BusinessException(BusinessException.DAL_INSERT_USER_SQLEXCEPTION);
+	
+	// VERIFICATION DES CHEATERS
+	public static void check_cheaters(String username, String lastName, String firstName, String email, String street, String zipCode, String city, String password) throws BusinessException {
+		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || email == null || email.isEmpty() || street == null || street.isEmpty() || zipCode == null || zipCode.isEmpty() || city == null || city.isEmpty() || password == null || password.isEmpty())  {
+			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+		}
+		if (!email.matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$")) {
+			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+        }
+		if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
+			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
 		}
 	}
+	
 
 	// INSCRIPTION : Création d'une méthode pour comparer les saisies mot de passe
 	public static void comparePwd(String password, String checkPassword) throws BusinessException {

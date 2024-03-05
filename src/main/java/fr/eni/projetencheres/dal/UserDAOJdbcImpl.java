@@ -10,7 +10,6 @@ import fr.eni.projetencheres.bo.User;
 
 public class UserDAOJdbcImpl implements UserDAO {
 
-
 	private static final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String SELECT_BY_USERNAME = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
@@ -20,7 +19,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	
 	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 	@Override
-	public void insert(User user) {
+	public void insert(User user) throws BusinessException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUsername());
@@ -39,6 +38,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new BusinessException(BusinessException.DAL_INSERT_USER_SQLEXCEPTION) ;
 		}
 	}
 
