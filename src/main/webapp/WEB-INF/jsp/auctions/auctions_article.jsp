@@ -25,21 +25,31 @@
 			<h1>Nom vendeur</h1>
 		</section>
 		<section class="actions">
-			<c:choose>
-				<c:when test="${userConnected.id == article.userId}">
-					<a href="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">Modifier</a>
-				<form method="POST" action="${pageContext.request.contextPath}/auctions/delete?id=${article.id}">
-					<button type="submit">Supprimer</button>
-				</form>
-				</c:when>
-				<c:otherwise>
-					<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${article.id}">
-						<label for="amount">Crédits</label><br>
-						<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required><br>
-						<input type="submit" value="Enchérir">
+			<c:if test="${not empty userConnected}">
+				<c:choose>
+					<c:when test="${userConnected.id == article.userId}">
+						<a href="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">Modifier</a>
+					<form method="POST" action="${pageContext.request.contextPath}/auctions/delete?id=${article.id}">
+						<button type="submit">Supprimer</button>
 					</form>
-				</c:otherwise>
-			</c:choose>
+					</c:when>
+					<c:otherwise>
+							<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${article.id}">
+								<label for="amount">Crédits</label><br>
+								<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required 
+								<c:if test="${userConnected.credit < article.sellingPrice+1}">
+									disabled
+								</c:if>
+								><br>
+								<button type="submit" value="" 
+								<c:if test="${userConnected.credit < article.sellingPrice+1}">
+									disabled
+								</c:if>
+								>Enchérir</button>
+							</form>
+					</c:otherwise>
+				</c:choose>
+			</c:if>
 		</section>
 		<section class="bids">
 			<p>Nom Prénom XX crédits</p>

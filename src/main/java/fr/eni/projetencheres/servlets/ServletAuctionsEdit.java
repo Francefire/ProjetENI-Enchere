@@ -67,7 +67,10 @@ public class ServletAuctionsEdit extends HttpServlet {
 			}
 
 			if (paramInitialPrice != null) {
-				article.setInitialPrice(Double.parseDouble(paramInitialPrice));
+				double initialPrice = Double.parseDouble(paramInitialPrice);
+				
+				article.setInitialPrice(initialPrice);
+				article.setSellingPrice(initialPrice);
 			}
 
 			if (paramCategoryId != null) {
