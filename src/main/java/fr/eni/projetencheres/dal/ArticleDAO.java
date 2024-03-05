@@ -113,6 +113,7 @@ public class ArticleDAO {
 
 			connection.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new BusinessException(BusinessException.DAL_SELECT_ARTICLE_SQLEXCEPTION);
 		}
 

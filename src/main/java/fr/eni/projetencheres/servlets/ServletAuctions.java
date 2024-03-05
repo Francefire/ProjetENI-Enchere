@@ -79,10 +79,10 @@ public class ServletAuctions extends HttpServlet {
 				int articleId = Integer.parseInt(id);
 
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
-				List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
+				//List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
 				
 				request.setAttribute("article", article);
-				request.setAttribute("bids", bids);
+				// request.setAttribute("bids", bids);
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_article.jsp").forward(request, response);
 			} catch (BusinessException e) {
 				request.setAttribute("message", e.getMessage());

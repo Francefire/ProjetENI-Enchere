@@ -50,10 +50,12 @@
 		<section class="articles">
 			<c:forEach items="${articles}" var="article">
 				<article>
-					<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
-					<h1>${article.name}</h1>
-					<span>${article.sellingPrice}</span>
-					<p>${article.description}</p>
+					<a href="${pageContext.request.contextPath}/auctions?id=${article.id}">
+						<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
+						<h1>${article.name}</h1>
+						<span>${article.sellingPrice}</span>
+						<p>${article.description}</p>
+					</a>
 				</article>
 			</c:forEach>	
 		</section>

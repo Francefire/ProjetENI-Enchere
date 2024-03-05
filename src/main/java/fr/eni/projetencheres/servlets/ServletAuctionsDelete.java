@@ -9,49 +9,42 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bo.Article;
 
 /**
  * Servlet implementation class ServletauctionsDelete
  */
-@WebServlet({"/auctions/delete", "/encheres/supprimer"})
+@WebServlet({ "/auctions/delete", "/encheres/supprimer" })
 public class ServletAuctionsDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		
-		if (id == null || id.isEmpty()) {
-			response.sendError(404);
-		} else {
-			response.sendRedirect(request.getContextPath() + "/auctions");	
-		}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.sendRedirect(request.getContextPath() + "/auctions");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Article article = (Article) request.getAttribute("article");
 		
-		if (id == null || id.isEmpty()) {
-			response.sendError(404);
-		} else {
-			try {
-				int articleId = Integer.parseInt(id);
-				
-				ArticlesManager.deleteArticleByArticleId(articleId);
-				
-				response.sendRedirect(request.getContextPath() + "/auctions");
-			} catch (BusinessException e) {
-				request.setAttribute("message", e);
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
-			} catch (NumberFormatException e) {
-				request.setAttribute("message", e);
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
-			}
+		try {
+			ArticlesManager.deleteArticleByArticleId(article.getId());
+
+			response.sendRedirect(request.getContextPath() + "/auctions");
+		} catch (BusinessException e) {
+			request.setAttribute("message", e);
+			response.sendRedirect(request.getContextPath() + "/auctions?id="+article.getId());
+		} catch (NumberFormatException e) {
+			request.setAttribute("message", e);
+			response.sendRedirect(request.getContextPath() + "/auctions?id="+article.getId());
 		}
 	}
 }

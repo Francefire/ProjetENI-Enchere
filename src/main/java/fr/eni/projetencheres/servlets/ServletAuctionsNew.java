@@ -51,7 +51,7 @@ public class ServletAuctionsNew extends HttpServlet {
 			LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
 			LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
 			double initialPrice = Double.parseDouble(request.getParameter("initialPrice"));
-			User user = (User) request.getSession().getAttribute("user");
+			User user = (User) request.getSession().getAttribute("userConnected");
 			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
 			Article article = new Article();
