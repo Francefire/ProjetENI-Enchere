@@ -20,6 +20,7 @@ public class UserManager {
 	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer
 	// un nouvel user.
 	public static void createUser(User u, String checkPassword) throws BusinessException {
+		UserManager.checkUserInfo(u);
 		comparePwd(u.getPassword(), checkPassword);
 		UserManager.getInstance().insert(u);
 	}
