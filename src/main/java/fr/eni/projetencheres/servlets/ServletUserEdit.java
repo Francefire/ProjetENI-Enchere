@@ -45,7 +45,7 @@ public class ServletUserEdit extends HttpServlet {
 			return;
 		}
 		String username = request.getParameter("editUsername");
-		String passwordValidation = request.getParameter("editPasswordValidation");
+		String passwordValidation = request.getParameter("passwordValidation");
 		String password = request.getParameter("editPassword");
 		String confirmEditPassword = request.getParameter("confirmEditPassword");
 		String firstName = request.getParameter("editFirstName");
@@ -59,9 +59,11 @@ public class ServletUserEdit extends HttpServlet {
 		editedUser.setCredit(u.getCredit());
 		editedUser.setAdmin(u.isAdmin());
 		try {
-			UserManager.checkUser(editedUser);
+			//TODO : A corriger, un utilisateur avec un mot de passe ne respectant pas le regex ne pourra pas modifier son profile car le champ est verifié par la BLL
+			UserManager.checkUserInfo(editedUser, false);
 			if (password != null && !password.isEmpty()) {
 				UserManager.comparePwd(password, confirmEditPassword);
+				UserManager.checkUserInfo(editedUser);
 				editedUser.setPassword(password);
 			}
 			UserManager.editUser(editedUser);

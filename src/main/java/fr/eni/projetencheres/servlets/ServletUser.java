@@ -46,7 +46,7 @@ public class ServletUser extends HttpServlet {
                     
                     u = UserManager.getUserById(id);
                     if(u.getId() != userConnected.getId()){
-                    	request.setAttribute("user", u);
+                    	request.setAttribute("displayUser", u);
                     }else {
                     	request.setAttribute("user", null);//Ceci permettra d'afficher directement la page de modification du profil si l'utilisateur veut voir son propre profile
                     }

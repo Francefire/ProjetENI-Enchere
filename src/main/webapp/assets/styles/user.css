@@ -11,7 +11,7 @@ main h1 {
 	width: 100%;
 	border-top: 2px solid var(--quinary-color);
 	border-bottom: 2px solid var(--quinary-color);
- }
+}
 
 form {
 	display: flex;
@@ -21,15 +21,16 @@ form {
 	flex-wrap: wrap;
 	max-width: 600px;
 	min-width: 250px;
-	margin : 5vh 0 0 0;
+	margin: 5vh 0 0 0;
 }
+
 * {
- 	
 	min-width: fit-content;
- }
-form > * {
+}
+
+form>* {
 	min-width: fit-content;
- }
+}
 
 form div {
 	margin-top: 10px;
@@ -121,12 +122,12 @@ form label {
 	background-color: var(--tertiary-color);
 }
 
-.input-container:nth-child(even) > * {
-    text-align: right;
+.input-container:nth-child(even)>* {
+	text-align: right;
 }
 
-.view div:nth-child(even) > *{
-    text-align: right;
+.view div:nth-child(even)>* {
+	text-align: right;
 }
 
 .view label {
@@ -140,7 +141,6 @@ form label {
 .view div {
 	background-color: var(--tertiary-color);
 }
-
 
 .show div:nth-last-child(1) {
 	justify-content: center;
@@ -178,8 +178,12 @@ form label {
 }
 
 .half-spacer {
-	width: 40%;
-
+	width: 100%;	
+	min-width: fit-content;
  }
 
-	
+ .half-spacer * {
+	width: 40%;
+	min-width: fit-content;
+}
+

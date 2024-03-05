@@ -43,9 +43,11 @@
 		<label for="passwordValidation">Mot de passe</label> <input
 			type="password" name="passwordValidation" id="passwordValidation" required>
 	</div>
-		<div class="half-spacer"></div>
+	<div class="rounded">
+		<br>
+	</div>
 	<div class="input-container">
-		<label for="editPassword">Nouveau mot de passe</label> <input
+		<label for="editPassword">Changer de	 mot de passe</label> <input
 			type="password" name="editPassword" id="editPassword">
 	</div>
 	<div class="input-container">

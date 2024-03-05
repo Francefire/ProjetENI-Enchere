@@ -13,7 +13,7 @@
 	<%@ include file="../../jspf/header.jspf"%>
 	<main>
 		<c:choose>
-			<c:when test="${user == null}">
+			<c:when test="${displayUser == null}">
 				<c:import url="jspf/editProfile.jspf" />
 			</c:when>
 			<c:otherwise>
