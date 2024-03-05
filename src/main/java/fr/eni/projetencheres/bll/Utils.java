@@ -7,7 +7,7 @@ public class Utils {
 			throw new BusinessException(String.format(BusinessException.BLL_FIELD_EMPTY_ERROR, fieldName));
 		}
 
-		if (fieldString.length() < min || fieldString.length() > max) {
+		if (fieldString.length() < min || fieldString.length() > max+1) {
 			throw new BusinessException(String.format(BusinessException.BLL_FIELD_BOUNDS_ERROR, fieldName, min, max));
 		}
 	}

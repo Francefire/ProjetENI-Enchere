@@ -18,8 +18,8 @@ public class BusinessException extends Exception {
 	public static final String BLL_GET_ARTICLE_NULL = "L'article n'a pu être trouvé";
 	public static final String BLL_GET_ALL_ARTICLES_NULL = "Aucuns articles n'ont pu être trouvés";
 
-	public static final String BLL_FIELD_EMPTY_ERROR = "Le %s doit être renseigné";
-	public static final String BLL_FIELD_BOUNDS_ERROR = "Le %s doit être compris entre %d et %d caractères";
+	public static final String BLL_FIELD_EMPTY_ERROR = "Le champ %s doit être renseigné";
+	public static final String BLL_FIELD_BOUNDS_ERROR = "Le champ %s doit être compris entre %d et %d caractères";
 	public static final String BLL_MONEY_NOT_ENOUGH_ERROR = "Le %s doit être supérieur ou égal à %d";
 	
 	public static final String BLL_EMPTY_FIELDS_ERROR = "Tous les champs doivent être renseignés";
@@ -31,34 +31,9 @@ public class BusinessException extends Exception {
 	public static final String BLL_PWD_USER_EXCEPTION = "Le mot de passe ne correspond pas";
 
 	public static final String BLL_ADD_BID_ENDED_ERROR = "L'enchère est terminée, vous ne pouvez plus enchérir sur celle-ci";
-
-	// Obsolète
-	public static final String BLL_ARTICLE_NULL = "Aucun articles n'a pu être trouvé";
-	public static final String BLL_ARTICLES_NULL = "Aucun articles n'ont pu être trouvés";
-	public static final String BLL_BID_AMOUNT_NOT_ENOUGH = "Le montant de l'enchère doit être supérieur ou égale à un";
-  
-	public static final String BLL_USERNAME_EMPTY = "Le pseudo ne peut pas être vide";
-	public static final String BLL_USERNAME_TOO_LONG = "Le pseudo ne peut pas dépasser 30 caractères";
-	public static final String BLL_PASSWORD_EMPTY = "Le mot de passe ne peut pas être vide";
-	public static final String BLL_PASSWORD_TOO_LONG = "Le mot de passe ne peut pas dépasser 30 caractères";
-	public static final String BLL_PASSWORD_TOO_SHORT = "Le mot de passe doit contenir au moins 8 caractères";
 	public static final String BLL_PASSWORD_NOT_VALID = "Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre";
-	public static final String BLL_FIRSTNAME_EMPTY = "Le prénom ne peut pas être vide";
-	public static final String BLL_FIRSTNAME_TOO_LONG = "Le prénom ne peut pas dépasser 30 caractères";
-	public static final String BLL_LASTNAME_EMPTY = "Le nom ne peut pas être vide";
-	public static final String BLL_LASTNAME_TOO_LONG = "Le nom ne peut pas dépasser 30 caractères";
-	public static final String BLL_EMAIL_EMPTY = "L'email ne peut pas être vide";
-	public static final String BLL_EMAIL_TOO_LONG = "L'email ne peut pas dépasser 50 caractères";
+
 	public static final String BLL_EMAIL_NOT_VALID = "L'email n'est pas valide";
-	public static final String BLL_PHONE_EMPTY = "Le téléphone ne peut pas être vide";
-	public static final String BLL_PHONE_TOO_LONG = "Le téléphone ne peut pas dépasser 15 caractères";
-	public static final String BLL_STREET_EMPTY = "La rue ne peut pas être vide";
-	public static final String BLL_STREET_TOO_LONG = "La rue ne peut pas dépasser 50 caractères";
-	public static final String BLL_CITY_EMPTY = "La ville ne peut pas être vide";
-	public static final String BLL_CITY_TOO_LONG = "La ville ne peut pas dépasser 30 caractères";
-	public static final String BLL_ZIPCODE_EMPTY = "Le code postal ne peut pas être vide";
-	public static final String BLL_ZIPCODE_TOO_LONG = "Le code postal ne peut pas dépasser 10 caractères";
-	// Fin obsolète
 	
 	public BusinessException() {
 	}
