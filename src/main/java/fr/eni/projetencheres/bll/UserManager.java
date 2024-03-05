@@ -1,5 +1,8 @@
 package fr.eni.projetencheres.bll;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.UserDAO;
@@ -17,11 +20,13 @@ public class UserManager {
 		return instance;
 	}
 
-	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer
-	// un nouvel user.
-	public static void createUser(User u, String checkPassword) throws BusinessException {
-		comparePwd(u.getPassword(), checkPassword);
-		UserManager.getInstance().insert(u);
+	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer un nouvel user.
+	public static void createUser(User user, String checkPassword) throws BusinessException {
+		comparePwd(user.getPassword(), checkPassword); //comparaison des saisies 
+		String mdphashe = UserManager.hashPwd(user.getPassword()); //récup du mdp hashé, et transféré dans la variable
+		user.setPassword(mdphashe);
+		UserManager.getInstance().insert(user);
+		System.out.println("mot de passe mdphashé: " + mdphashe + " u.getPassword () : " + user.getPassword());
 	}
 
 	// INSCRIPTION : vérification du contenu de la saisie du pseudo
@@ -47,14 +52,12 @@ public class UserManager {
 	}
 
 	public static User login(String userName, String password) throws BusinessException {
-//			String pass = User.hashPwd(password);
-//			User u = UserDAO.check(userName, pass);
-		int u_id = UserManager.getInstance().check(userName, password);
-		if (u_id < 1) {
+			String pass = UserManager.hashPwd(password);
+			User u = UserManager.getInstance().login(userName, pass);
+		if (u == null) {
 			throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 		}
-		User user = UserManager.getInstance().selectById(u_id);
-		return user;
+		return u;
 	}
 
 	// Creation d'une méthode pour recuperer un utilisateur
@@ -144,15 +147,24 @@ public class UserManager {
 		
         	            
 	}
-
-	// création d'une méthode pour se connecter
-//		public static login(String username, String password) throws BusinessException {
-//		String pass = User.hashPwd(pwd);
-//		System.out.println(pass);
-//		User u = user.login(username, password); ;
-//
-//		return 
-
-//		}
+	
+	public static String hashPwd(String password)
+	{
+		MessageDigest md = null;
+		StringBuffer sb = new StringBuffer();
+		byte[] response;
+		try {
+			md=MessageDigest.getInstance("SHA-256");			
+			response=md.digest(password.getBytes());			
+			for(int i:response)
+			{
+				sb.append((Integer.toString((i&0xff)+0x100, 16).substring(1)));
+			}
+			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
 
 }

@@ -26,12 +26,14 @@ public class ServletHome extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Article> articles = null;
-	    try {
-	        ArticleDAO articleDAO = new ArticleDAO();
-	        articles = articleDAO.selectAllArticles();
-	    } catch (BusinessException e) {
-	        // Gérer les exceptions
-	    }
+//		Article = articleManager.getAllArticles();
+		
+//		try {
+//	        ArticleDAO articleDAO = new ArticleDAO();
+//	        articles = articleDAO.selectAllArticles();
+//	    } catch (BusinessException e) {
+//	        // Gérer les exceptions
+//	    }
 	    request.setAttribute("articles", articles);
 	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	    rd.forward(request, response);

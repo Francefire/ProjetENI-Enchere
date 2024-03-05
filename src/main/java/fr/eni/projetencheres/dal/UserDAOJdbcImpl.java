@@ -3,6 +3,7 @@ package fr.eni.projetencheres.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.User;
@@ -152,8 +153,34 @@ public class UserDAOJdbcImpl implements UserDAO {
 		return id ;
 	}
 
-	@Override
-	public User login(String userName, String Password) throws BusinessException { 
-		return null ;
+
+public User login(String userName, String password) throws BusinessException {
+	User user = null;
+	try {
+		Connection cnx = ConnectionProvider.getConnection();
+		PreparedStatement pstmt = cnx.prepareStatement("SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?");
+		pstmt.setString(1, userName);
+		pstmt.setString(2, password);
+		ResultSet res = pstmt.executeQuery();
+		if (res.next()) {
+			user = new User();
+			user.setId(res.getInt("no_utilisateur"));
+			user.setUsername(res.getString("pseudo"));
+			user.setLastName(res.getString("nom"));
+			user.setFirstName(res.getString("prenom"));
+			user.setEmail(res.getString("email"));
+			user.setPhoneNumber(res.getString("telephone"));
+			user.setStreet(res.getString("rue"));
+			user.setZipCode(res.getString("code_postal"));
+			user.setCity(res.getString("ville"));
+			user.setPassword(res.getString("mot_de_passe"));
+		}
+		cnx.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+		throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 	}
+	return user;
 }
+}
+

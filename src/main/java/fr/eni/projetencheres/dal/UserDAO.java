@@ -18,7 +18,7 @@ public interface UserDAO {
 
 	public void delete(int id);
 
-	public User login(String userName, String Password) throws BusinessException;
+	public User login(String userName, String password) throws BusinessException ;
 
 	public int check(String userName, String password) throws BusinessException;
 }

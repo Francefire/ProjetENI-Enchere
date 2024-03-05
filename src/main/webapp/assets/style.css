@@ -28,6 +28,10 @@ header a {
 	color: var(--quinary-color);
 }
 
+header h1 {
+	margin-bottom: 10px;
+}
+
 main {
 	background-color: var(--tertiary-color);
 	font-family: 'Century Gothic', sans-serif;
@@ -60,6 +64,7 @@ a {
     background-color: var(--secondary-color);
     padding: 10px;
     font-size: 14px;
+	gap : 80px;
 }
 
 .breadcrumb a {

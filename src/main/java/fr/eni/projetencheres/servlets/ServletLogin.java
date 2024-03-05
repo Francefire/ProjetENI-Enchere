@@ -41,33 +41,50 @@ public class ServletLogin extends HttpServlet {
 		String userName, password;
 		String rememberMe = request.getParameter("rememberMe");
 		Cookie cook = null;
+		int pingTimeOut = 3000; //définit la durée de vie de la session en secondes.
 		
+//TODO:	 faire quelque chose de "se souvenir de moi"
+//TODO : faire quelque chose de "mot de passe oublié"		
+//TODO : déplacer les jsp dans un unique dossier 
 		
 		// Mise en place de la session
 		HttpSession session = request.getSession(); // cette méthode retourne une nouvelle session si aucune session n'existe
 		
 		
-		//		int countSession = 0;
-//		if (session.getAttribute("compteurAcces") != null) {
-//			countSession = (int) session.getAttribute("compteurAcces");
-//		}
-//		countSession += 1;
-//		session.setAttribute("compteurAcces", countSession);
-
 		// vérification avec la BDD des infos fournies par l'user.
 		userName = request.getParameter("UserName");
 		password = request.getParameter("Password");
 		User u;
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
-		UserManager um = new UserManager();
 		try {
-			u = um.login(userName, password);
+			u = UserManager.login(userName, password);
 			System.out.println("je suis dans le login");
 			if (u == null) {
 				doGet(request, response);
 			} else {
 				session.setAttribute("userConnected", u);
 				System.out.println("je suis connecté");
+				
+				//Destruction de la session au bout de x min 
+				session.setMaxInactiveInterval(pingTimeOut) ; 
+				
+//				*********VÉRIFICATION DU TEMPS RESTANT EN CONSOLE**********
+//				long sessionStart = session.getCreationTime();
+//				int sessionEnd = session.getMaxInactiveInterval();
+//				
+//				long currentTime = System.currentTimeMillis();
+//				long elapsedTime = currentTime - sessionStart;
+//				long remainingTime = pingTimeOut * 1000 - elapsedTime;
+//				
+//				System.out.println(pingTimeOut);
+//				System.out.println("Temps restant avant déconnexion (en secondes) : " + (remainingTime / 1000));
+//				remainingTime = pingTimeOut * 1000 - (System.currentTimeMillis() - sessionStart);
+//				System.out.println("Temps restant avant déconnexion (en secondes) : " + (remainingTime / 1000));
+//				if (remainingTime <= 0) {
+//					System.out.println("Ping TimeOut dépassé : vous êtes déconnecté");
+//					}
+
+				
 					// User est connecté, donc si Case Se Souvenir de Moi cochée : création d'un cookie
 //					if () {
 						

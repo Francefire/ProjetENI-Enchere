@@ -1,4 +1,8 @@
 package fr.eni.projetencheres.bo;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 //Classe permettant de définir un utilisateur, "qu'est ce qui le caractérise" ? 
 public class User {
 	private int id;
@@ -144,5 +148,5 @@ public class User {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
-
+	
 }

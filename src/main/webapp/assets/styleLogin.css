@@ -94,7 +94,7 @@ input {
 	margin-right: 10px;
 }
 
-.buttonReg input {
+.buttonReg {
 	padding-top : 25px ;
 	padding-bottom : 25px ;
 	padding-left : 40px ;
@@ -103,4 +103,11 @@ input {
 	display: flex;
 	flex-flow: row;
 	gap : 50px;
+	font-family: 'Century Gothic', sans-serif;
+	border: 1px solid #D4A373;
+    border-radius : 5px;
+    height: 50%;
+    background-color: #FAEDCD;
+	
+	
 }

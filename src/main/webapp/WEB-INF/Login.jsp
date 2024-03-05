@@ -10,10 +10,10 @@
 </head>
 <body>
 <%@ include file="jspf/header.jspf"%>
-<div class="breadcrumb">
-    <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</a> &raquo;
-    <span>Se connecter</span>
-</div>
+<!-- <div class="breadcrumb"> -->
+<!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</a> &raquo; -->
+<!--     <span>Se connecter</span> -->
+<!-- </div> -->
 <main>
 <c:if test="${!empty error}">
 				<h2 class="msgBox">${error}</h2>
@@ -31,10 +31,10 @@
 		    <input type="text" id="idUserName" name="UserName" 
 		    		autofocus 
 		    		required 
-		    		placeholder="pseudo" 
+		    		placeholder="votre pseudo" 
 		    		title="Veuillez saisir votre pseudo"/>
 		    		<br/>
-		    		
+
 		    <label for="mot_de_passe">Mot de Passe: </label>
 		    <input type="password" 
 				    id="idPwd" 
@@ -62,9 +62,9 @@
 			<br>
 <!-- 		    BOUTON CREER UN COMPTE -->
 		<div class="buttonReg">
-		    <a href="${pageContext.request.contextPath}/Register"><input type="submit" value="Créer un compte"/></a>
+		    <a href="${pageContext.request.contextPath}/Register">Créer un compte</a>
 		</div>
-	</div>	    
+	</div>	
 	</main>
 	<%@ include file="jspf/footer.jspf"%>
 </body>

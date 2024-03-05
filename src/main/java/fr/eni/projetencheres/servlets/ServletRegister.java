@@ -59,8 +59,6 @@ public class ServletRegister extends HttpServlet {
 //  	Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
         User new_user = new User(userName, lastName, firstName, email, phone, street, zipCode, city, password);
 
-        
-      
         try {
 // 			Vérification saisie du pseudo
         	UserManager.check_username(userName);

@@ -9,10 +9,10 @@
 </head>
 <body>
 <%@ include file="jspf/header.jspf"%>
-<div class="breadcrumb">
-    <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil</a> &raquo;
-    <span>Créer un compte</span>
-</div>
+<!-- <div class="breadcrumb"> -->
+<!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil</a> &raquo; -->
+<!--     <span>Créer un compte</span> -->
+<!-- </div> -->
 <main>
 
 <c:if test="${!empty error}">
@@ -27,27 +27,29 @@
 			       		<input type="text" id="idUserName" name="UserName" 
 			        			required 
 			        			autofocus 
-			        			placeholder="Pseudo"
+			        			placeholder="votre pseudo" 
 			        			pattern="[A-Za-z]{3,}"
 			        			title = "Saisissez votre Pseudo (3 caractères min.)">
 			     </div>
 				 <div>       <label for="nom">Nom : </label>
 				        <input type="text" id="idName" name="LastName"
 				        			required
-				        			title ="Saisissez votre Nom">
-				 </div>       
+				        			title ="Saisissez votre Nom"
+				        			placeholder="votre Nom" >
+				 </div>       		
 				        
 				        <div><label for="prenom">Prénom : </label>
 				        <input type="text" id="idFirstName" name="FirstName" 
 				        			required
 				        			placeholder="Prénom"
-				        			title = "Saisissez votre Prénom">
+				        			title = "Saisissez votre Prénom"
+				        			placeholder="votre prénom" >
 				        </div> 
 				        <div>
 				        <label for="email">Email : </label>
 				        <input type="email" id="idEmail" name="Email"
-				        			placeholder ="john.doe@mail.com"
 									title ="Saisissez votre adresse email"
+				        			placeholder ="adresse@mail.com"
 				        			required>
 						</div>
 						<div>
@@ -74,6 +76,7 @@
 				        <input type="text" id="idZipCode" name="ZipCode"
 				        			min = "00000"
 				        			max = "99999"
+				        			placeholder="00000" 
 				        			required
 				        			pattern ="[0-9]{5}">
 		       			</div>
@@ -81,12 +84,14 @@
 		        <label for="mot_de_passe">Mot de passe : </label>
 		        <input type="password" id="idPwd" name="Password"
 		        			required
+		        			pattern = ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$
 							title ="Saisissez un mot de passe de minimum 8 caractères comportant des lettres minuscules et majuscules et des chiffres">
 		        		</div>
 		        		<div>	
 		        <label for="confirm_mot_de_passe">Confirmation du mot de passe : </label>
 		        <input type="password" id="idConfirmation" name="CheckPassword"
-		        			required> 
+		        			required
+		        			pattern = ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$> 
 		    			</div>
 		    		</section>
 	    </form>
