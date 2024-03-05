@@ -15,7 +15,7 @@ import fr.eni.projetencheres.bo.Article;
 public class ArticleDAO {
 	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS "
 			+ "(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) "
-			+ "VALUES (?, ?, ?, ?, ? , ?, ? , ?, ?)";
+			+ "VALUES (?, ?, ?, ?, ? , ?, ? , ?)";
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS"
 			+ "SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_categorie=?"
 			+ "WHERE no_article=?";
@@ -24,6 +24,8 @@ public class ArticleDAO {
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT * FROM ARTICLES_VENDUS";
 	private static final String SQL_DELETE_ARTICLE_BY_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
 
+	
+	//méthode pour insérer un article
 	public void insertArticle(Article a) throws BusinessException {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -36,7 +38,7 @@ public class ArticleDAO {
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
 			statement.setInt(7, a.getUserId());
-			statement.setInt(8, a.getCategoryId());
+			statement.setInt(8, a.getCategoryId()); //Remplacez 8 par l'index approprié selon requête SQL ????? *
 			statement.execute();
 			
 			ResultSet rs = statement.getGeneratedKeys();
@@ -51,6 +53,7 @@ public class ArticleDAO {
 		}
 	}
 
+	// Méthode pour mettre à jour un article
 	public void updateArticle(Article a) throws BusinessException {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
@@ -62,7 +65,7 @@ public class ArticleDAO {
 			statement.setDate(4, Date.valueOf(a.getEndDate()));
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
-			statement.setInt(7, a.getCategoryId());
+			statement.setInt(7, a.getCategoryId()); ////Remplacez 7 par l'index approprié selon requête SQL ????? *
 			statement.setInt(8, a.getId());
 			statement.executeUpdate();
 
