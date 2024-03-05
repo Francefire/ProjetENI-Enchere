@@ -32,7 +32,7 @@
 			id="editStreet" value="${userConnected.getStreet()}">
 	</div>
 	<div class="input-container">
-		<label for="editZipCode">Code postal</label> <input type="text"
+		<label for="editZipCode">Code postal</label> <input type="text" pattern="[0-9]*"
 			name="editZipCode" id="editZipCode" value="${userConnected.getZipCode()}">
 	</div>
 	<div class="input-container">
@@ -107,7 +107,7 @@
 </form>
 <form action="${pageContext.request.contextPath}/user/delete"
 	method="post" class="delete">
-	<h2>Êtes vous sur de vouloir supprimer votre compte ?</h2>
+	<h2>ï¿½tes vous sur de vouloir supprimer votre compte ?</h2>
 	<h4>Entrez votre mot deux fois afin de confirmer la suppresion</h4>
 	<div>
 		<label for="deletePassword">Mot de passe</label> <input type="password"

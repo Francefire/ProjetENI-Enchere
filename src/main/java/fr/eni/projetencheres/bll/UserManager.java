@@ -33,7 +33,8 @@ public class UserManager {
 
 	// INSCRIPTION : Création d'une méthode pour comparer les saisies mot de passe
 	public static void comparePwd(String password, String checkPassword) throws BusinessException {
-		if (!password.equals(checkPassword)) {
+		System.out.println(password + " " + checkPassword);
+		if (!password.trim().equals(checkPassword.trim())) {
 			throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
 		}
 	}
@@ -86,21 +87,23 @@ public class UserManager {
 		Utils.verifyStringField("street", u.getStreet(), 0, 50);
 		Utils.verifyStringField("city", u.getCity(), 0, 30);
 		Utils.verifyStringField("zipCode", u.getZipCode(), 0, 10);
-		
+
 		if (!u.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
 			throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
 		}
-        if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
-            throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
-        }
-        	            
+		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
+			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
+		}
+
 	}
+
 	public static void checkUserInfo(User u, boolean checkPassword) throws BusinessException {
 		Utils.verifyStringField("username", u.getUsername(), 0, 30);
 		if (checkPassword) {
 			Utils.verifyStringField("password", u.getPassword(), 8, 30);
 			if (!u.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
-			throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
+				throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
+			}
 		}
 		Utils.verifyStringField("firstName", u.getFirstName(), 0, 30);
 		Utils.verifyStringField("lastName", u.getLastName(), 0, 30);
@@ -109,12 +112,11 @@ public class UserManager {
 		Utils.verifyStringField("street", u.getStreet(), 0, 50);
 		Utils.verifyStringField("city", u.getCity(), 0, 30);
 		Utils.verifyStringField("zipCode", u.getZipCode(), 0, 10);
-		
-		
+
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
 		}
-        	            
+
 	}
 
 	// création d'une méthode pour se connecter

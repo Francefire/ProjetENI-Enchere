@@ -1,6 +1,13 @@
 package fr.eni.projetencheres.bo;
 //Classe permettant de définir un utilisateur, "qu'est ce qui le caractérise" ? 
 public class User {
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", lastName=" + lastName + ", firstName=" + firstName
+				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", street=" + street + ", zipCode=" + zipCode
+				+ ", city=" + city + ", password=" + password + ", credit=" + credit + ", admin=" + admin + "]";
+	}
+
 	private int id;
 	private String username;
 	private String lastName;
