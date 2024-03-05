@@ -10,7 +10,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
-@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/*" })
+@WebFilter(
+		filterName = "Encode",
+		dispatcherTypes = { DispatcherType.REQUEST }, 
+		urlPatterns = { "/*" }
+)
 public class FilterEncode implements Filter {
 
 	/**

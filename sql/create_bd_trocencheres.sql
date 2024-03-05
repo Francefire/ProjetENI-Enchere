@@ -75,7 +75,7 @@ CREATE TABLE ARTICLES_VENDUS (
 ALTER TABLE ARTICLES_VENDUS ADD constraint articles_vendus_pk PRIMARY KEY (no_article)
 ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Date_Fin_Debut CHECK (date_debut_encheres <= date_fin_encheres)
 ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Initial_Positif CHECK (prix_initial >= 0)
-ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Vente CHECK (prix_vente > prix_initial)
+ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Vente CHECK (prix_vente >= prix_initial)
 
 
 
