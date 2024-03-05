@@ -41,6 +41,10 @@
 	    <url-pattern/>
 	</filter-mapping>
 	<filter-mapping>
+	    <filter-name>ParseArticleId</filter-name>
+	    <url-pattern/>
+	</filter-mapping>
+	<filter-mapping>
 	    <filter-name>IsOwner</filter-name>
 	    <url-pattern/>
 	</filter-mapping>

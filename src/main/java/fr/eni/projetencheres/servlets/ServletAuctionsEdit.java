@@ -49,7 +49,7 @@ public class ServletAuctionsEdit extends HttpServlet {
 			String paramCategoryId = request.getParameter("categoryId");
 
 			Article article = (Article) request.getAttribute("article");
-
+			
 			if (paramName != null && !paramName.isEmpty()) {
 				article.setName(paramName);
 			}

@@ -17,13 +17,13 @@ import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.User;
 
 @WebFilter(
-		filterName = "IsOwner",
+		filterName = "IsOwner", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = { 
 				"/auctions/delete",
-				"/auctions/edit",
-				"/encheres/supprimer",
-				"/encheres/modifier",
+				"/auctions/edit", 
+				"/encheres/supprimer", 
+				"/encheres/modifier", 
 		}
 )
 public class FilterIsOwner implements Filter {
@@ -35,28 +35,16 @@ public class FilterIsOwner implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+		Article article = (Article) httpRequest.getAttribute("article");
+
+		User user = (User) httpRequest.getSession().getAttribute("userConnected");
 		
-		String id = (String) httpRequest.getParameter("id");
-		
-		if (id == null || id.isEmpty()) {
-			httpResponse.sendError(404);
+		if (article.getUserId() == user.getId()) {
+			httpRequest.setAttribute("article", article);
+			chain.doFilter(httpRequest, response);
 		} else {
-			try {
-				int articleId = Integer.parseInt(id);
-				
-				Article article = ArticlesManager.getArticleByArticleId(articleId);
-				
-				User user = (User) httpRequest.getSession().getAttribute("userConnected");
-				
-				if (article.getUserId() == user.getId()) {
-					httpRequest.setAttribute("article", article);
-					chain.doFilter(httpRequest, response);
-				} else {
-					httpResponse.sendRedirect(httpRequest.getContextPath() + "/auctions?id="+articleId);
-				}
-			} catch (Exception e) {
-				httpResponse.sendRedirect(httpRequest.getContextPath() + "/auctions");
-			}
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/auctions?id=" + article.getId());
 		}
 	}
 }

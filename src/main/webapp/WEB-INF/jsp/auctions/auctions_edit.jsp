@@ -11,7 +11,7 @@
 	<main>
 		<h1>Modifier l'article</h1>
 		<%@ include file="/WEB-INF/jspf/message.jspf" %>
-		<form method="POST" action="${pageContext.request.contextPath}/auctions/new">
+		<form method="POST" action="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name" value="${article.name}">
 			<br>

@@ -15,6 +15,7 @@ import fr.eni.projetencheres.bll.BidsManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.Bid;
+import fr.eni.projetencheres.bo.User;
 
 /**
  * Servlet implementation class ServletauctionsBid
@@ -40,32 +41,33 @@ public class ServletAuctionsBid extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		Article article = (Article) request.getAttribute("article");
 		
-		if (id == null || id.isEmpty()) {			
-			response.sendError(404);	
-		} else {
-			try {
-				int articleId = Integer.parseInt(id);
-				double amount = Double.parseDouble(request.getParameter("amount"));
-				
+		try {
+			double amount = Double.parseDouble(request.getParameter("amount"));
+		
+			User user = (User) request.getSession().getAttribute("userConnected");
+			
+			if (article.getUserId() == user.getId()) {
+				response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+			} else {
 				Bid bid = new Bid();
-				bid.setUserId(0);
-				bid.setArticleId(articleId);
+				bid.setUserId(user.getId());
+				bid.setArticleId(article.getId());
 				bid.setDate(LocalDate.now());
 				bid.setAmount(amount);
 				
 				BidsManager.addBid(bid);
 
 				request.setAttribute("message", "Enchère effectuée");
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
-			} catch (BusinessException e) {
-				request.setAttribute("message", e.getMessage());
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
-			} catch (NumberFormatException e) {
-				request.setAttribute("message", e.getMessage());
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
+				response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());	
 			}
+		} catch (BusinessException e) {
+			request.setAttribute("message", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+		} catch (NumberFormatException e) {
+			request.setAttribute("message", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
 		}
 	}
 }

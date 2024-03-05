@@ -26,22 +26,22 @@
 		</section>
 		<section class="actions">
 			<c:choose>
-				<c:when test="${user.id == article.userId}">
-					<a href="${pageContext.request.contextPath}/auctions/edit?id=${param.id}">Modifier</a>
-					<a href="${pageContext.request.contextPath}/auctions/delete?id=${param.id}">Supprimer</a>
+				<c:when test="${userConnected.id == article.userId}">
+					<a href="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">Modifier</a>
+				<form method="POST" action="${pageContext.request.contextPath}/auctions/delete?id=${article.id}">
+					<button type="submit">Supprimer</button>
+				</form>
 				</c:when>
 				<c:otherwise>
-					<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${param.id}">
-						<label for="bid">Crédits</label><br>
-						<input type="number" name="bid" id="bid" min="1" step="1" placeholder="1" required><br>
+					<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${article.id}">
+						<label for="amount">Crédits</label><br>
+						<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required><br>
 						<input type="submit" value="Enchérir">
 					</form>
 				</c:otherwise>
 			</c:choose>
 		</section>
 		<section class="bids">
-			User: ${user.id}
-			Article: ${article.userId}
 			<p>Nom Prénom XX crédits</p>
 			<p>Nom Prénom X crédits</p>
 			<p>Nom Prénom XXX crédits</p>

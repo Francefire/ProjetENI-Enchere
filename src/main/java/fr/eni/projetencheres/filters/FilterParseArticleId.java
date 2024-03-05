@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -14,27 +13,26 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.bll.ArticlesManager;
+import fr.eni.projetencheres.bo.Article;
 
 /**
- * Servlet Filter implementation class FilterIsLoggedIn
+ * Servlet Filter implementation class FilterParseArticleId
  */
 @WebFilter(
-		filterName = "IsLoggedIn",
+		filterName = "ParseArticleId", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = { 
 				"/auctions/bid",
 				"/auctions/delete",
-				"/auctions/edit",
-				"/auctions/new",
+				"/auctions/edit", 
 				"/encheres/encherir",
-				"/encheres/supprimer",
+				"/encheres/supprimer", 
 				"/encheres/modifier",
-				"/encheres/nouvelle",
 		}
 )
-public class FilterIsLoggedIn extends HttpFilter implements Filter {   
-    private static final long serialVersionUID = 1L;
+public class FilterParseArticleId extends HttpFilter implements Filter {
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -43,12 +41,25 @@ public class FilterIsLoggedIn extends HttpFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		
-		User user = (User) httpRequest.getSession().getAttribute("userConnected");
+		String id = (String) httpRequest.getParameter("id");
 		
-		if (user == null) {
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
+		if (id == null || id.isEmpty()) {
+			httpResponse.sendError(404);
 		} else {
-			chain.doFilter(request, response);
+			try {
+				int articleId = Integer.parseInt(id);
+				
+				Article article = ArticlesManager.getArticleByArticleId(articleId);
+				
+				if (article == null) {
+					httpResponse.sendError(404);
+				} else {
+					httpRequest.setAttribute("article", article);
+					chain.doFilter(httpRequest, response);
+				}
+			} catch (Exception e) {
+				httpResponse.sendRedirect(httpRequest.getContextPath() + "/auctions");
+			}
 		}
 	}
 }
