@@ -47,7 +47,7 @@
 		<br>
 	</div>
 	<div class="input-container">
-		<label for="editPassword">Changer de	 mot de passe</label> <input
+		<label for="editPassword">Changer de mot de passe</label> <input
 			type="password" name="editPassword" id="editPassword">
 	</div>
 	<div class="input-container">
