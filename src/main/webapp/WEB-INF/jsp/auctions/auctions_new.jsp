@@ -13,6 +13,11 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
 		<%@ include file="/WEB-INF/jspf/message.jspf" %>
+		<div class="container">
+		<h1>Nouvelle enchère</h1>
+		<div class="responsiveContainer" >
+		
+		<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="Image d'une enchère">
 		<form method="POST" action="${pageContext.request.contextPath}/auctions/new">
 			<label for="name">Nom</label><br>
 			<input type="text" name="name" id="name" placeholder="Chaise en bois" value="${param.name}" required><br>
@@ -29,7 +34,8 @@
 			<input type="file" id="image" name="image" accept="image/png, image/jpeg"><br>
 			<label for="categoryId">Catégorie</label>
 			<select name="categoryId" id="categoryId" required>
-				<option value="1">Catégorie temporaire</option>
+				<option value="1">Catégorie temporaire 1</option>
+				<option value="2">Catégorie temporaire 2</option>
 				<!--
 				<c:forEach items="${categories}" var="category">
 					<option value="${category.id}">${category.name}</option>
@@ -40,6 +46,8 @@
 			<input type="reset" value="Réinitialiser">
 			<input type="submit" value="Mettre en enchère">
 		</form>
+		</div>
+		</div>
 	</main>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
