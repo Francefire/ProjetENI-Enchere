@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<%@ include file="jspf/head.jspf"%>
+<%@ include file="../../jspf/head.jspf"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/assets/styles/user.css">
 </head>
 <body>
-	<%@ include file="jspf/header.jspf"%>
+	<%@ include file="../../jspf/header.jspf"%>
 	<main>
 		<c:choose>
 			<c:when test="${user == null}">
@@ -21,7 +21,7 @@
 			</c:otherwise>
 		</c:choose>
 	</main>
-	<%@ include file="jspf/footer.jspf"%>
+	<%@ include file="../../jspf/footer.jspf"%>
 	<script src="${pageContext.request.contextPath}/assets/js/user.js"></script>
 </body>
 </html>

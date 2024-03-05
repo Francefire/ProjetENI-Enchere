@@ -31,7 +31,7 @@ public class ServletUserEdit extends HttpServlet {
 			return;
 		}
 		request.setAttribute("user", u);
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/user.jsp");
+		RequestDispatcher rd = getServletContext().getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		rd.forward(request, response);
 	}
 
@@ -45,8 +45,9 @@ public class ServletUserEdit extends HttpServlet {
 			return;
 		}
 		String username = request.getParameter("editUsername");
+		String passwordValidation = request.getParameter("editPasswordValidation");
 		String password = request.getParameter("editPassword");
-		String confirmPassword = request.getParameter("editConfirmPassword");
+		String confirmEditPassword = request.getParameter("confirmEditPassword");
 		String firstName = request.getParameter("editFirstName");
 		String lastName = request.getParameter("editLastName");
 		String email = request.getParameter("editEmail");
@@ -54,11 +55,15 @@ public class ServletUserEdit extends HttpServlet {
 		String street = request.getParameter("editStreet");
 		String zipCode = request.getParameter("editZipCode");
 		String city = request.getParameter("editCity");
-		User editedUser = new User(u.getId(), username, lastName, firstName, email, phone, street, zipCode, city, password);
-
+		User editedUser = new User(u.getId(), username, lastName, firstName, email, phone, street, zipCode, city, passwordValidation);
+		editedUser.setCredit(u.getCredit());
+		editedUser.setAdmin(u.isAdmin());
 		try {
 			UserManager.checkUser(editedUser);
-			UserManager.comparePwd(editedUser.getPassword(), confirmPassword);
+			if (password != null && !password.isEmpty()) {
+				UserManager.comparePwd(password, confirmEditPassword);
+				editedUser.setPassword(password);
+			}
 			UserManager.editUser(editedUser);
 			request.getSession().setAttribute("userConnected", editedUser);
 			request.setAttribute("message", null);
@@ -69,7 +74,7 @@ public class ServletUserEdit extends HttpServlet {
 		//A definir si on garde dans la session ou la requete
 		
 		//redirection vers la servlet user
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		rd.forward(request, response);
 		
 	}

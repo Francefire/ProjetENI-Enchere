@@ -18,10 +18,10 @@ form {
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
-	margin-top: 5vh;
 	flex-wrap: wrap;
 	max-width: 600px;
 	min-width: 250px;
+	margin : 5vh 0 0 0;
 }
 * {
  	
@@ -176,3 +176,10 @@ form label {
 	color: var(--senary-color);
 	min-width: fit-content;
 }
+
+.half-spacer {
+	width: 40%;
+
+ }
+
+	

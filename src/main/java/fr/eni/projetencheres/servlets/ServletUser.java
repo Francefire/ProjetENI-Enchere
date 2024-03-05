@@ -29,7 +29,7 @@ public class ServletUser extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User userConnected = (User) session.getAttribute("userConnected");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		String idParam = request.getParameter("id");
 		User u = null;
 		if (userConnected == null) {

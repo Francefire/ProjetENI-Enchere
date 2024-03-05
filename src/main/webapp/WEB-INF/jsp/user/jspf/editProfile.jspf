@@ -39,19 +39,24 @@
 		<label for="editCity">Ville</label> <input type="text" name="editCity"
 			id="editCity" value="${userConnected.getCity()}">
 	</div>
+	<div class="input-container password">
+		<label for="passwordValidation">Mot de passe</label> <input
+			type="password" name="passwordValidation" id="passwordValidation" required>
+	</div>
+		<div class="half-spacer"></div>
 	<div class="input-container">
 		<label for="editPassword">Nouveau mot de passe</label> <input
-			type="password" name="editPassword" id="editPassword" required>
+			type="password" name="editPassword" id="editPassword">
 	</div>
 	<div class="input-container">
-		<label for="editConfirmPassword">Confirmer le mot de passe</label> <input
-			type="password" name="editConfirmPassword" id="editConfirmPassword" required>
+		<label for="confirmEditPassword">Confirmer le mot de passe</label> <input
+			type="password" name="confirmEditPassword" id="confirmEditPassword">
 	</div>
 	<div class="rounded">
 		<br>
 	</div>
 	<div>
-		<input type="submit" value="Annuler" id="cancelEdit"> <input
+		<input type="button" value="Annuler" id="cancelEdit"> <input
 			type="submit" value="Valider"> <input type="button"
 			value="Supprimer le compte" id="deleteButton">
 	</div>
