@@ -10,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
-import fr.eni.projetencheres.dal.ArticleDAO;
-import fr.eni.projetencheres.ihm.Breadcrumb;
 
 /**
  * Servlet implementation class ServletHome

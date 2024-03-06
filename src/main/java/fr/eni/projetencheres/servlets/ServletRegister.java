@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
-import fr.eni.projetencheres.ihm.Breadcrumb;
 
 /**
  * Servlet implementation class ServletCreateAccount
