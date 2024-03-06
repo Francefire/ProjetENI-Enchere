@@ -19,8 +19,8 @@
 		<c:if test="${!empty error}">
 			<h2 class="msgBox">${error}</h2>
 		</c:if>
-		<c:if test="${!empty message}">
-			<h2 class="msgBox">${message}</h2>
+		<c:if test="${!empty param.targetUrl}">
+			<h2 class="msgBox">Vous devez être connecté pour accéder à cette page.</h2>
 		</c:if>
 
 		<div class="container">

@@ -15,27 +15,25 @@ import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
 
-
-
-
 //TODO:	 faire quelque chose de "se souvenir de moi"
 //TODO : faire quelque chose de "mot de passe oublié"		
 //TODO : déplacer les jsp dans un unique dossier 
 //TODO : mettre contrainte unicité sur le pseudo
 
-
 /**
  * Servlet implementation class ServletSeConnecter
  */
-@WebServlet("/Login")
+@WebServlet({ "/login", "/Login" })
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private final int timing = 1296000 ; //durée équivalente à 15jours
+	private final int timing = 1296000; // durée équivalente à 15jours
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 		rd.forward(request, response);
 	}
@@ -44,41 +42,48 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String userName, password;
 		String rememberMe = request.getParameter("rememberMe");
 		Cookie cook = null;
 		User u;
-		int cookieTimeLife = 1296000 ; //définit la durée de vie du cookie (en secondes -- 15jours)
-		int pingTimeOut = 3000; //définit la durée de vie de la session (en secondes -- 5min).
-		
-		
+		int cookieTimeLife = 1296000; // définit la durée de vie du cookie (en secondes -- 15jours)
+		int pingTimeOut = 3000; // définit la durée de vie de la session (en secondes -- 5min).
+
 		// Mise en place de la session
-		HttpSession session = request.getSession(); // cette méthode retourne une nouvelle session si aucune session n'existe
-		
+		HttpSession session = request.getSession(); // cette méthode retourne une nouvelle session si aucune session
+													// n'existe
+
 		// vérification avec la BDD des infos fournies par l'user.
 		userName = request.getParameter("UserName");
 		password = request.getParameter("Password");
 		rememberMe = request.getParameter("rememberMe");
 		RequestDispatcher rd = null;
-		
+
 		try {
 			u = UserManager.login(userName, password);
 			System.out.println("je suis dans le login");
 // 				*********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
-					if (rememberMe != null) {
-						cook = new Cookie("lastLogin", u.getUsername());
-						cook.setMaxAge(cookieTimeLife);
-						response.addCookie(cook);
-					}
+			if (rememberMe != null) {
+				cook = new Cookie("lastLogin", u.getUsername());
+				cook.setMaxAge(cookieTimeLife);
+				response.addCookie(cook);
+			}
 //				***********************************************************
-					session.setAttribute("userConnected", u);
-					System.out.println("je suis connecté");
-					
-					//Destruction de la session au bout de x min 
-					session.setMaxInactiveInterval(pingTimeOut) ; 
-					response.sendRedirect(request.getContextPath() + "/home");
-					rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			session.setAttribute("userConnected", u);
+			System.out.println("je suis connecté");
+
+			// Destruction de la session au bout de x min
+
+			session.setMaxInactiveInterval(pingTimeOut);
+			if (request.getParameter("targetUrl") != null) {
+				System.out.println(request.getContextPath());
+				response.sendRedirect(request.getContextPath() + request.getParameter("targetUrl"));
+			} else {
+				response.sendRedirect(request.getContextPath() + "/home");
+				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			}
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
@@ -105,4 +110,3 @@ public class ServletLogin extends HttpServlet {
 //	System.out.println("Ping TimeOut dépassé : vous êtes déconnecté");
 //	}
 //***********************************************************
-

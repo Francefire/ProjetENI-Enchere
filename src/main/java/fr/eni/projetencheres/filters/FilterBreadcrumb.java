@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @WebFilter(
 		filterName = "Breadcrumb",
-		dispatcherTypes = { DispatcherType.REQUEST }, 
+		dispatcherTypes = { DispatcherType.REQUEST}, 
 		urlPatterns = { "/*"}
 )
 public class FilterBreadcrumb extends HttpFilter implements Filter {
@@ -38,9 +38,10 @@ public class FilterBreadcrumb extends HttpFilter implements Filter {
 		System.out.println("----------FilterBreadcrumb----------");
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		System.out.println(httpRequest.getServletPath());
-		List<String> breadcrumb = new ArrayList<>();
-		breadcrumb = Arrays.asList(httpRequest.getServletPath().split("/"));
+		List<String> breadcrumb = Arrays.asList(httpRequest.getServletPath().split("/"));
+		
 		System.out.println(breadcrumb);
+		
 		request.setAttribute("breadcrumb", breadcrumb);
 
 		// pass the request along the filter chain
