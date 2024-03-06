@@ -35,3 +35,14 @@ document.getElementById('cancelDelete').addEventListener('click', function() {
 	showForm.style.display = 'none';
 	deleteForm.style.display = 'none';
 });
+confirmEditPassword = document.getElementById('confirmEditPassword');
+document.getElementById('editPassword').addEventListener('input', function() {
+console.log(confirmEditPassword);
+	if (this.value.length > 0) {
+		this.setAttribute("required", "");
+		confirmEditPassword.setAttribute("required", "");
+	} else {
+		this.setAttribute("required", "");
+		confirmEditPassword.setAttribute("required", "");
+	}
+});

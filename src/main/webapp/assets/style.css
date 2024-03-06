@@ -17,6 +17,11 @@
 	font-family: var(--primary-font);
 }
 
+img {
+	display: block;
+	max-width: 100%;
+}
+
 header {
 	background-color: var(--quaternary-color);
 	color: var(--quinary-color);

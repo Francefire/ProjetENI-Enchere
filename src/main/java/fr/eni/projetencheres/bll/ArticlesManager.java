@@ -6,7 +6,6 @@ import java.util.List;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.dal.ArticleDAO;
 import fr.eni.projetencheres.dal.DAOFactory;
-import fr.eni.projetencheres.servlets.ServletAuctions;
 
 public class ArticlesManager {
 	private static ArticleDAO articleDAO;

@@ -15,6 +15,7 @@ public class User {
 	private String password;
 	private int credit;
 	private boolean admin;
+	private boolean disabled;
 
 //	notre premier constructeur vide, celui par défaut
 	public User() {
@@ -146,5 +147,19 @@ public class User {
 	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
+
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", lastName=" + lastName + ", firstName=" + firstName
+				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", street=" + street + ", zipCode=" + zipCode
+				+ ", city=" + city + ", password=" + password + ", credit=" + credit + ", admin=" + admin + "]";
+	}
 }

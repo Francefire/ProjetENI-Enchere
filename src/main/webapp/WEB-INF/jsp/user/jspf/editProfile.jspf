@@ -32,26 +32,33 @@
 			id="editStreet" value="${userConnected.getStreet()}">
 	</div>
 	<div class="input-container">
-		<label for="editZipCode">Code postal</label> <input type="text"
+		<label for="editZipCode">Code postal</label> <input type="text" pattern="[0-9]*"
 			name="editZipCode" id="editZipCode" value="${userConnected.getZipCode()}">
 	</div>
 	<div class="input-container">
 		<label for="editCity">Ville</label> <input type="text" name="editCity"
 			id="editCity" value="${userConnected.getCity()}">
 	</div>
-	<div class="input-container">
-		<label for="editPassword">Nouveau mot de passe</label> <input
-			type="password" name="editPassword" id="editPassword" required>
+	<div class="input-container password">
+		<label for="passwordValidation">Mot de passe</label> <input
+			type="password" name="passwordValidation" id="passwordValidation" required>
+	</div>
+	<div class="rounded">
+		<br>
 	</div>
 	<div class="input-container">
-		<label for="editConfirmPassword">Confirmer le mot de passe</label> <input
-			type="password" name="editConfirmPassword" id="editConfirmPassword" required>
+		<label for="editPassword">Changer de mot de passe</label> <input
+			type="password" name="editPassword" id="editPassword">
+	</div>
+	<div class="input-container">
+		<label for="confirmEditPassword">Confirmer le mot de passe</label> <input
+			type="password" name="confirmEditPassword" id="confirmEditPassword">
 	</div>
 	<div class="rounded">
 		<br>
 	</div>
 	<div>
-		<input type="submit" value="Annuler" id="cancelEdit"> <input
+		<input type="button" value="Annuler" id="cancelEdit"> <input
 			type="submit" value="Valider"> <input type="button"
 			value="Supprimer le compte" id="deleteButton">
 	</div>
@@ -100,7 +107,7 @@
 </form>
 <form action="${pageContext.request.contextPath}/user/delete"
 	method="post" class="delete">
-	<h2>Êtes vous sur de vouloir supprimer votre compte ?</h2>
+	<h2>ï¿½tes vous sur de vouloir supprimer votre compte ?</h2>
 	<h4>Entrez votre mot deux fois afin de confirmer la suppresion</h4>
 	<div>
 		<label for="deletePassword">Mot de passe</label> <input type="password"

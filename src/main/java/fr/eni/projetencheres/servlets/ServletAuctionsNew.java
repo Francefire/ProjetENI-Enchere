@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.bo.User;
 
 /**
  * Servlet implementation class ServletauctionsNew
@@ -33,8 +34,7 @@ public class ServletAuctionsNew extends HttpServlet {
 		// List<Category> categories = CategoriesManager.getAllCategories();
 		// request.setAttribute("categories", categories);
 
-		//TODO Add dateNow attribute to auction_new.jsp and set it as default date for startDate and endDate fields 
-		//request.setAttribute("dateNow", LocalDate.now());
+		request.setAttribute("dateNow", LocalDate.now());
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 	}
@@ -51,7 +51,7 @@ public class ServletAuctionsNew extends HttpServlet {
 			LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
 			LocalDate endDate = LocalDate.parse(request.getParameter("endDate"), formatter);
 			double initialPrice = Double.parseDouble(request.getParameter("initialPrice"));
-			//User user = (User) request.getSession().getAttribute("user");
+			User user = (User) request.getSession().getAttribute("userConnected");
 			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
 			Article article = new Article();
@@ -60,8 +60,8 @@ public class ServletAuctionsNew extends HttpServlet {
 			article.setStartDate(startDate);
 			article.setEndDate(endDate);
 			article.setInitialPrice(initialPrice);
-			//article.setUserId(user.getId());
-			article.setUserId(0);
+			article.setSellingPrice(initialPrice);
+			article.setUserId(user.getId());
 			article.setCategoryId(categoryId);
 			
 			ArticlesManager.addArticle(article);

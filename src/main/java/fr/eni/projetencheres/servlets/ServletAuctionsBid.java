@@ -1,20 +1,18 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.List;
-
+import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BidsManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.Bid;
+import fr.eni.projetencheres.bo.User;
 
 /**
  * Servlet implementation class ServletauctionsBid
@@ -40,29 +38,37 @@ public class ServletAuctionsBid extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		Article article = (Article) request.getAttribute("article");
 		
-		if (id == null || id.isEmpty()) {			
-			response.sendError(404);	
-		} else {
-			try {
-				int articleId = Integer.parseInt(id);
-				double amount = Double.parseDouble(request.getParameter("amount"));
-				
-				Bid bid = new Bid();
-				bid.setUserId(0);
-				bid.setArticleId(articleId);
-				bid.setDate(LocalDate.now());
-				bid.setAmount(amount);
-				
-				BidsManager.addBid(bid);
+		try {
+			double amount = Double.parseDouble(request.getParameter("amount"));
+		
+			User user = (User) request.getSession().getAttribute("userConnected");
+			
+			if (article.getUserId() == user.getId()) {
+				response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+			} else {
+				if (user.getCredit() < article.getSellingPrice()+1) {
+					response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());	
+				} else {
+					Bid bid = new Bid();
+					bid.setUserId(user.getId());
+					bid.setArticleId(article.getId());
+					bid.setDateTime(LocalDateTime.now());
+					bid.setAmount(amount);
+					
+					BidsManager.addBid(bid);
 
-				request.setAttribute("message", "Enchère effectuée");
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
-			} catch (Exception e) {
-				request.setAttribute("message", e.getMessage());
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);
+					request.setAttribute("message", "Enchère effectuée");
+					response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());	
+				}
 			}
+		} catch (BusinessException e) {
+			request.setAttribute("message", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+		} catch (NumberFormatException e) {
+			request.setAttribute("message", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
 		}
 	}
 }
