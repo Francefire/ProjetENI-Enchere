@@ -37,7 +37,6 @@ public class ServletHome extends HttpServlet {
 //	        // Gérer les exceptions
 //	    }
 	    request.setAttribute("articles", articles);
-	    request.setAttribute("breadcrumb", Breadcrumb.breadcrumb(request));
 	    
 	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	    rd.forward(request, response);

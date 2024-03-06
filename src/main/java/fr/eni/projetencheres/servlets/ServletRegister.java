@@ -28,7 +28,6 @@ public class ServletRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Breadcrumb" + Breadcrumb.breadcrumb(request));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
 	}
 
