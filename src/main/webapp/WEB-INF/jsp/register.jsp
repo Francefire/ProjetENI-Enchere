@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="jspf/head.jspf"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styleRegister.css">
+<%@ include file="/WEB-INF/jspf/head.jspf"%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/style_register.css">
 </head>
 <body>
-<%@ include file="jspf/header.jspf"%>
+<%@ include file="/WEB-INF/jspf/header.jspf"%>
 <!-- <div class="breadcrumb"> -->
 <!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil</a> &raquo; -->
 <!--     <span>Créer un compte</span> -->
@@ -103,5 +103,5 @@
 	 	</section>
 </main>
 </body>
-<%@ include file="jspf/footer.jspf"%>
+<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </html>

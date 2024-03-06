@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="jspf/head.jspf"%>
+<%@ include file="/WEB-INF/jspf/head.jspf"%>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/assets/styleLogin.css">
+	href="${pageContext.request.contextPath}/assets/style_login.css">
 </head>
 <body>
-	<%@ include file="jspf/header.jspf"%>
+	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<!-- <div class="breadcrumb"> -->
 	<!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</a> &raquo; -->
 	<!--     <span>Se connecter</span> -->
@@ -57,6 +57,6 @@
 			</div>
 		</div>
 	</main>
-	<%@ include file="jspf/footer.jspf"%>
+	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>
 </html>
