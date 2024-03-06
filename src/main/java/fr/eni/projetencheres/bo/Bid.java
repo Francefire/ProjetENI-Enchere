@@ -48,13 +48,15 @@ public class Bid {
 	public void setAmount(double total) {
 		this.amount = total;
 	}
-
-	@Override
-	public String toString() {
-		return "Bid [userId=" + userId + ", articleId=" + articleId + ", datetime=" + datetime + ", amount=" + amount
-				+ "]";
-	}
-	
-	
+	// ToString *
+    @Override
+    public String toString() {
+        return "Bid{" +
+                "userId=" + userId +
+                ", articleId=" + articleId +
+                ", date=" + datetime +
+                ", amount=" + amount +
+                '}';
+    }
 	
 }
