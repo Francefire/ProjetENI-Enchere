@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.dal.ArticleDAO;
+import fr.eni.projetencheres.ihm.Breadcrumb;
 
 /**
  * Servlet implementation class ServletHome
@@ -26,13 +27,18 @@ public class ServletHome extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Article> articles = null;
-	    try {
-	        ArticleDAO articleDAO = new ArticleDAO();
-	        articles = articleDAO.selectAllArticles();
-	    } catch (BusinessException e) {
-	        // Gérer les exceptions
-	    }
+//		List<String> breadCrumb 
+//		Article = articleManager.getAllArticles();
+		
+//		try {
+//	        ArticleDAO articleDAO = new ArticleDAO();
+//	        articles = articleDAO.selectAllArticles();
+//	    } catch (BusinessException e) {
+//	        // Gérer les exceptions
+//	    }
 	    request.setAttribute("articles", articles);
+	    request.setAttribute("breadcrumb", Breadcrumb.breadcrumb(request));
+	    
 	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 	    rd.forward(request, response);
 	}

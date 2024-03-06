@@ -12,14 +12,14 @@ public class Article {
 	private double sellingPrice;
 	private String auctionState;
 	private int userId;
-	private int categoryId;
+	private int categoryId;   // Nouvel attribut pour la référence à la catégorie *
 
 	public Article() {
 
 	}
-
-	public Article(String name, String description, LocalDate startDate, LocalDate endDate, double initialPrice,
-			double sellingPrice, String auctionState, int userId, int categoryId) {
+	
+	public Article(String name, String description, LocalDate startDate, LocalDate endDate,
+			double initialPrice, double sellingPrice, String auctionState, int userId, int categoryId) {
 		this.name = name;
 		this.description = description;
 		this.startDate = startDate;
@@ -31,8 +31,8 @@ public class Article {
 		this.categoryId = categoryId;
 	}
 
-	public Article(int id, String name, String description, LocalDate startDate, LocalDate endDate,
-			double initialPrice, double sellingPrice, String auctionState, int userId, int categoryId) {
+	public Article(int id, String name, String description, LocalDate startDate, LocalDate endDate, double initialPrice,
+			double sellingPrice, String auctionState, int userId, int categoryId) {
 		this(name, description, startDate, endDate, initialPrice, sellingPrice, auctionState, userId, categoryId);
 		this.id = id;
 	}
@@ -116,4 +116,21 @@ public class Article {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
+    // ToString *
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", initialPrice=" + initialPrice +
+                ", sellingPrice=" + sellingPrice +
+                ", auctionState='" + auctionState + '\'' +
+                ", userId=" + userId +
+                ", categoryId=" + categoryId +
+                '}';
+    }
 }
