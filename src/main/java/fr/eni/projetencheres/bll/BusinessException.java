@@ -10,7 +10,9 @@ public class BusinessException extends Exception {
 
 	public static final String DAL_INSERT_BID_SQLEXCEPTION = "Erreur lors de l'insertion de l'enchère dans la base de données";
 	public static final String DAL_SELECT_BID_SQLEXCEPTION = "Erreur lors de l'obtention d'enchères dans la base de données";
+	
 	public static final String DAL_INSERT_USER_SQLEXCEPTION = "Erreur lors de la création du compte";
+	public static final String DAL_UPDATE_USER_CREDITS = "Erreur lors de la mise à jour des crédits de l'utilisateur";
 
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
 

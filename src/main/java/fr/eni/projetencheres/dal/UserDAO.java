@@ -15,8 +15,10 @@ public interface UserDAO {
 	public User selectByUsername(String username);
 
 	public User selectByEmail(String email);
-
+	
 	public void update(User user);
+	
+	public void updateCreditsForUser(double amount, int userId) throws BusinessException;
 
 	public void delete(int id);
 

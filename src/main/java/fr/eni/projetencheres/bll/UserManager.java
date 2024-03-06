@@ -76,6 +76,12 @@ public class UserManager {
 	public static void editUser(User u) {
 		UserManager.getInstance().update(u);
 	}
+	
+	public static void addCreditsToUser(double amount, int userId) throws BusinessException {
+		Utils.verifyMoneyField("montant", amount, 1);
+		
+		UserManager.getInstance().updateCreditsForUser(amount, userId);
+	}
 
 	public static void deleteUser(int userId) {
 		UserManager.getInstance().delete(userId);

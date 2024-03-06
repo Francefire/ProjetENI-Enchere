@@ -3,6 +3,8 @@ package fr.eni.projetencheres.dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetencheres.bll.BusinessException;
@@ -16,6 +18,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private static final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?";
 	private static final String SELECT_ALL_USERS = "SELECT * FROM UTILISATEURS";
 	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
+	private static final String UPDATE_CREDITS_FOR_USER = "UPDATE UTILISATEURS SET credit=credit+? WHERE no_utilisateur=?";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 
@@ -135,7 +138,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	
 	@Override
 	public List<User> selectAllUsers() {
-		List<User> users = null;
+		List<User> users = new ArrayList<User>();
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_USERS);
 
@@ -184,6 +187,19 @@ public class UserDAOJdbcImpl implements UserDAO {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@Override
+	public void updateCreditsForUser(double credits, int userId) throws BusinessException {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDITS_FOR_USER);
+			pstmt.setDouble(1, credits);
+			pstmt.setInt(2, userId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BusinessException(BusinessException.DAL_UPDATE_USER_CREDITS);
+		}
 	}
 
 	@Override
