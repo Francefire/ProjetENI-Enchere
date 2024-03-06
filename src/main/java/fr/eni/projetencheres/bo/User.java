@@ -1,4 +1,6 @@
 package fr.eni.projetencheres.bo;
+
+
 //Classe permettant de définir un utilisateur, "qu'est ce qui le caractérise" ? 
 public class User {
 	private int id;
@@ -13,15 +15,18 @@ public class User {
 	private String password;
 	private int credit;
 	private boolean admin;
+	private boolean disabled;
 
 //	notre premier constructeur vide, celui par défaut
 	public User() {
 		this.credit = 0;
 		this.admin = false;
+
 	}
-	
+
 //constructeur qui permettra la création de l'user via l'interface ihm (site internet) : ce constructeur ne servira QUE lors de la création de sa fiche
-	public User(String username, String lastName, String firstName, String email, String phoneNumber, String street,String zipCode, String city, String password) {
+	public User(String username, String lastName, String firstName, String email, String phoneNumber, String street,
+			String zipCode, String city, String password) {
 		this();
 		this.username = username;
 		this.lastName = lastName;
@@ -32,21 +37,23 @@ public class User {
 		this.zipCode = zipCode;
 		this.city = city;
 		this.password = password;
+
 	}
-	
+
 //constructeur qui permettra de créer un user si on connait déjà son id - (lorsqu'il est déjà inscrit, et qu'il se connecte)
 	public User(int id, String username, String lastName, String firstName, String email, String phoneNumber,
 			String street, String zipCode, String city, String password) {
 		this(username, lastName, firstName, email, phoneNumber, street, zipCode, city, password);
 		this.id = id;
 	}
-	
-	//Constructuer qui permet de creer une copie de l'utilisateur
+
+	// Constructuer qui permet de creer une copie de l'utilisateur
 	public User(User u) {
 		this(u.id, u.username, u.lastName, u.firstName, u.email, u.phoneNumber, u.street, u.zipCode, u.city,
 				u.password);
 		this.credit = u.credit;
 		this.admin = u.admin;
+
 	}
 
 	public int getId() {
@@ -145,4 +152,18 @@ public class User {
 		this.admin = admin;
 	}
 
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", lastName=" + lastName + ", firstName=" + firstName
+				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", street=" + street + ", zipCode=" + zipCode
+				+ ", city=" + city + ", password=" + password + ", credit=" + credit + ", admin=" + admin + "]";
+	}
 }

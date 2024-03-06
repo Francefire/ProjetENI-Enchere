@@ -33,7 +33,7 @@ public class ServletUserDelete extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		User u = (User) request.getSession().getAttribute("userConnected");
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		String password = request.getParameter("deletePassword");
 		String confirmPassword = request.getParameter("deleteConfirmPassword");
 		if (u == null) {
@@ -49,7 +49,7 @@ public class ServletUserDelete extends HttpServlet {
 			rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
-			rd = request.getRequestDispatcher("/WEB-INF/user.jsp");
+			rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		}
 
 		rd.forward(request, response);

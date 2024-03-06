@@ -1,7 +1,6 @@
 package fr.eni.projetencheres.dal;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +28,7 @@ public class BidDAO {
 
 			connection.close();	
 		} catch (SQLException e) {
-			throw new BusinessException(BusinessException.DAL_INSERT_BID_SQLEXCEPTION);
+			throw new BusinessException(BusinessException.DAL_INSERT_BID_SQLEXCEPTION, e);
 		}
 	}
 
@@ -61,4 +60,14 @@ public class BidDAO {
 
 		return bids;
 	}
+	
+	// une méthode utilitaire pour convertir un objet ResultSet (résultat d'une requête SQL) en un objet de type Bid *
+	 public Bid selectBid(ResultSet rs) throws SQLException {
+	        Bid bid = new Bid();
+	        bid.setUserId(rs.getInt("no_utilisateur"));
+	        bid.setArticleId(rs.getInt("no_article"));
+	        bid.setDate(rs.getDate("date_enchere").toLocalDate());
+	        bid.setAmount(rs.getDouble("montant_enchere"));
+	        return bid;
+	    }
 }
