@@ -1,5 +1,7 @@
 package fr.eni.projetencheres.dal;
 
+import java.util.List;
+
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.User;
 
@@ -21,4 +23,6 @@ public interface UserDAO {
 	public User login(String userName, String Password) throws BusinessException;
 
 	public int check(String userName, String password) throws BusinessException;
+
+	public List<User> selectAllUsers();
 }

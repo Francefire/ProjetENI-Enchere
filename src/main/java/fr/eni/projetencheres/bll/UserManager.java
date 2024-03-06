@@ -49,13 +49,14 @@ public class UserManager {
 	}
 
 	public static User login(String userName, String password) throws BusinessException {
-//			String pass = User.hashPwd(password);
-//			User u = UserDAO.check(userName, pass);
-		int u_id = UserManager.getInstance().check(userName, password);
-		if (u_id < 1) {
+		int userId = UserManager.getInstance().check(userName, password);
+		
+		if (userId < 1) {
 			throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 		}
-		User user = UserManager.getInstance().selectById(u_id);
+		
+		User user = UserManager.getInstance().selectById(userId);
+		
 		return user;
 	}
 
@@ -66,6 +67,10 @@ public class UserManager {
 		} catch (BusinessException e) {
 			throw new BusinessException(e.getMessage());
 		}
+	}
+	
+	public static void getAllUsers() throws BusinessException {
+		UserManager.getInstance().selectAllUsers();
 	}
 
 	public static void editUser(User u) {
@@ -119,15 +124,4 @@ public class UserManager {
 		}
 
 	}
-
-	// création d'une méthode pour se connecter
-//		public static login(String username, String password) throws BusinessException {
-//		String pass = User.hashPwd(pwd);
-//		System.out.println(pass);
-//		User u = user.login(username, password); ;
-//
-//		return 
-
-//		}
-
 }
