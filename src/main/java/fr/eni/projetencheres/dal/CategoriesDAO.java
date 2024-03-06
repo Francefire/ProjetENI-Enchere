@@ -12,23 +12,23 @@ import fr.eni.projetencheres.bo.Category;
 
 public class CategoriesDAO {
 
-private static final String SQL_SELECT_ALL_LIBELLE = "SELECT libelle FROM CATEGORIES";
+private static final String SQL_SELECT_ALL_LABELS = "SELECT libelle FROM CATEGORIES";
 private static final String SELECT_ALL_FROM_CATEGORIES = "SELECT * FROM CATEGORIES";
 	
-public List<String> selectAllLibelle() throws BusinessException {
-	List<String> categorie = new ArrayList<String>();
+public List<String> selectAllLabels() throws BusinessException {
+	List<String> categories = new ArrayList<String>();
 
 	try {
 		Connection connection = ConnectionProvider.getConnection();
 
-		PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_LIBELLE);
+		PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_LABELS);
 
 		ResultSet rs = statement.executeQuery(); //stockage du résultat de la requête, ds rs
 
 		while (rs.next()) {
 			System.out.println(rs.getString("libelle"));
 
-			categorie.add(rs.getString("libelle"));
+			categories.add(rs.getString("libelle"));
 		}
 
 		connection.close();	
@@ -37,10 +37,10 @@ public List<String> selectAllLibelle() throws BusinessException {
 		throw new BusinessException("Erreur lors de la récupération des libellés de catégorie", e);
 	}
 
-	return categorie;
+	return categories;
 }
-public List<Category> selectAllCategory() throws BusinessException {
-	List<Category> categoryList = new ArrayList<Category>();
+public List<Category> selectAllCategories() throws BusinessException {
+	List<Category> categories = new ArrayList<Category>();
 
 	try {
 		Connection connection = ConnectionProvider.getConnection();
@@ -52,7 +52,7 @@ public List<Category> selectAllCategory() throws BusinessException {
 		while (rs.next()) {
 			System.out.println(rs.getString("no_categorie"));
 			Category cate = new Category(rs.getInt("no_categorie"),rs.getString("libelle"));
-			categoryList.add(cate);
+			categories.add(cate);
 		}
 
 		connection.close();	
@@ -61,6 +61,6 @@ public List<Category> selectAllCategory() throws BusinessException {
 		throw new BusinessException("Erreur lors de la récupération des libellés de catégorie", e);
 	}
 
-	return categoryList;
+	return categories;
 }
 }
