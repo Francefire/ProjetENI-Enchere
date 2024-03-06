@@ -16,22 +16,42 @@
 		<section class="article">
 			<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="Article placeholder" width="800" height="400"> 
 			<div>
-				<h1>Nom article</h1>
-				<span>?? crédits</span>
-				<p>Description article</p>
+				<h1>${article.name}</h1>
+				<span>${article.sellingPrice} crédits</span>
+				<p>${article.description}</p>
 			</div>
 		</section>
 		<section class="seller">
 			<h1>Nom vendeur</h1>
-			<a href="${pageContext.request.contextPath}/auctions/edit?id=${param.id}">Modifier</a>
-			<a href="${pageContext.request.contextPath}/auctions/delete?id=${param.id}">Supprimer</a>
-			<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${param.id}">
-				<label for="bid">Crédits</label><br>
-				<input type="number" name="bid" id="bid" min="0.00" step="1" required><br>
-				<input type="submit" value="Enchérir">
-			</form>
 		</section>
-		<section class="auctions">
+		<section class="actions">
+			<c:if test="${not empty userConnected}">
+				<c:choose>
+					<c:when test="${userConnected.id == article.userId}">
+						<a href="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">Modifier</a>
+					<form method="POST" action="${pageContext.request.contextPath}/auctions/delete?id=${article.id}">
+						<button type="submit">Supprimer</button>
+					</form>
+					</c:when>
+					<c:otherwise>
+							<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${article.id}">
+								<label for="amount">Crédits</label><br>
+								<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required 
+								<c:if test="${userConnected.credit < article.sellingPrice+1}">
+									disabled
+								</c:if>
+								><br>
+								<button type="submit" value="" 
+								<c:if test="${userConnected.credit < article.sellingPrice+1}">
+									disabled
+								</c:if>
+								>Enchérir</button>
+							</form>
+					</c:otherwise>
+				</c:choose>
+			</c:if>
+		</section>
+		<section class="bids">
 			<p>Nom Prénom XX crédits</p>
 			<p>Nom Prénom X crédits</p>
 			<p>Nom Prénom XXX crédits</p>

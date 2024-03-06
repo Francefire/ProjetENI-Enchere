@@ -1,19 +1,20 @@
 package fr.eni.projetencheres.bo;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Bid {
 	private int userId;
 	private int articleId;
-	private LocalDate date;
+	private LocalDateTime datetime;
 	private double amount;
 	
 	public Bid() {
 		
 	}
 	
-	public Bid(LocalDate date, double amount) {
-		this.date = date;
+	public Bid(LocalDateTime datetime, double amount) {
+		this.datetime = datetime;
 		this.amount = amount;
 	}	
 	
@@ -33,12 +34,12 @@ public class Bid {
 		this.articleId = bidId;
 	}
 
-	public LocalDate getDate() {
-		return date;
+	public LocalDateTime getDateTime() {
+		return datetime;
 	}
 
-	public void setDate(LocalDate date) {
-		this.date = date;
+	public void setDateTime(LocalDateTime localDateTime) {
+		this.datetime = localDateTime;
 	}
 
 	public double getAmount() {
