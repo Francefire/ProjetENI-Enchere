@@ -15,7 +15,7 @@ public class BusinessException extends Exception {
 	public static final String BLL_LOGIN_USER_EXCEPTION = "Erreur lors de votre connexion ; vérifiez votre pseudo ou mot de passe";
 
 	public static final String BLL_ADD_ARTICLE_START_DATE_AFTER_END_DATE_ERROR = "La date du début de l'enchère ne peut pas être après la fin de celle-ci";
-	public static final String BLL_GET_ARTICLE_NULL = "L'article n'a pu être trouvé";
+	public static final String BLL_GET_ARTICLE_NULL = "L'article n'a pas pu être trouvé";
 	public static final String BLL_GET_ALL_ARTICLES_NULL = "Aucuns articles n'ont pu être trouvés";
 
 	public static final String BLL_FIELD_EMPTY_ERROR = "Le %s doit être renseigné";

@@ -1,6 +1,5 @@
 package fr.eni.projetencheres.bo;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Bid {

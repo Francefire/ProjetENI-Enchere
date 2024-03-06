@@ -1,18 +1,13 @@
 package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BidsManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
@@ -26,7 +21,6 @@ import fr.eni.projetencheres.bo.User;
 public class ServletAuctionsBid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
