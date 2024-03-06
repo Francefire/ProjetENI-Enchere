@@ -17,7 +17,7 @@ import fr.eni.projetencheres.bo.User;
 /**
  * Servlet implementation class ServletUserDelete
  */
-@WebServlet("/user/delete")
+@WebServlet("/utilisateur/supprimer")
 public class ServletUserDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

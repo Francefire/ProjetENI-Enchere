@@ -15,9 +15,9 @@ import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.bo.User;
 
 /**
- * Servlet implementation class ServletauctionsBid
+ * Servlet implementation class ServletAuctionsBid
  */
-@WebServlet({"/auctions/bid", "/encheres/encherir"})
+@WebServlet("/encheres/encherir")
 public class ServletAuctionsBid extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +30,7 @@ public class ServletAuctionsBid extends HttpServlet {
 		if (id == null || id.isEmpty()) {
 			response.sendError(404);
 		} else {
-			response.sendRedirect(request.getContextPath() + "/auctions?id=" + id);	
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + id);	
 		}
 	}
 
@@ -46,10 +46,10 @@ public class ServletAuctionsBid extends HttpServlet {
 			User user = (User) request.getSession().getAttribute("userConnected");
 			
 			if (article.getUserId() == user.getId()) {
-				response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+				response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 			} else {
 				if (user.getCredit() < article.getSellingPrice()+1) {
-					response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());	
+					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());	
 				} else {
 					Bid bid = new Bid();
 					bid.setUserId(user.getId());
@@ -60,15 +60,15 @@ public class ServletAuctionsBid extends HttpServlet {
 					BidsManager.addBid(bid);
 
 					request.setAttribute("message", "Enchère effectuée");
-					response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());	
+					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());	
 				}
 			}
 		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
-			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (NumberFormatException e) {
 			request.setAttribute("message", e.getMessage());
-			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		}
 	}
 }

@@ -18,7 +18,7 @@ import fr.eni.projetencheres.bo.Article;
 /**
  * Servlet implementation class ServletAuctions
  */
-@WebServlet({"/auctions", "/encheres"})
+@WebServlet("/encheres")
 public class ServletAuctions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

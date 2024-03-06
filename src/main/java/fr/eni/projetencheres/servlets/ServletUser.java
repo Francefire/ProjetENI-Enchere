@@ -17,7 +17,7 @@ import fr.eni.projetencheres.bo.User;
 /**
  * Servlet implementation class ServletUser
  */
-@WebServlet("/user")
+@WebServlet("/utilisateur")
 public class ServletUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class ServletUser extends HttpServlet {
 			
 			request.setAttribute("from", rd);
 			request.setAttribute("message", "Vous devez être connecté pour accéder à cette page.");
-			rd = getServletContext().getRequestDispatcher("/Login");
+			rd = getServletContext().getRequestDispatcher("/connexion");
 			rd.forward(request, response);
 			return;
 		} else {

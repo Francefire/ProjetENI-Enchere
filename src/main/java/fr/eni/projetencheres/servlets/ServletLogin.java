@@ -23,7 +23,7 @@ import fr.eni.projetencheres.bo.User;
 /**
  * Servlet implementation class ServletSeConnecter
  */
-@WebServlet({ "/login", "/Login" })
+@WebServlet("/connexion")
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final int timing = 1296000; // durée équivalente à 15jours
@@ -34,7 +34,7 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		rd.forward(request, response);
 	}
 
@@ -82,12 +82,12 @@ public class ServletLogin extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + request.getParameter("targetUrl"));
 			} else {
 				response.sendRedirect(request.getContextPath() + "/home");
-				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+				rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 			}
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
-			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
+			rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			System.out.println("je suis dans le catch");
 			rd.forward(request, response);
 		}

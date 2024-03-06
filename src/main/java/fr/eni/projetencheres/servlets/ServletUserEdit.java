@@ -16,7 +16,7 @@ import fr.eni.projetencheres.bo.User;
 /**
  * Servlet implementation class ServletUserEdit
  */
-@WebServlet("/user/edit")
+@WebServlet("/utilisateur/modifier")
 public class ServletUserEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

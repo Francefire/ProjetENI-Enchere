@@ -19,7 +19,7 @@ import fr.eni.projetencheres.bo.User;
 /**
  * Servlet implementation class ServletauctionsNew
  */
-@WebServlet({ "/auctions/new", "/encheres/nouvelle" })
+@WebServlet("/encheres/nouvelle")
 public class ServletAuctionsNew extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -66,7 +66,7 @@ public class ServletAuctionsNew extends HttpServlet {
 			
 			ArticlesManager.addArticle(article);
 
-			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);

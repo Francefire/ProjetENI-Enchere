@@ -12,9 +12,9 @@ import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 
 /**
- * Servlet implementation class ServletauctionsDelete
+ * Servlet implementation class ServletAuctionsDelete
  */
-@WebServlet({ "/auctions/delete", "/encheres/supprimer" })
+@WebServlet("/encheres/supprimer")
 public class ServletAuctionsDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -24,7 +24,7 @@ public class ServletAuctionsDelete extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath() + "/auctions");
+		response.sendRedirect(request.getContextPath() + "/encheres");
 	}
 
 	/**
@@ -38,13 +38,13 @@ public class ServletAuctionsDelete extends HttpServlet {
 		try {
 			ArticlesManager.deleteArticleByArticleId(article.getId());
 
-			response.sendRedirect(request.getContextPath() + "/auctions");
+			response.sendRedirect(request.getContextPath() + "/encheres");
 		} catch (BusinessException e) {
 			request.setAttribute("message", e);
-			response.sendRedirect(request.getContextPath() + "/auctions?id="+article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
 		} catch (NumberFormatException e) {
 			request.setAttribute("message", e);
-			response.sendRedirect(request.getContextPath() + "/auctions?id="+article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
 		}
 	}
 }

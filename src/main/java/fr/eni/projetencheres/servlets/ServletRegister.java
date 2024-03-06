@@ -17,7 +17,7 @@ import fr.eni.projetencheres.bo.User;
 /**
  * Servlet implementation class ServletCreateAccount
  */
-@WebServlet("/Register")
+@WebServlet("/inscription")
 public class ServletRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class ServletRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 	}
 
 	/**
