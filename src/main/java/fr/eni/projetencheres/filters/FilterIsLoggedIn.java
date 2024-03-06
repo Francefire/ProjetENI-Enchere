@@ -28,8 +28,10 @@ import fr.eni.projetencheres.bo.User;
 				"/auctions/new", 
 				"/encheres/encherir", 
 				"/encheres/supprimer",
-				"/encheres/modifier", 
-				"/encheres/nouvelle", 
+				"/encheres/modifier",
+				"/encheres/nouvelle",
+				
+				"/credits",
 		}
 )
 public class FilterIsLoggedIn extends HttpFilter implements Filter {

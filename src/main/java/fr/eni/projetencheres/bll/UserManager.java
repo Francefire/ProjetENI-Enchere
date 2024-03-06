@@ -20,6 +20,7 @@ public class UserManager {
 	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer
 	// un nouvel user.
 	public static void createUser(User u, String checkPassword) throws BusinessException {
+		UserManager.checkUserInfo(u);
 		comparePwd(u.getPassword(), checkPassword);
 		UserManager.getInstance().insert(u);
 	}
@@ -33,7 +34,8 @@ public class UserManager {
 
 	// INSCRIPTION : Création d'une méthode pour comparer les saisies mot de passe
 	public static void comparePwd(String password, String checkPassword) throws BusinessException {
-		if (!password.equals(checkPassword)) {
+		System.out.println(password + " " + checkPassword);
+		if (!password.trim().equals(checkPassword.trim())) {
 			throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
 		}
 	}
@@ -47,13 +49,14 @@ public class UserManager {
 	}
 
 	public static User login(String userName, String password) throws BusinessException {
-//			String pass = User.hashPwd(password);
-//			User u = UserDAO.check(userName, pass);
-		int u_id = UserManager.getInstance().check(userName, password);
-		if (u_id < 1) {
+		int userId = UserManager.getInstance().check(userName, password);
+		
+		if (userId < 1) {
 			throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 		}
-		User user = UserManager.getInstance().selectById(u_id);
+		
+		User user = UserManager.getInstance().selectById(userId);
+		
 		return user;
 	}
 
@@ -65,9 +68,19 @@ public class UserManager {
 			throw new BusinessException(e.getMessage());
 		}
 	}
+	
+	public static void getAllUsers() throws BusinessException {
+		UserManager.getInstance().selectAllUsers();
+	}
 
 	public static void editUser(User u) {
 		UserManager.getInstance().update(u);
+	}
+	
+	public static void addCreditsToUser(double amount, int userId) throws BusinessException {
+		Utils.verifyMoneyField("montant", amount, 1);
+		
+		UserManager.getInstance().updateCreditsForUser(amount, userId);
 	}
 
 	public static void deleteUser(int userId) {
@@ -77,151 +90,44 @@ public class UserManager {
 	// Creation d'une methode permettant de verifier que les informations sont
 	// conforme aux contraintes
 	public static void checkUserInfo(User u) throws BusinessException {
-		if (u.getUsername() == null || u.getUsername().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_USERNAME_EMPTY);
-		}
-		if (u.getUsername().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_USERNAME_TOO_LONG);
-		}
+		Utils.verifyStringField("username", u.getUsername(), 0, 30);
+		Utils.verifyStringField("password", u.getPassword(), 8, 30);
+		Utils.verifyStringField("firstName", u.getFirstName(), 0, 30);
+		Utils.verifyStringField("lastName", u.getLastName(), 0, 30);
+		Utils.verifyStringField("email", u.getEmail(), 0, 50);
+		Utils.verifyStringField("phoneNumber", u.getPhoneNumber(), 0, 15);
+		Utils.verifyStringField("street", u.getStreet(), 0, 50);
+		Utils.verifyStringField("city", u.getCity(), 0, 30);
+		Utils.verifyStringField("zipCode", u.getZipCode(), 0, 10);
 
-		if (u.getPassword() == null || u.getPassword().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_PASSWORD_EMPTY);
-		}
-		if (u.getPassword().length() < 8) {
-			throw new BusinessException(BusinessException.BLL_PASSWORD_TOO_SHORT);
-		}
 		if (!u.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
 			throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
 		}
-		if (u.getPassword().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_PASSWORD_TOO_LONG);
-		}
-		if (u.getFirstName() == null || u.getFirstName().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_FIRSTNAME_EMPTY);
-		}
-		if (u.getFirstName().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_FIRSTNAME_TOO_LONG);
-		}
-		if (u.getLastName() == null || u.getLastName().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_LASTNAME_EMPTY);
-		}
-		if (u.getLastName().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_LASTNAME_TOO_LONG);
-		}
-		if (u.getEmail() == null || u.getEmail().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_EMAIL_EMPTY);
-		}
-		if (u.getEmail().length() > 50) {
-			throw new BusinessException(BusinessException.BLL_EMAIL_TOO_LONG);
-		}
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
-		}
-		if (u.getPhoneNumber() == null || u.getPhoneNumber().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_PHONE_EMPTY);
-		}
-		if (u.getPhoneNumber().length() > 15) {
-			throw new BusinessException(BusinessException.BLL_PHONE_TOO_LONG);
-		}
-		if (u.getStreet() == null || u.getStreet().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_STREET_EMPTY);
-		}
-		if (u.getStreet().length() > 50) {
-			throw new BusinessException(BusinessException.BLL_STREET_TOO_LONG);
-		}
-		if (u.getCity() == null || u.getCity().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_CITY_EMPTY);
-		}
-		if (u.getCity().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_CITY_TOO_LONG);
-		}
-		if (u.getZipCode() == null || u.getZipCode().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_ZIPCODE_EMPTY);
-		}
-		if (u.getZipCode().length() > 10) {
-			throw new BusinessException(BusinessException.BLL_ZIPCODE_TOO_LONG);
 		}
 
 	}
 
 	public static void checkUserInfo(User u, boolean checkPassword) throws BusinessException {
-		if (u.getUsername() == null || u.getUsername().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_USERNAME_EMPTY);
-		}
-		if (u.getUsername().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_USERNAME_TOO_LONG);
-		}
+		Utils.verifyStringField("username", u.getUsername(), 0, 30);
 		if (checkPassword) {
-
-			if (u.getPassword() == null || u.getPassword().isEmpty()) {
-				throw new BusinessException(BusinessException.BLL_PASSWORD_EMPTY);
-			}
-			if (u.getPassword().length() < 8) {
-				throw new BusinessException(BusinessException.BLL_PASSWORD_TOO_SHORT);
-			}
+			Utils.verifyStringField("password", u.getPassword(), 8, 30);
 			if (!u.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
 				throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
 			}
-			if (u.getPassword().length() > 30) {
-				throw new BusinessException(BusinessException.BLL_PASSWORD_TOO_LONG);
-			}
 		}
-		if (u.getFirstName() == null || u.getFirstName().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_FIRSTNAME_EMPTY);
-		}
-		if (u.getFirstName().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_FIRSTNAME_TOO_LONG);
-		}
-		if (u.getLastName() == null || u.getLastName().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_LASTNAME_EMPTY);
-		}
-		if (u.getLastName().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_LASTNAME_TOO_LONG);
-		}
-		if (u.getEmail() == null || u.getEmail().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_EMAIL_EMPTY);
-		}
-		if (u.getEmail().length() > 50) {
-			throw new BusinessException(BusinessException.BLL_EMAIL_TOO_LONG);
-		}
+		Utils.verifyStringField("firstName", u.getFirstName(), 0, 30);
+		Utils.verifyStringField("lastName", u.getLastName(), 0, 30);
+		Utils.verifyStringField("email", u.getEmail(), 0, 50);
+		Utils.verifyStringField("phoneNumber", u.getPhoneNumber(), 0, 15);
+		Utils.verifyStringField("street", u.getStreet(), 0, 50);
+		Utils.verifyStringField("city", u.getCity(), 0, 30);
+		Utils.verifyStringField("zipCode", u.getZipCode(), 0, 10);
+
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
 		}
-		if (u.getPhoneNumber() == null || u.getPhoneNumber().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_PHONE_EMPTY);
-		}
-		if (u.getPhoneNumber().length() > 15) {
-			throw new BusinessException(BusinessException.BLL_PHONE_TOO_LONG);
-		}
-		if (u.getStreet() == null || u.getStreet().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_STREET_EMPTY);
-		}
-		if (u.getStreet().length() > 50) {
-			throw new BusinessException(BusinessException.BLL_STREET_TOO_LONG);
-		}
-		if (u.getCity() == null || u.getCity().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_CITY_EMPTY);
-		}
-		if (u.getCity().length() > 30) {
-			throw new BusinessException(BusinessException.BLL_CITY_TOO_LONG);
-		}
-		if (u.getZipCode() == null || u.getZipCode().isEmpty()) {
-			throw new BusinessException(BusinessException.BLL_ZIPCODE_EMPTY);
-		}
-		if (u.getZipCode().length() > 10) {
-			throw new BusinessException(BusinessException.BLL_ZIPCODE_TOO_LONG);
-		}
 
 	}
-
-	// création d'une méthode pour se connecter
-//		public static login(String username, String password) throws BusinessException {
-//		String pass = User.hashPwd(pwd);
-//		System.out.println(pass);
-//		User u = user.login(username, password); ;
-//
-//		return 
-
-//		}
-
 }
