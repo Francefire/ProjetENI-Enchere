@@ -15,6 +15,7 @@ import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletauctionsNew
@@ -68,10 +69,13 @@ public class ServletAuctionsNew extends HttpServlet {
 
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (BusinessException e) {
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
+		}  catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);	
 		} catch (NumberFormatException | DateTimeParseException e) {
-			request.setAttribute("message", BusinessException.BLL_EMPTY_FIELDS_ERROR);
+			request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		}
 	}

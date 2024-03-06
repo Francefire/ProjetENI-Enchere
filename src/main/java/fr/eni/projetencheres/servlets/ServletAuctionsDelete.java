@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletAuctionsDelete
@@ -40,11 +41,11 @@ public class ServletAuctionsDelete extends HttpServlet {
 
 			response.sendRedirect(request.getContextPath() + "/encheres");
 		} catch (BusinessException e) {
-			request.setAttribute("message", e);
+			request.setAttribute("error", e);
 			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
-		} catch (NumberFormatException e) {
-			request.setAttribute("message", e);
-			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);	
 		}
 	}
 }

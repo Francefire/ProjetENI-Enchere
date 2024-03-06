@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletUserEdit
@@ -69,17 +70,20 @@ public class ServletUserEdit extends HttpServlet {
 			System.out.println("passwordValidation : " + passwordValidation);
 			UserManager.comparePwd(u.getPassword(), passwordValidation);
 			UserManager.checkUserInfo(editedUser, false);
+
 			if (password != null && !password.isEmpty()) {
 				UserManager.comparePwd(password, confirmEditPassword);
 				UserManager.checkUserInfo(editedUser);
 				editedUser.setPassword(password);
 			}
+
 			UserManager.editUser(editedUser);
 			request.getSession().setAttribute("userConnected", editedUser);
-			request.setAttribute("message", null);
-
 		} catch (BusinessException e) {
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("error", e.getMessage());
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);
 		} finally {
 			rd.forward(request, response);
 		}

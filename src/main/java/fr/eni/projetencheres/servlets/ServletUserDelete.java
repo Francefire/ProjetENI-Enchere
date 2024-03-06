@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletUserDelete
@@ -48,8 +49,11 @@ public class ServletUserDelete extends HttpServlet {
 			session.invalidate();
 			rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		} catch (BusinessException e) {
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("error", e.getMessage());
 			rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);
 		}
 
 		rd.forward(request, response);

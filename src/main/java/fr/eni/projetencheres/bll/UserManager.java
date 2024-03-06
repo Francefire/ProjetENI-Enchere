@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.DAOFactory;
+import fr.eni.projetencheres.dal.DataException;
 import fr.eni.projetencheres.dal.UserDAO;
 
 public class UserManager {
@@ -21,7 +22,7 @@ public class UserManager {
 	}
 
 	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer un nouvel user.
-	public static void createUser(User user, String checkPassword) throws BusinessException {
+	public static void createUser(User user, String checkPassword) throws BusinessException, DataException {
 		UserManager.checkUserInfo(user);	
     comparePwd(user.getPassword(), checkPassword); //comparaison des saisies 
 		String mdphashe = UserManager.hashPwd(user.getPassword()); //récup du mdp hashé, et transféré dans la variable
@@ -33,13 +34,13 @@ public class UserManager {
 	// VERIFICATION DES CHEATERS
 	public static void check_cheaters(String username, String lastName, String firstName, String email, String street, String zipCode, String city, String password) throws BusinessException {
 		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || email == null || email.isEmpty() || street == null || street.isEmpty() || zipCode == null || zipCode.isEmpty() || city == null || city.isEmpty() || password == null || password.isEmpty())  {
-			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+			throw new BusinessException(BusinessException.BLL_INSERT_CHEAT);
 		}
 		if (!email.matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$")) {
-			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+			throw new BusinessException(BusinessException.BLL_INSERT_CHEAT);
         }
 		if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
-			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+			throw new BusinessException(BusinessException.BLL_INSERT_CHEAT);
 		}
 	}
 
@@ -59,7 +60,7 @@ public class UserManager {
 		return true;
 	}
 
-	public static User login(String userName, String password) throws BusinessException {
+	public static User login(String userName, String password) throws BusinessException, DataException {
 			String pass = UserManager.hashPwd(password);
 			User u = UserManager.getInstance().login(userName, pass);
 		if (u == null) {
@@ -69,29 +70,25 @@ public class UserManager {
 	}
 
 	// Creation d'une méthode pour recuperer un utilisateur
-	public static User getUserById(int userId) throws BusinessException {
-		try {
-			return UserManager.getInstance().selectById(userId);
-		} catch (BusinessException e) {
-			throw new BusinessException(e.getMessage());
-		}
+	public static User getUserById(int userId) throws BusinessException, DataException {
+		return UserManager.getInstance().selectById(userId);
 	}
 	
-	public static void getAllUsers() throws BusinessException {
+	public static void getAllUsers() throws BusinessException, DataException {
 		UserManager.getInstance().selectAllUsers();
 	}
 
-	public static void editUser(User u) {
+	public static void editUser(User u) throws DataException {
 		UserManager.getInstance().update(u);
 	}
 	
-	public static void addCreditsToUser(double amount, int userId) throws BusinessException {
+	public static void addCreditsToUser(double amount, int userId) throws BusinessException, DataException {
 		Utils.verifyMoneyField("montant", amount, 1);
 		
 		UserManager.getInstance().updateCreditsForUser(amount, userId);
 	}
 
-	public static void deleteUser(int userId) {
+	public static void deleteUser(int userId) throws DataException {
 		UserManager.getInstance().delete(userId);
 	}
 

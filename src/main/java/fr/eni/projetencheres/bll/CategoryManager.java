@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.dal.CategoriesDAO;
+import fr.eni.projetencheres.dal.DataException;
 
 public class CategoryManager {
 	public static CategoriesDAO categoriesDAO = null;
@@ -15,7 +16,7 @@ public class CategoryManager {
 		return categoriesDAO;
 	}
 
-	public List<Category> getAllCategories() throws BusinessException {
+	public List<Category> getAllCategories() throws BusinessException, DataException {
 		return CategoryManager.getInstance().selectAllCategories();
 	}
 }

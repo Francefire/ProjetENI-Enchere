@@ -13,6 +13,7 @@ import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletAuctionsBid
@@ -64,10 +65,13 @@ public class ServletAuctionsBid extends HttpServlet {
 				}
 			}
 		} catch (BusinessException e) {
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("error", e.getMessage());
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+		}  catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);				
 		} catch (NumberFormatException e) {
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("error", "Le montant entré n'est pas valide");
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		}
 	}

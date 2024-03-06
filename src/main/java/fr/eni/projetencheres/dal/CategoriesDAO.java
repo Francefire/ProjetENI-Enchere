@@ -12,55 +12,56 @@ import fr.eni.projetencheres.bo.Category;
 
 public class CategoriesDAO {
 
-private static final String SQL_SELECT_ALL_LABELS = "SELECT libelle FROM CATEGORIES";
-private static final String SELECT_ALL_FROM_CATEGORIES = "SELECT * FROM CATEGORIES";
-	
-public List<String> selectAllLabels() throws BusinessException {
-	List<String> categories = new ArrayList<String>();
+	private static final String SQL_SELECT_ALL_LABELS = "SELECT libelle FROM CATEGORIES";
+	private static final String SELECT_ALL_FROM_CATEGORIES = "SELECT * FROM CATEGORIES";
 
-	try {
-		Connection connection = ConnectionProvider.getConnection();
+	public List<String> selectAllLabels() throws DataException {
+		List<String> categories = new ArrayList<String>();
 
-		PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_LABELS);
+		try {
+			Connection connection = ConnectionProvider.getConnection();
 
-		ResultSet rs = statement.executeQuery(); //stockage du résultat de la requête, ds rs
+			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_ALL_LABELS);
 
-		while (rs.next()) {
-			System.out.println(rs.getString("libelle"));
+			ResultSet rs = statement.executeQuery(); // stockage du résultat de la requête, ds rs
 
-			categories.add(rs.getString("libelle"));
+			while (rs.next()) {
+				System.out.println(rs.getString("libelle"));
+
+				categories.add(rs.getString("libelle"));
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			// Logguer l'exception *
+			throw new DataException("la récupération des libellés de catégorie", e.getMessage());
 		}
 
-		connection.close();	
-	} catch (SQLException e) {
-		// Logguer l'exception *
-		throw new BusinessException("Erreur lors de la récupération des libellés de catégorie", e);
+		return categories;
 	}
 
-	return categories;
-}
-public List<Category> selectAllCategories() throws BusinessException {
-	List<Category> categories = new ArrayList<Category>();
+	public List<Category> selectAllCategories() throws DataException {
+		List<Category> categories = new ArrayList<Category>();
 
-	try {
-		Connection connection = ConnectionProvider.getConnection();
+		try {
+			Connection connection = ConnectionProvider.getConnection();
 
-		PreparedStatement statement = connection.prepareStatement(SELECT_ALL_FROM_CATEGORIES);
+			PreparedStatement statement = connection.prepareStatement(SELECT_ALL_FROM_CATEGORIES);
 
-		ResultSet rs = statement.executeQuery(); //stockage du résultat de la requête, ds rs
+			ResultSet rs = statement.executeQuery(); // stockage du résultat de la requête, ds rs
 
-		while (rs.next()) {
-			System.out.println(rs.getString("no_categorie"));
-			Category cate = new Category(rs.getInt("no_categorie"),rs.getString("libelle"));
-			categories.add(cate);
+			while (rs.next()) {
+				System.out.println(rs.getString("no_categorie"));
+				Category cate = new Category(rs.getInt("no_categorie"), rs.getString("libelle"));
+				categories.add(cate);
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			// Logguer l'exception *
+			throw new DataException("la récupération des libellés de catégorie", e.getMessage());
 		}
 
-		connection.close();	
-	} catch (SQLException e) {
-		// Logguer l'exception *
-		throw new BusinessException("Erreur lors de la récupération des libellés de catégorie", e);
+		return categories;
 	}
-
-	return categories;
-}
 }

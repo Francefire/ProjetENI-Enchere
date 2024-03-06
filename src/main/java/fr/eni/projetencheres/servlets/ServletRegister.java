@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletCreateAccount
@@ -83,6 +84,9 @@ public class ServletRegister extends HttpServlet {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
 			doGet(request, response);
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);
 		}
 
 //      response.sendRedirect(request.getContextPath());

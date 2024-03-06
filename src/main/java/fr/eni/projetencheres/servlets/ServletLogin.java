@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 //TODO:	 faire quelque chose de "se souvenir de moi"
 //TODO : faire quelque chose de "mot de passe oublié"		
@@ -87,6 +88,9 @@ public class ServletLogin extends HttpServlet {
 			rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			System.out.println("je suis dans le catch");
 			rd.forward(request, response);
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);
 		}
 	}
 }
