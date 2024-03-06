@@ -76,12 +76,14 @@ public class ServletLogin extends HttpServlet {
 //						response.addCookie(cook);
 //					}
 				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+				response.sendRedirect(request.getContextPath() + "/home");
 			}
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
 			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 			System.out.println("je suis dans le catch");
+			rd.forward(request, response);
 		}
 		finally {
 			rd.forward(request, response) ;
