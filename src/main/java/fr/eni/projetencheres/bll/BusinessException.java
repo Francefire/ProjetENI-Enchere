@@ -24,7 +24,6 @@ public class BusinessException extends Exception {
 	
 	public static final String BLL_EMPTY_FIELDS_ERROR = "Tous les champs doivent être renseignés";
 	public static final String DAL_INSERT_CHEAT = "Arrêtez de toucher le DevTools, merci";
-	public static final String DAL_INSERT_USER_SQLEXCEPTION = "Erreur lors de la création du compte" ;
 	public static final String DAL_SELECT_USER_EXCEPTION = "Erreur lors de la récupération de l'utilisateur";
 	public static final String DAL_USER_NOT_FOUND = "Utilisateur non trouvé";
  
