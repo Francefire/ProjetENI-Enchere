@@ -1,8 +1,3 @@
-<h1>Mon Profil.</h1>
-<c:if test="${message != null}">
-	<h2 class="error">${message}</h2>
-</c:if>
-
 <form action="${pageContext.request.contextPath}/utilisateur/modifier"
 	method="post" class="edit">
 	<div class="input-container">
@@ -105,9 +100,9 @@
 		<br>
 	</div>
 </form>
-<form action="${pageContext.request.contextPath}/utilisateur/modifier"
+<form action="${pageContext.request.contextPath}/utilisateur/supprimer"
 	method="post" class="delete">
-	<h2>ï¿½tes vous sur de vouloir supprimer votre compte ?</h2>
+	<h2>Étes vous sur de vouloir supprimer votre compte ?</h2>
 	<h4>Entrez votre mot deux fois afin de confirmer la suppresion</h4>
 	<div>
 		<label for="deletePassword">Mot de passe</label> <input type="password"
@@ -121,8 +116,8 @@
 		<br>
 	</div>
 	<div>
-		<input type="button" value="Annuler" id="cancelDelete"> <input
-			type="submit" value="Supprimer les compte" id="deleteButtonConfirm"
+		<input type="button" value="Annuler" id="cancelDelete">
+		<input type="submit" value="Supprimer mon compte" id="deleteButtonConfirm"
 			formaction="${pageContext.request.contextPath}/utilisateur/modifier">
 	</div>
 </form>

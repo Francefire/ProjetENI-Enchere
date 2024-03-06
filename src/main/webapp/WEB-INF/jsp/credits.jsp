@@ -9,6 +9,7 @@
 	<body>
 		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<main>
+			<%@ include file="/WEB-INF/jspf/error.jspf" %>
 			<form method="POST" action="${pageContext.request.contextPath}/credits">
 				<label for=amount>Entrez le nombre de crédits que vous voulez acheter</label><br>
 				<input type="number" name="amount" id="amount" min="1" step="1" placeholder="5">

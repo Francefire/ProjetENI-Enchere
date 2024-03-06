@@ -12,7 +12,7 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
-		<%@ include file="/WEB-INF/jspf/message.jspf" %>
+		<%@ include file="/WEB-INF/jspf/error.jspf" %>
 		<section class="article">
 			<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="Article placeholder" width="800" height="400"> 
 			<div>

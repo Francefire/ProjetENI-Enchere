@@ -37,10 +37,7 @@ public class ServletUserDelete extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		String password = request.getParameter("deletePassword");
 		String confirmPassword = request.getParameter("deleteConfirmPassword");
-		if (u == null) {
-			response.sendRedirect(request.getContextPath() + "/accueil");
-			return;
-		}
+
 		try {
 			System.out.println(u.getPassword().trim() + " " + password.trim());
 			UserManager.checkPwd(u, password);

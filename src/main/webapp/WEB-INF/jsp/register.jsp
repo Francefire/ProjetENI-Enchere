@@ -5,18 +5,14 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/jspf/head.jspf"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/style_register.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/style_register.css">
 </head>
 <body>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
 <main>
-
-	<c:if test="${!empty error}">
-		<h2 class="msgBox">${error}</h2>
-	</c:if>
-
+	<%@ include file="/WEB-INF/jspf/error.jspf" %>
 	<h2>Créer un compte</h2>
-		   <form action="Register" id="Register" method="post">
+		   <form action="inscription" id="Register" method="post">
 				<section class="left">
 				<div>
 			       <label for="pseudo">Pseudo : </label>

@@ -14,7 +14,7 @@
 	<main>
 		<div>
 		<h1>Enchères en cours</h1>
-		<%@ include file="/WEB-INF/jspf/message.jspf" %>
+		<%@ include file="/WEB-INF/jspf/error.jspf" %>
 		<section class="search">
 			<form method="GET" action="${pageContext.request.contextPath}/encheres">
 				<div>

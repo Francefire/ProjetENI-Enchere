@@ -17,7 +17,7 @@
 		<body>
 			<%@ include file="/WEB-INF/jspf/header.jspf" %>
 				<main>
-					<%@ include file="/WEB-INF/jspf/message.jspf" %>
+					<%@ include file="/WEB-INF/jspf/error.jspf" %>
 						<div class="container">
 							<h1>Nouvelle enchère.</h1>
 							<div class="container-fluid">

@@ -6,17 +6,20 @@
 <html lang="fr">
 <head>
 <%@ include file="/WEB-INF/jspf/head.jspf"%>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/assets/styles/user.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/styles/user.css">
 </head>
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
 		<c:choose>
 			<c:when test="${displayUser == null}">
+				<h1>Mon Profil.</h1>
+				<%@ include file="/WEB-INF/jspf/error.jspf" %>
 				<c:import url="/WEB-INF/jsp/user/jspf/edit_profile.jspf" />
 			</c:when>
 			<c:otherwise>
+				<h1>${user.getUsername()}.</h1>
+				<%@ include file="/WEB-INF/jspf/error.jspf" %>
 				<c:import url="/WEB-INF/jsp/user/jspf/view_profile.jspf" />
 			</c:otherwise>
 		</c:choose>

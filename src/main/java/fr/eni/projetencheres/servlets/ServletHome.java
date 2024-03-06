@@ -35,8 +35,7 @@ public class ServletHome extends HttpServlet {
 //	    }
 	    request.setAttribute("articles", articles);
 	    
-	    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
-	    rd.forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 	}
 		
 
