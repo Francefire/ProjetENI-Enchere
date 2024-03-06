@@ -25,7 +25,7 @@ public class BusinessException extends Exception {
 	public static final String BLL_MONEY_NOT_ENOUGH_ERROR = "Le %s doit être supérieur ou égal à %d";
 	
 	public static final String BLL_EMPTY_FIELDS_ERROR = "Tous les champs doivent être renseignés";
-
+	public static final String DAL_INSERT_CHEAT = "Arrêtez de toucher le DevTools, merci";
 	public static final String DAL_SELECT_USER_EXCEPTION = "Erreur lors de la récupération de l'utilisateur";
 	public static final String DAL_USER_NOT_FOUND = "Utilisateur non trouvé";
  

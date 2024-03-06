@@ -23,7 +23,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 
 	@Override
-	public void insert(User user) {
+	public void insert(User user) throws BusinessException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUsername());
@@ -42,6 +42,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new BusinessException(BusinessException.DAL_INSERT_USER_SQLEXCEPTION) ;
 		}
 	}
 
@@ -232,8 +233,32 @@ public class UserDAOJdbcImpl implements UserDAO {
 		return id;
 	}
 
-	@Override
-	public User login(String userName, String Password) throws BusinessException {
-		return null;
+public User login(String userName, String password) throws BusinessException {
+	User user = null;
+	try {
+		Connection cnx = ConnectionProvider.getConnection();
+		PreparedStatement pstmt = cnx.prepareStatement("SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?");
+		pstmt.setString(1, userName);
+		pstmt.setString(2, password);
+		ResultSet res = pstmt.executeQuery();
+		if (res.next()) {
+			user = new User();
+			user.setId(res.getInt("no_utilisateur"));
+			user.setUsername(res.getString("pseudo"));
+			user.setLastName(res.getString("nom"));
+			user.setFirstName(res.getString("prenom"));
+			user.setEmail(res.getString("email"));
+			user.setPhoneNumber(res.getString("telephone"));
+			user.setStreet(res.getString("rue"));
+			user.setZipCode(res.getString("code_postal"));
+			user.setCity(res.getString("ville"));
+			user.setPassword(res.getString("mot_de_passe"));
+		}
+		cnx.close();
+	} catch (SQLException e) {
+		e.printStackTrace();
+		throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 	}
+	return user;
+}
 }

@@ -8,7 +8,7 @@ import fr.eni.projetencheres.bo.User;
 public interface UserDAO {
 
 //Pattern de méthodes permettant de faire les requetes vers la BDD
-	public void insert(User user);
+	public void insert(User user) throws BusinessException; 
 
 	public User selectById(int id) throws BusinessException;
 
@@ -22,7 +22,7 @@ public interface UserDAO {
 
 	public void delete(int id);
 
-	public User login(String userName, String Password) throws BusinessException;
+	public User login(String userName, String password) throws BusinessException ;
 
 	public int check(String userName, String password) throws BusinessException;
 

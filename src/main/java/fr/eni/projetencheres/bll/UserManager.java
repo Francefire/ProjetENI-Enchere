@@ -1,5 +1,8 @@
 package fr.eni.projetencheres.bll;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.UserDAO;
@@ -17,18 +20,26 @@ public class UserManager {
 		return instance;
 	}
 
-	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer
-	// un nouvel user.
-	public static void createUser(User u, String checkPassword) throws BusinessException {
-		UserManager.checkUserInfo(u);
-		comparePwd(u.getPassword(), checkPassword);
-		UserManager.getInstance().insert(u);
+	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer un nouvel user.
+	public static void createUser(User user, String checkPassword) throws BusinessException {
+		UserManager.checkUserInfo(u);	
+    comparePwd(user.getPassword(), checkPassword); //comparaison des saisies 
+		String mdphashe = UserManager.hashPwd(user.getPassword()); //récup du mdp hashé, et transféré dans la variable
+		user.setPassword(mdphashe);
+		UserManager.getInstance().insert(user);
+		System.out.println("mot de passe mdphashé: " + mdphashe + " u.getPassword () : " + user.getPassword());
 	}
 
-	// INSCRIPTION : vérification du contenu de la saisie du pseudo
-	public static void check_username(String username) throws BusinessException {
-		if (username == null || username.isEmpty()) {
-			throw new BusinessException(BusinessException.DAL_INSERT_USER_SQLEXCEPTION);
+	// VERIFICATION DES CHEATERS
+	public static void check_cheaters(String username, String lastName, String firstName, String email, String street, String zipCode, String city, String password) throws BusinessException {
+		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || email == null || email.isEmpty() || street == null || street.isEmpty() || zipCode == null || zipCode.isEmpty() || city == null || city.isEmpty() || password == null || password.isEmpty())  {
+			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+		}
+		if (!email.matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$")) {
+			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
+        }
+		if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
+			throw new BusinessException(BusinessException.DAL_INSERT_CHEAT);
 		}
 	}
 
@@ -49,15 +60,12 @@ public class UserManager {
 	}
 
 	public static User login(String userName, String password) throws BusinessException {
-		int userId = UserManager.getInstance().check(userName, password);
-		
-		if (userId < 1) {
+			String pass = UserManager.hashPwd(password);
+			User u = UserManager.getInstance().login(userName, pass);
+		if (u == null) {
 			throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 		}
-		
-		User user = UserManager.getInstance().selectById(userId);
-		
-		return user;
+		return u;
 	}
 
 	// Creation d'une méthode pour recuperer un utilisateur
@@ -108,6 +116,25 @@ public class UserManager {
 		}
 
 	}
+	
+	public static String hashPwd(String password)
+	{
+		MessageDigest md = null;
+		StringBuffer sb = new StringBuffer();
+		byte[] response;
+		try {
+			md=MessageDigest.getInstance("SHA-256");			
+			response=md.digest(password.getBytes());			
+			for(int i:response)
+			{
+				sb.append((Integer.toString((i&0xff)+0x100, 16).substring(1)));
+			}
+			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
 
 	public static void checkUserInfo(User u, boolean checkPassword) throws BusinessException {
 		Utils.verifyStringField("username", u.getUsername(), 0, 30);
@@ -128,6 +155,5 @@ public class UserManager {
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
 		}
-
 	}
 }

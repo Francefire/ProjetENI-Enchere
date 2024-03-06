@@ -1,21 +1,52 @@
+<%@ page import="fr.eni.projetencheres.ihm.Breadcrumb"%>
+
 <header>
+
 	<h1>
-		<a href="/ProjetENI-Enchere" class="home-link"><i class="fa-solid fa-house fa-xs" style="color: #D4A373;"></i> ENI-Encheres</a>
+		<a href="/ProjetENI-Enchere" class="home-link"><i
+			class="fa-solid fa-house fa-xs" style="color: #D4A373;"></i>
+			ENI-Encheres</a>
 	</h1>
 	<nav>
-<!-- 			Si déconnecté -->
-			<c:if test="${empty userConnected}">
-				 <a href="/ProjetENI-Enchere/Register">Créer un compte  | </a> 
-				 <a href="/ProjetENI-Enchere/Login">Se connecter <i class="fa-solid fa-right-to-bracket" style="color: #D4A373;"></i></a> 
+		<a href="${pageContext.request.contextPath}/auctions">Enchères </a>
+	<%-- Si user déconnecté --%>
+		<c:choose>
+			<c:when test="${empty userConnected}">
+					<a href="${pageContext.request.contextPath}/Register">| Créer un
+					compte | </a>
+				<a href="${pageContext.request.contextPath}/Login">Se connecter
+					<i class="fa-solid fa-right-to-bracket" style="color: #D4A373;"></i>
+				</a>
+
+			</c:when>
+<%-- Si user connecté --%>
+			<c:otherwise>
+				<a href="${pageContext.request.contextPath}/auctions/new"> | Nouvelle enchère</a>
+				<a href="${pageContext.request.contextPath}/credits"> | Acheter des crédits </a>
+			<c:if test="${userConnected.admin}"> 
+				<a href="${pageContext.request.contextPath}/admin"> Espace Administration</a>
 			</c:if>
-		
-		
-<!-- 		 Si connecté -->
-		 <c:if test="${!empty userConnected}">
-					Bonjour ${userConnected.username } <i class="fa-regular fa-face-smile"></i><a href="/ProjetENI-Enchere/user"> | Mon Profil | </a>
-					<a href="/ProjetENI-Enchere/logout">Se déconnecter <i class="fa-solid fa-right-from-bracket"></i></a>
-			</c:if>
+				
+				<a href="${pageContext.request.contextPath}/user"> | Profil de ${userConnected.username} | </a>
+				<a href="${pageContext.request.contextPath}/logout">Se déconnecter <i class="fa-solid fa-right-from-bracket"></i></a>
+			</c:otherwise>
+		</c:choose>
+
 	</nav>
-		
-<!--    <a href="#">Se déconnecter</a> -->
+
 </header>
+	<nav class="breadcrumb">
+		<a href="${pageContext.request.contextPath}">Accueil </a>&nbsp;&raquo;
+
+		<c:forEach var="crumb" items="${breadcrumb}">
+			<c:choose>
+				<c:when test="${not empty crumb}">
+					<a href="${pageContext.request.contextPath}/${crumb}">${crumb}</a>&nbsp;&raquo;
+            	</c:when>
+				<c:otherwise>
+					<span>${crumb}</span>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+	</nav>
+<!-- <span><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</span>  -->
