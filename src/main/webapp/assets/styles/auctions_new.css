@@ -3,3 +3,8 @@
 body {
 	background-color: var(--tertiary-color);
 }
+
+.container h1 {
+		text-align: center;
+		font-weight: 600;
+	}

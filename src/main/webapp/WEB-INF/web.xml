@@ -48,4 +48,8 @@
 	    <filter-name>IsOwner</filter-name>
 	    <url-pattern/>
 	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>Breadcrumb</filter-name>
+	    <url-pattern/>
+	</filter-mapping>
 </web-app>
