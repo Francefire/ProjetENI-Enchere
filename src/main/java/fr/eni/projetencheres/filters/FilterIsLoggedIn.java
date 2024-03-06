@@ -21,17 +21,14 @@ import fr.eni.projetencheres.bo.User;
 @WebFilter(
 		filterName = "IsLoggedIn", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
-		urlPatterns = { 
-				"/auctions/bid",
-				"/auctions/delete", 
-				"/auctions/edit", 
-				"/auctions/new", 
+		urlPatterns = {
 				"/encheres/encherir", 
 				"/encheres/supprimer",
 				"/encheres/modifier",
 				"/encheres/nouvelle",
-				"/user",
-				"/user/edit",
+				"/utilisateur",
+				"/utilisateur/modifier",
+				"/utilisateur/supprimer",
 				"/credits",
 		}
 )
@@ -49,7 +46,7 @@ public class FilterIsLoggedIn extends HttpFilter implements Filter {
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
 
 		if (user == null) {
-			String path = String.format("%s/login?targetUrl=%s", httpRequest.getContextPath(),
+			String path = String.format("%s/connexion?targetUrl=%s", httpRequest.getContextPath(),
 					httpRequest.getServletPath());
 			httpResponse.sendRedirect(path);
 		} else {

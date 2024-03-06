@@ -1,47 +1,43 @@
 package fr.eni.projetencheres.bo;
 
 public class Category {
-
-	private int no_categorie;
-	private String libelle;
+	private int id;
+	private String label;
 	
-	// CONSTRUCTEUR
+	// CONSTRUCTEURS
+	// TODO: Constructeur vide
+	// TODO: Constructeur sans id
 	
-	public Category(int no_categorie, String libelle) {
-		
-		this.no_categorie = no_categorie;
-		this.libelle = libelle;
+	public Category(int id, String label) {
+		this.id = id;
+		this.label = label;
 	}
 
-
-	// GETTER & SETTER
-
-	public int getNo_categorie() {
-		return no_categorie;
+	// GETTERS & SETTERS
+	public int getId() {
+		return id;
 	}
 
-	public void setNo_categorie(int no_categorie) {
-		this.no_categorie = no_categorie;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public String getLibelle() {
-		return libelle;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
+	public void setLabel(String label) {
+		this.label = label;
 	}
-
 
 	// ToString
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Categories [no_categorie=");
-		builder.append(no_categorie);
+		builder.append(id);
 		builder.append(", libelle=");
-		builder.append(libelle);
+		builder.append(label);
 		builder.append("]");
 		return builder.toString();
 	}

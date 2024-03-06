@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletCredits
@@ -36,7 +37,7 @@ public class ServletCredits extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/credits.jsp");
 		
 		if (paramAmount == null || paramAmount.isEmpty()) {
-			request.setAttribute("message", "Vous devez entrer un montant de crédits à acheter");
+			request.setAttribute("error", "Vous devez entrer un montant de crédits à acheter");
 			request.getRequestDispatcher("/WEB-INF/jsp/credits.jsp").forward(request, response);
 		} else {
 			try {
@@ -48,10 +49,13 @@ public class ServletCredits extends HttpServlet {
 				
 				rd.forward(request, response);
 			} catch (BusinessException e) {
-				request.setAttribute("message", e.getMessage());
+				request.setAttribute("error", e.getMessage());
 				rd.forward(request, response);
+			} catch (DataException e) {
+				// TODO Log exception
+				response.sendError(503);	
 			} catch (NumberFormatException e) {
-				request.setAttribute("message", "Le montant donné n'est pas valide");
+				request.setAttribute("error", "Le montant donné n'est pas valide");
 				rd.forward(request, response);
 			}
 		}

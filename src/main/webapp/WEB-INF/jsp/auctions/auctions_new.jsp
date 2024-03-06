@@ -17,7 +17,7 @@
 		<body>
 			<%@ include file="/WEB-INF/jspf/header.jspf" %>
 				<main>
-					<%@ include file="/WEB-INF/jspf/message.jspf" %>
+					<%@ include file="/WEB-INF/jspf/error.jspf" %>
 						<div class="container">
 							<h1>Nouvelle enchère.</h1>
 							<div class="container-fluid">
@@ -28,7 +28,7 @@
 										
 									</div>
 									<div class="col-12 col-md-6">
-										<form method="POST" action="${pageContext.request.contextPath}/auctions/new">
+										<form method="POST" action="${pageContext.request.contextPath}/encheres/nouvelle">
 											<label for="name">Nom</label><br> <input type="text" name="name" id="name"
 												placeholder="Chaise en bois" value="${param.name}" required><br> <label
 												for="description">Description</label>
@@ -56,7 +56,7 @@
 				</c:forEach>
 				-->
 											</select><br> <a
-												href="${pageContext.request.contextPath}/auctions">Annuler</a>
+												href="${pageContext.request.contextPath}/encheres">Annuler</a>
 											<input type="reset" value="Réinitialiser"> <input type="submit"
 												value="Mettre en enchère">
 										</form>

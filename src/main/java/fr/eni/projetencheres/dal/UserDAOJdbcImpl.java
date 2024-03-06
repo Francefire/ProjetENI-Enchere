@@ -23,7 +23,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 
 	@Override
-	public void insert(User user) throws BusinessException {
+	public void insert(User user) throws DataException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, user.getUsername());
@@ -40,14 +40,13 @@ public class UserDAOJdbcImpl implements UserDAO {
 			if (rs.next()) {
 				user.setId(rs.getInt(1));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new BusinessException(BusinessException.DAL_INSERT_USER_SQLEXCEPTION) ;
+		} catch (SQLException e) {
+			throw new DataException("l'insertion d'un utilisateur", e.getMessage());
 		}
 	}
 
 	@Override
-	public User selectById(int id) throws BusinessException {
+	public User selectById(int id) throws DataException {
 		User user = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
@@ -68,17 +67,15 @@ public class UserDAOJdbcImpl implements UserDAO {
 				user.setCredit(rs.getInt("credit"));
 				user.setAdmin(rs.getBoolean("administrateur"));
 				user.setDisabled(rs.getBoolean("active"));
-			} else {
-				throw new BusinessException(BusinessException.DAL_USER_NOT_FOUND);
 			}
 		} catch (Exception e) {
-			throw new BusinessException(BusinessException.DAL_SELECT_USER_EXCEPTION);
+			throw new DataException("l'obtention d'un utilisateur par son identifiant", e.getMessage());
 		}
 		return user;
 	}
 
 	@Override
-	public User selectByUsername(String pseudo) {
+	public User selectByUsername(String pseudo) throws DataException {
 		User user = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_USERNAME);
@@ -100,15 +97,15 @@ public class UserDAOJdbcImpl implements UserDAO {
 				user.setAdmin(rs.getBoolean("administrateur"));
 				user.setDisabled(rs.getBoolean("active"));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			throw new DataException("l'obtention d'un utilisateur par son pseudonyme", e.getMessage());
 		}
 
 		return user;
 	}
 
 	@Override
-	public User selectByEmail(String email) {
+	public User selectByEmail(String email) throws DataException {
 		User user = null;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
@@ -130,21 +127,21 @@ public class UserDAOJdbcImpl implements UserDAO {
 				user.setAdmin(rs.getBoolean("administrateur"));
 				user.setDisabled(rs.getBoolean("active"));
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			throw new DataException("l'obtention d'un utilisateur par son email", e.getMessage());
 		}
 
 		return user;
 	}
-	
+
 	@Override
-	public List<User> selectAllUsers() {
+	public List<User> selectAllUsers() throws DataException {
 		List<User> users = new ArrayList<User>();
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(SELECT_ALL_USERS);
 
 			ResultSet rs = pstmt.executeQuery();
-			
+
 			if (rs.next()) {
 				User user = new User();
 				user.setId(rs.getInt("no_utilisateur"));
@@ -162,15 +159,15 @@ public class UserDAOJdbcImpl implements UserDAO {
 				user.setDisabled(rs.getBoolean("active"));
 				users.add(user);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
+			throw new DataException("l'obtention de tous les utilisateurs", e.getMessage());
 		}
 
 		return users;
 	}
 
 	@Override
-	public void update(User user) {
+	public void update(User user) throws DataException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
 			pstmt.setString(1, user.getUsername());
@@ -185,13 +182,12 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setInt(10, user.getId());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("la mise à jour d'un utilisateur", e.getMessage());
 		}
-
 	}
-	
+
 	@Override
-	public void updateCreditsForUser(double credits, int userId) throws BusinessException {
+	public void updateCreditsForUser(double credits, int userId) throws DataException {
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDITS_FOR_USER);
@@ -199,38 +195,40 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setInt(2, userId);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
-			throw new BusinessException(BusinessException.DAL_UPDATE_USER_CREDITS);
+			throw new DataException("la mise à jour des crédits d'un utilisateur", e.getMessage());
 		}
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(int id) throws DataException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new DataException("la suppression d'un utilisateur par son identifiant", e.getMessage());
 		}
 	}
-	//la méthode resultSetToUser qui convertit un ResultSet en objet User pour les opérations de sélection *
+
+	// la méthode resultSetToUser qui convertit un ResultSet en objet User pour les
+	// opérations de sélection *
 	private User resultSetToUser(ResultSet rs) throws SQLException {
-        User user = new User();
-        user.setId(rs.getInt("no_utilisateur"));
-        user.setUsername(rs.getString("pseudo"));
-        user.setLastName(rs.getString("nom"));
-        user.setFirstName(rs.getString("prenom"));
-        user.setEmail(rs.getString("email"));
-        user.setPhoneNumber(rs.getString("telephone"));
-        user.setStreet(rs.getString("rue"));
-        user.setZipCode(rs.getString("code_postal"));
-        user.setCity(rs.getString("ville"));
-        user.setPassword(rs.getString("mot_de_passe"));
-        return user;
-    }
+		User user = new User();
+		user.setId(rs.getInt("no_utilisateur"));
+		user.setUsername(rs.getString("pseudo"));
+		user.setLastName(rs.getString("nom"));
+		user.setFirstName(rs.getString("prenom"));
+		user.setEmail(rs.getString("email"));
+		user.setPhoneNumber(rs.getString("telephone"));
+		user.setStreet(rs.getString("rue"));
+		user.setZipCode(rs.getString("code_postal"));
+		user.setCity(rs.getString("ville"));
+		user.setPassword(rs.getString("mot_de_passe"));
+		return user;
+	}
 
 	// Création d'une méthode pour comparer l'username et le password
-	public int check(String username, String password) throws BusinessException {
+	public int check(String username, String password) throws DataException {
 		int id = 0;
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(CHECK);
@@ -241,39 +239,39 @@ public class UserDAOJdbcImpl implements UserDAO {
 			if (rs.next()) {
 				id = rs.getInt("no_utilisateur");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new BusinessException(BusinessException.BLL_LOGIN_USER_EXCEPTION);
+		} catch (SQLException e) {
+			throw new DataException("l'obtention de l'identifiant d'un utilisateur par son pseudonyme et son mot de passe", e.getMessage());
 		}
 		return id;
 	}
 
-public User login(String userName, String password) throws BusinessException {
-	User user = null;
-	try {
-		Connection cnx = ConnectionProvider.getConnection();
-		PreparedStatement pstmt = cnx.prepareStatement("SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?");
-		pstmt.setString(1, userName);
-		pstmt.setString(2, password);
-		ResultSet res = pstmt.executeQuery();
-		if (res.next()) {
-			user = new User();
-			user.setId(res.getInt("no_utilisateur"));
-			user.setUsername(res.getString("pseudo"));
-			user.setLastName(res.getString("nom"));
-			user.setFirstName(res.getString("prenom"));
-			user.setEmail(res.getString("email"));
-			user.setPhoneNumber(res.getString("telephone"));
-			user.setStreet(res.getString("rue"));
-			user.setZipCode(res.getString("code_postal"));
-			user.setCity(res.getString("ville"));
-			user.setPassword(res.getString("mot_de_passe"));
+	public User login(String userName, String password) throws DataException {
+		User user = null;
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = cnx
+					.prepareStatement("SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?");
+			pstmt.setString(1, userName);
+			pstmt.setString(2, password);
+			ResultSet res = pstmt.executeQuery();
+			if (res.next()) {
+				user = new User();
+				user.setId(res.getInt("no_utilisateur"));
+				user.setUsername(res.getString("pseudo"));
+				user.setLastName(res.getString("nom"));
+				user.setFirstName(res.getString("prenom"));
+				user.setEmail(res.getString("email"));
+				user.setPhoneNumber(res.getString("telephone"));
+				user.setStreet(res.getString("rue"));
+				user.setZipCode(res.getString("code_postal"));
+				user.setCity(res.getString("ville"));
+				user.setPassword(res.getString("mot_de_passe"));
+			}
+			cnx.close();
+		} catch (SQLException e) {
+			throw new DataException("l'obtention d'un utilisateur par son pseudonyme et son mot de passe",
+					e.getMessage());
 		}
-		cnx.close();
-	} catch (SQLException e) {
-		e.printStackTrace();
-		throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
+		return user;
 	}
-	return user;
-}
 }

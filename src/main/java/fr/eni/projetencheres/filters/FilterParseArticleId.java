@@ -23,9 +23,6 @@ import fr.eni.projetencheres.bo.Article;
 		filterName = "ParseArticleId", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = { 
-				"/auctions/bid",
-				"/auctions/delete",
-				"/auctions/edit", 
 				"/encheres/encherir",
 				"/encheres/supprimer", 
 				"/encheres/modifier",
@@ -58,7 +55,7 @@ public class FilterParseArticleId extends HttpFilter implements Filter {
 					chain.doFilter(httpRequest, response);
 				}
 			} catch (Exception e) {
-				httpResponse.sendRedirect(httpRequest.getContextPath() + "/auctions");
+				httpResponse.sendRedirect(httpRequest.getContextPath() + "/encheres");
 			}
 		}
 	}

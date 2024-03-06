@@ -13,11 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
- * Servlet implementation class ServletauctionsEdit
+ * Servlet implementation class ServletAuctionsEdit
  */
-@WebServlet({ "/auctions/edit", "/encheres/modifier" })
+@WebServlet("/encheres/modifier")
 public class ServletAuctionsEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -77,12 +78,15 @@ public class ServletAuctionsEdit extends HttpServlet {
 
 			ArticlesManager.editArticle(article);
 
-			response.sendRedirect(request.getContextPath() + "/auctions?id=" + article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (BusinessException e) {
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);	
 		} catch (NumberFormatException | DateTimeParseException e) {
-			request.setAttribute("message", BusinessException.BLL_EMPTY_FIELDS_ERROR);
+			request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 		}
 	}

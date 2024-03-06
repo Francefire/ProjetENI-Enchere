@@ -4,23 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="jspf/head.jspf"%>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styleRegister.css">
+<%@ include file="/WEB-INF/jspf/head.jspf"%>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/style_register.css">
 </head>
 <body>
-<%@ include file="jspf/header.jspf"%>
-<!-- <div class="breadcrumb"> -->
-<!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil</a> &raquo; -->
-<!--     <span>Créer un compte</span> -->
-<!-- </div> -->
+<%@ include file="/WEB-INF/jspf/header.jspf"%>
 <main>
-
-<c:if test="${!empty error}">
-				<h2 class="msgBox">${error}</h2>
-			</c:if>
-
+	<%@ include file="/WEB-INF/jspf/error.jspf" %>
 	<h2>Créer un compte</h2>
-		   <form action="Register" id="Register" method="post">
+		   <form action="inscription" id="Register" method="post">
 				<section class="left">
 				<div>
 			       <label for="pseudo">Pseudo : </label>
@@ -99,9 +91,9 @@
 	    </form>
 		  <section class="myButtons">
 		        <button form= "Register" type ="submit">Créer</button>
-		         <button><a href="/ProjetENI-Enchere/accueil">Annuler</a></button>
+		         <button><a href="${pageContext.request.contextPath}/accueil">Annuler</a></button>
 	 	</section>
 </main>
 </body>
-<%@ include file="jspf/footer.jspf"%>
+<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </html>

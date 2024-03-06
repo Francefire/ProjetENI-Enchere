@@ -13,11 +13,12 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletCreateAccount
  */
-@WebServlet("/Register")
+@WebServlet("/inscription")
 public class ServletRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +28,7 @@ public class ServletRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 	}
 
 	/**
@@ -83,6 +84,9 @@ public class ServletRegister extends HttpServlet {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
 			doGet(request, response);
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);
 		}
 
 //      response.sendRedirect(request.getContextPath());

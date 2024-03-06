@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
-	<%@ include file="jspf/head.jspf"%>
+	<%@ include file="/WEB-INF/jspf/head.jspf"%>
 	<title>ENI-Encheres</title>
 	</head> 
 	<body>
-		<%@ include file="jspf/header.jspf"%>
+		<%@ include file="/WEB-INF/jspf/header.jspf"%>
 		<main>
-    <h1>Liste des enchères</h1>
+			<%@ include file="/WEB-INF/jspf/error.jspf" %>
+    		<h1>Liste des enchères</h1>
 			<section id="filters">
 				<input type="text" placeholder="Rechercher un article..."> <select>
 					<option value="">Toutes les catégories</option>
@@ -50,6 +51,6 @@
 				Ajouter des éléments d’enchères ici
 			</section> -->
 		</main>
-		<%@ include file="jspf/footer.jspf"%>
+		<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 	</body>
 </html>
