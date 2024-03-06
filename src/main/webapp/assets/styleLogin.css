@@ -1,77 +1,5 @@
 @charset "UTF-8";
 
-:root {
-	--primary-color: #ccd5ae;
-	--secondary-color: #E9EDC9;
-	--tertiary-color: #FEFAE0;
-	--quaternary-color: #FAEDCD;
-	--quinary-color: #D4A373;
-	--senary-color: #7b8168;
-	--primary-font: 'Century Gothic', sans-serif;
-}
-
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	font-family: var(--primary-font);
-}
-
-header {
-	background-color: var(--quaternary-color);
-	color: var(--quinary-color);
-	height: 10vh;
-}
-
-header a {
-	text-decoration: none;
-	color: var(--quinary-color);
-}
-
-main {
-	background-color: var(--tertiary-color);
-	font-family: 'Century Gothic', sans-serif;
-	color: var(--quinary-color);
-	height: 80vh;
-	display : flex ; 
-	flex-direction: column;
-	justify-content: center; 
-	align-items: center; 
-}
-
-footer {
-	display : flex ; 
-	flex-wrap : wrap;
-	flex-direction : row ;
-	background-color: var(--secondary-color);
-	justify-content: center ;
-	color: var(--senary-color);
-	height: 10vh;
-}
-
-
-/* ************************************************** */
-/* ***************FIL D'ARIANE' ********************* */
-/* ************************************************** */
-
-.breadcrumb {
-    background-color: var(--secondary-color);
-    padding: 10px;
-    font-size: 14px;
-}
-
-.breadcrumb a {
-    text-decoration: none;
-    color: #333;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-    color: #007bff;
-}
-
-/* ************************************************** */
-
 main div h2 {
 	margin-bottom : 30px;
 }
@@ -94,7 +22,7 @@ input {
 	margin-right: 10px;
 }
 
-.buttonReg input {
+.buttonReg {
 	padding-top : 25px ;
 	padding-bottom : 25px ;
 	padding-left : 40px ;
@@ -103,4 +31,12 @@ input {
 	display: flex;
 	flex-flow: row;
 	gap : 50px;
+	font-family: 'Century Gothic', sans-serif;
+	border: 1px solid #D4A373;
+    border-radius : 5px;
+    height: 50%;
+    background-color: #FAEDCD;
 }
+
+
+/* @media screen and (max-width: 576px) and (orientation: portrait) {} */

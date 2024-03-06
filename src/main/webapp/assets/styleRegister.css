@@ -1,84 +1,8 @@
 @charset "UTF-8";
 
-:root {
-	--primary-color: #ccd5ae;
-	--secondary-color: #E9EDC9;
-	--tertiary-color: #FEFAE0;
-	--quaternary-color: #FAEDCD;
-	--quinary-color: #D4A373;
-	--senary-color: #7b8168;
-	--primary-font: 'Century Gothic', sans-serif;
-}
-
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-	font-family: var(--primary-font);
-}
-
-header {
-	background-color: var(--quaternary-color);
-	color: var(--quinary-color);
-	height: 10vh;
-}
-
-header a {
-	text-decoration: none;
-	color: var(--quinary-color);
-}
-
-main {
-	background-color: var(--tertiary-color);
-	font-family: 'Century Gothic', sans-serif;
-	color: var(--quinary-color);
-	height: 80vh;
-	display : flex ; 
-	flex-direction: column;
-	justify-content: center; 
-	align-items: center; 
-}
-
-footer {
-	display : flex ; 
-	flex-wrap : wrap;
-	flex-direction : row ;
-	background-color: var(--secondary-color);
-	justify-content: center ;
-	color: var(--senary-color);
-	height: 10vh;
-}
-
-/* ************************************************** */
-
-/* ************************************************** */
-/* ***************FIL D'ARIANE' ********************* */
-/* ************************************************** */
-
-.breadcrumb {
-    background-color: var(--secondary-color);
-    padding: 10px;
-    font-size: 14px;
-}
-
-.breadcrumb a {
-    text-decoration: none;
-    color: #333;
-}
-
-.breadcrumb a:hover {
-    text-decoration: underline;
-    color: #007bff;
-}
-
-/* ************************************************** */
-
 form {
 	display: flex;
-/* 	width : 80%; */
-	justify-content: space-evenly;
-/* 	flex-wrap: wrap; */
-	
+	justify-content: space-between;
 }
 
 form section  {
@@ -107,9 +31,25 @@ form section div input {
     
 }
 
-.button {
+.myButtons {
 	padding : 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items : flex-start;
+	gap : 0px;
+	width: 20%;
 }
+
+
+.myButtons button {
+    background-color: #FAEDCD;
+    border: 1px solid var(--quinary-color);
+	border-radius : 5px;
+	margin-top : 10%;
+	padding-left : 15%;
+	padding-right: 15%;
+}
+
 
 .msgBox {
 	margin-bottom : 5%;
