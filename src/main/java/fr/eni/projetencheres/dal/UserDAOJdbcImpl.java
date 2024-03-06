@@ -1,8 +1,9 @@
 package fr.eni.projetencheres.dal;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.User;
@@ -132,6 +133,21 @@ public class UserDAOJdbcImpl implements UserDAO {
 			e.printStackTrace();
 		}
 	}
+	//la méthode resultSetToUser qui convertit un ResultSet en objet User pour les opérations de sélection *
+	private User resultSetToUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("no_utilisateur"));
+        user.setUsername(rs.getString("pseudo"));
+        user.setLastName(rs.getString("nom"));
+        user.setFirstName(rs.getString("prenom"));
+        user.setEmail(rs.getString("email"));
+        user.setPhoneNumber(rs.getString("telephone"));
+        user.setStreet(rs.getString("rue"));
+        user.setZipCode(rs.getString("code_postal"));
+        user.setCity(rs.getString("ville"));
+        user.setPassword(rs.getString("mot_de_passe"));
+        return user;
+    }
 
 	//Création d'une méthode pour comparer l'username et le password
 	public int check (String username, String password) throws BusinessException {
