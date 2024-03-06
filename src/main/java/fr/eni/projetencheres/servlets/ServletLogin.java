@@ -24,7 +24,6 @@ import fr.eni.projetencheres.bo.User;
 //TODO : mettre contrainte unicité sur le pseudo
 
 
-
 /**
  * Servlet implementation class ServletSeConnecter
  */
@@ -36,8 +35,7 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 		rd.forward(request, response);
 	}
@@ -46,12 +44,13 @@ public class ServletLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userName, password;
 		String rememberMe = request.getParameter("rememberMe");
 		Cookie cook = null;
-		int pingTimeOut = 3000; //définit la durée de vie de la session (en secondes).
+		User u;
+		int cookieTimeLife = 1296000 ; //définit la durée de vie du cookie (en secondes -- 15jours)
+		int pingTimeOut = 3000; //définit la durée de vie de la session (en secondes -- 5min).
 		
 		
 		// Mise en place de la session
@@ -60,31 +59,27 @@ public class ServletLogin extends HttpServlet {
 		// vérification avec la BDD des infos fournies par l'user.
 		userName = request.getParameter("UserName");
 		password = request.getParameter("Password");
-		User u;
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+		rememberMe = request.getParameter("rememberMe");
+		RequestDispatcher rd = null;
+		
 		try {
 			u = UserManager.login(userName, password);
 			System.out.println("je suis dans le login");
-			if (u == null) {
-				doGet(request, response);
-			} else {
-				session.setAttribute("userConnected", u);
-				System.out.println("je suis connecté");
-				
-				//Destruction de la session au bout de x min 
-				session.setMaxInactiveInterval(pingTimeOut) ; 
-				
 // 				*********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
-					if (u != null) {
-						request.getSession().setAttribute("userConnected", u);
+					if (rememberMe != null) {
 						cook = new Cookie("lastLogin", u.getUsername());
-						cook.setMaxAge(60 * 60 * 24 * 30);
+						cook.setMaxAge(cookieTimeLife);
 						response.addCookie(cook);
-//						response.sendRedirect("lister");
 					}
 //				***********************************************************
+					session.setAttribute("userConnected", u);
+					System.out.println("je suis connecté");
+					
+					//Destruction de la session au bout de x min 
+					session.setMaxInactiveInterval(pingTimeOut) ; 
+					
 				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
-			}
+
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);

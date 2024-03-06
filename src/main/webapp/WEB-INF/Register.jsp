@@ -97,9 +97,9 @@
 		    			</div>
 		    		</section>
 	    </form>
-		  <section class="button">
+		  <section class="myButtons">
 		        <button form= "Register" type ="submit">Créer</button>
-		        <a href="/ProjetENI-Enchere/accueil"><input type="reset" value="Annuler"></a>
+		         <button><a href="/ProjetENI-Enchere/accueil">Annuler</a></button>
 	 	</section>
 </main>
 </body>

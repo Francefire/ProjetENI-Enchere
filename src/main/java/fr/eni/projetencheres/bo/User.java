@@ -1,7 +1,5 @@
 package fr.eni.projetencheres.bo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 //Classe permettant de définir un utilisateur, "qu'est ce qui le caractérise" ? 
 public class User {
@@ -45,7 +43,7 @@ public class User {
 		this.id = id;
 	}
 	
-	//Constructuer qui permet de creer une copie de l'utilisateur
+	//Constructeur qui permet de creer une copie de l'utilisateur
 	public User(User u) {
 		this(u.id, u.username, u.lastName, u.firstName, u.email, u.phoneNumber, u.street, u.zipCode, u.city,
 				u.password);
