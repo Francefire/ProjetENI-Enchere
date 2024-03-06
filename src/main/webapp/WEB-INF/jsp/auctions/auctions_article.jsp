@@ -28,13 +28,13 @@
 			<c:if test="${not empty userConnected}">
 				<c:choose>
 					<c:when test="${userConnected.id == article.userId}">
-						<a href="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">Modifier</a>
-					<form method="POST" action="${pageContext.request.contextPath}/auctions/delete?id=${article.id}">
+						<a href="${pageContext.request.contextPath}/encheres/modifier?id=${article.id}">Modifier</a>
+					<form method="POST" action="${pageContext.request.contextPath}/encheres/supprimer?id=${article.id}">
 						<button type="submit">Supprimer</button>
 					</form>
 					</c:when>
 					<c:otherwise>
-							<form method="POST" action="${pageContext.request.contextPath}/auctions/bid?id=${article.id}">
+							<form method="POST" action="${pageContext.request.contextPath}/encheres/enchere?id=${article.id}">
 								<label for="amount">Crédits</label><br>
 								<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required 
 								<c:if test="${userConnected.credit < article.sellingPrice+1}">

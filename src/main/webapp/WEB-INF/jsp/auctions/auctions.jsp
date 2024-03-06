@@ -16,7 +16,7 @@
 		<h1>Enchères en cours</h1>
 		<%@ include file="/WEB-INF/jspf/message.jspf" %>
 		<section class="search">
-			<form method="GET" action="${pageContext.request.contextPath}/auctions">
+			<form method="GET" action="${pageContext.request.contextPath}/encheres">
 				<div>
 					<label for="name">Nom</label><br>
 					<input type="search" name="name" value="${param.name}" placeholder="Chaise en bois">
@@ -50,7 +50,7 @@
 		<section class="articles">
 			<c:forEach items="${articles}" var="article">
 				<article>
-					<a href="${pageContext.request.contextPath}/auctions?id=${article.id}">
+					<a href="${pageContext.request.contextPath}/encheres?id=${article.id}">
 						<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
 						<h1>${article.name}</h1>
 						<span>${article.sellingPrice}</span>

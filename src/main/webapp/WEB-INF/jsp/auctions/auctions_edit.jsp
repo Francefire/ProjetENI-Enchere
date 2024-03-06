@@ -10,7 +10,7 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
 		<%@ include file="/WEB-INF/jspf/message.jspf" %>
-		<form method="POST" action="${pageContext.request.contextPath}/auctions/edit?id=${article.id}">
+		<form method="POST" action="${pageContext.request.contextPath}/encheres/modifier?id=${article.id}">
 			<label for="name">Nom</label>
 			<input type="text" name="name" id="name" value="${article.name}"><br>
 			<label for="description">Description</label>

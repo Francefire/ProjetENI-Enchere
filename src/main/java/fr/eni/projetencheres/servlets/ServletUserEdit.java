@@ -29,7 +29,7 @@ public class ServletUserEdit extends HttpServlet {
 
 		User u = (User) request.getSession().getAttribute("userConnected");
 		if (u == null) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			response.sendRedirect(request.getContextPath() + "/accueil");
 			return;
 		}
 		request.setAttribute("user", u);
@@ -46,8 +46,7 @@ public class ServletUserEdit extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		User u = (User) request.getSession().getAttribute("userConnected");
 		if (u == null) {
-			response.sendRedirect(request.getContextPath() + "/home");
-			return;
+			response.sendRedirect(request.getContextPath() + "/accueil");
 		}
 		String username = request.getParameter("editUsername");
 		String passwordValidation = request.getParameter("passwordValidation");
@@ -78,12 +77,10 @@ public class ServletUserEdit extends HttpServlet {
 			UserManager.editUser(editedUser);
 			request.getSession().setAttribute("userConnected", editedUser);
 			request.setAttribute("message", null);
-			
 
 		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
-		}
-		finally {
+		} finally {
 			rd.forward(request, response);
 		}
 		// A definir si on garde dans la session ou la requete

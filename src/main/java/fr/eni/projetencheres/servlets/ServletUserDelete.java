@@ -37,7 +37,7 @@ public class ServletUserDelete extends HttpServlet {
 		String password = request.getParameter("deletePassword");
 		String confirmPassword = request.getParameter("deleteConfirmPassword");
 		if (u == null) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			response.sendRedirect(request.getContextPath() + "/accueil");
 			return;
 		}
 		try {

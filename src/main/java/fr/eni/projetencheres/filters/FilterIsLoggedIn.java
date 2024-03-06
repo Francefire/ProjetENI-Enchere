@@ -27,7 +27,7 @@ import fr.eni.projetencheres.bo.User;
 				"/encheres/modifier",
 				"/encheres/nouvelle",
 				"/utilisateur",
-				"/utilisateur/edit",
+				"/utilisateur/modifier",
 				"/credits",
 		}
 )

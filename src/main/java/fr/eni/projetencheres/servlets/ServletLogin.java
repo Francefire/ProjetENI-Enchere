@@ -44,45 +44,42 @@ public class ServletLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userName, password;
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		String rememberMe = request.getParameter("rememberMe");
 		Cookie cook = null;
 		User u;
-		int cookieTimeLife = 1296000; // définit la durée de vie du cookie (en secondes -- 15jours)
-		int pingTimeOut = 3000; // définit la durée de vie de la session (en secondes -- 5min).
+		int cookieMaxAge = 1296000; // définit la durée de vie du cookie (en secondes -- 15jours)
+		int pingTimeout = 3000; // définit la durée de vie de la session (en secondes -- 5min).
 
 		// Mise en place de la session
 		HttpSession session = request.getSession(); // cette méthode retourne une nouvelle session si aucune session
 													// n'existe
 
-		// vérification avec la BDD des infos fournies par l'user.
-		userName = request.getParameter("UserName");
-		password = request.getParameter("Password");
-		rememberMe = request.getParameter("rememberMe");
 		RequestDispatcher rd = null;
 
+		// vérification avec la BDD des infos fournies par l'user.
 		try {
-			u = UserManager.login(userName, password);
+			u = UserManager.login(username, password);
 			System.out.println("je suis dans le login");
-// 				*********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
+			// *********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
 			if (rememberMe != null) {
 				cook = new Cookie("lastLogin", u.getUsername());
-				cook.setMaxAge(cookieTimeLife);
+				cook.setMaxAge(cookieMaxAge);
 				response.addCookie(cook);
 			}
-//				***********************************************************
+			// ***********************************************************
 			session.setAttribute("userConnected", u);
 			System.out.println("je suis connecté");
 
 			// Destruction de la session au bout de x min
 
-			session.setMaxInactiveInterval(pingTimeOut);
+			session.setMaxInactiveInterval(pingTimeout);
 			if (request.getParameter("targetUrl") != null) {
-				System.out.println(request.getContextPath());
+				request.setAttribute("message", "Vous devez être connecté pour accéder à cette page");
 				response.sendRedirect(request.getContextPath() + request.getParameter("targetUrl"));
 			} else {
-				response.sendRedirect(request.getContextPath() + "/home");
-				rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
+				response.sendRedirect(request.getContextPath() + "/accueil");
 			}
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();

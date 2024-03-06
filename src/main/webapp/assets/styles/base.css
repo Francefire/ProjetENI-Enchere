@@ -82,6 +82,21 @@ a {
 	color : black ;
 }
 
+.message {
+	margin-bottom : 5%;
+	border: 1px solid var(--quinary-color);
+	border-radius : 5px;
+	padding: 3px; 
+	color: var(--quinary-color); 
+}
+
+.error {
+	margin-bottom : 5%;
+	border: 1px solid var(--quinary-color);
+	border-radius : 5px;
+	padding: 3px; 
+	color: var(--quinary-color); 
+}
 
 /* ************************************************** */
 /* ***************FIL D'ARIANE' ********************* */

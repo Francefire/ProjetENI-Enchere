@@ -11,18 +11,10 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
-	<!-- <div class="breadcrumb"> -->
-	<!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i> Accueil</a> &raquo; -->
-	<!--     <span>Se connecter</span> -->
-	<!-- </div> -->
 	<main>
 		<c:if test="${!empty error}">
 			<h2 class="msgBox">${error}</h2>
 		</c:if>
-		<c:if test="${!empty param.targetUrl}">
-			<h2 class="msgBox">Vous devez être connecté pour accéder à cette page.</h2>
-		</c:if>
-
 		<div class="container">
 			<h2>Se connecter</h2>
 			<form action="" method="post">
@@ -30,7 +22,7 @@
 
 					<label for="pseudo">Identifiant : </label> <input type="text"
 						id="idUserName" name="UserName"
-		    					value="${cookie.lastLogin.value}"
+		    			value="${cookie.lastLogin.value}"
 						autofocus required placeholder="votre pseudo"
 						title="Veuillez saisir votre pseudo" /> <br /> <label
 						for="mot_de_passe">Mot de Passe: </label> <input type="password"
@@ -52,8 +44,7 @@
 			<br>
 			<!-- 		    BOUTON CREER UN COMPTE -->
 			<div class="buttonReg">
-				<a href="${pageContext.request.contextPath}/Register">Créer un
-					compte</a>
+				<a href="${pageContext.request.contextPath}/inscription">Créer un compte</a>
 			</div>
 		</div>
 	</main>

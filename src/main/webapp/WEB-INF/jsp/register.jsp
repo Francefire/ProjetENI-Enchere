@@ -9,15 +9,11 @@
 </head>
 <body>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
-<!-- <div class="breadcrumb"> -->
-<!--     <a href="/ProjetENI-Enchere"><i class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil</a> &raquo; -->
-<!--     <span>Créer un compte</span> -->
-<!-- </div> -->
 <main>
 
-<c:if test="${!empty error}">
-				<h2 class="msgBox">${error}</h2>
-			</c:if>
+	<c:if test="${!empty error}">
+		<h2 class="msgBox">${error}</h2>
+	</c:if>
 
 	<h2>Créer un compte</h2>
 		   <form action="Register" id="Register" method="post">
@@ -99,7 +95,7 @@
 	    </form>
 		  <section class="myButtons">
 		        <button form= "Register" type ="submit">Créer</button>
-		         <button><a href="/ProjetENI-Enchere/accueil">Annuler</a></button>
+		         <button><a href="${pageContext.request.contextPath}/accueil">Annuler</a></button>
 	 	</section>
 </main>
 </body>
