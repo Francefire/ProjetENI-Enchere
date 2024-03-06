@@ -31,6 +31,8 @@ import fr.eni.projetencheres.bo.User;
 				"/encheres/supprimer",
 				"/encheres/modifier",
 				"/encheres/nouvelle",
+				
+				"/credits",
 		}
 )
 public class FilterIsLoggedIn extends HttpFilter implements Filter {   

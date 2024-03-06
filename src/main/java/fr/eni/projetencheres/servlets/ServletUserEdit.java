@@ -21,10 +21,12 @@ public class ServletUserEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		User u = (User) request.getSession().getAttribute("userConnected");
 		if (u == null) {
 			response.sendRedirect(request.getContextPath() + "/home");
@@ -36,9 +38,12 @@ public class ServletUserEdit extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		User u = (User) request.getSession().getAttribute("userConnected");
 		if (u == null) {
 			response.sendRedirect(request.getContextPath() + "/home");
@@ -55,11 +60,15 @@ public class ServletUserEdit extends HttpServlet {
 		String street = request.getParameter("editStreet");
 		String zipCode = request.getParameter("editZipCode");
 		String city = request.getParameter("editCity");
-		User editedUser = new User(u.getId(), username, lastName, firstName, email, phone, street, zipCode, city, passwordValidation);
+		User editedUser = new User(u.getId(), username, lastName, firstName, email, phone, street, zipCode, city,
+				passwordValidation);
 		editedUser.setCredit(u.getCredit());
 		editedUser.setAdmin(u.isAdmin());
 		try {
-			//TODO : A corriger, un utilisateur avec un mot de passe ne respectant pas le regex ne pourra pas modifier son profile car le champ est verifié par la BLL
+			System.out.println("editUser " + editedUser);
+			System.out.println("userConnected " + u);
+			System.out.println("passwordValidation : " + passwordValidation);
+			UserManager.comparePwd(u.getPassword(), passwordValidation);
 			UserManager.checkUserInfo(editedUser, false);
 			if (password != null && !password.isEmpty()) {
 				UserManager.comparePwd(password, confirmEditPassword);
@@ -70,15 +79,17 @@ public class ServletUserEdit extends HttpServlet {
 			request.getSession().setAttribute("userConnected", editedUser);
 			request.setAttribute("message", null);
 			
+
 		} catch (BusinessException e) {
 			request.setAttribute("message", e.getMessage());
 		}
-		//A definir si on garde dans la session ou la requete
-		
-		//redirection vers la servlet user
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
-		rd.forward(request, response);
-		
+		finally {
+			rd.forward(request, response);
+		}
+		// A definir si on garde dans la session ou la requete
+
+		// redirection vers la servlet user
+
 	}
 
 }
