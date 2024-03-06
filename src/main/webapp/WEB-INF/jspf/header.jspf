@@ -1,21 +1,45 @@
 <header>
 	<h1>
-		<a href="/ProjetENI-Enchere" class="home-link"><i class="fa-solid fa-house fa-xs" style="color: #D4A373;"></i> ENI-Encheres</a>
+		<a href="/ProjetENI-Enchere" class="home-link"><i
+			class="fa-solid fa-house fa-xs" style="color: #D4A373;"></i>
+			ENI-Encheres</a>
 	</h1>
 	<nav>
-<!-- 			Si déconnecté -->
-			<c:if test="${empty userConnected}">
-				 <a href="/ProjetENI-Enchere/Register">Créer un compte  | </a> 
-				 <a href="/ProjetENI-Enchere/Login">Se connecter <i class="fa-solid fa-right-to-bracket" style="color: #D4A373;"></i></a> 
-			</c:if>
-		
-		
-<!-- 		 Si connecté -->
-		 <c:if test="${!empty userConnected}">
-					Bonjour ${userConnected.username } <i class="fa-regular fa-face-smile"></i><a href="/ProjetENI-Enchere/user"> | Mon Profil | </a>
-					<a href="/ProjetENI-Enchere/logout">Se déconnecter <i class="fa-solid fa-right-from-bracket"></i></a>
-			</c:if>
+		<!-- 			Si déconnecté -->
+		<c:if test="${empty userConnected}">
+			<a href="/ProjetENI-Enchere/Register">Créer un compte | </a>
+			<a href="/ProjetENI-Enchere/Login">Se connecter <i
+				class="fa-solid fa-right-to-bracket" style="color: #D4A373;"></i></a>
+		</c:if>
+
+
+		<!-- 		 Si connecté -->
+		<c:if test="${!empty userConnected}">
+					Bonjour ${userConnected.username } <i
+				class="fa-regular fa-face-smile"></i>
+			<a href="/ProjetENI-Enchere/user"> | Mon Profil | </a>
+			<a href="/ProjetENI-Enchere/logout">Se déconnecter <i
+				class="fa-solid fa-right-from-bracket"></i></a>
+		</c:if>
 	</nav>
-		
-<!--    <a href="#">Se déconnecter</a> -->
+
+
+	<div class="breadcrumb">
+		<a href="${pageContext.request.contextPath}"> <i
+			class="fa-solid fa-house fa-xs" style="color: #7b8168;"></i>Accueil
+		</a> &raquo;
+		<c:forEach items="${breadcrumb}" var="crumb" varStatus="status">
+			<c:choose>
+				<c:when test="${!empty crumb && not status.last}">
+					<a href="${pageContext.request.contextPath}/${crumb}">${crumb}</a>&raquo;
+				</c:when>
+				<c:when test="${!empty crumb}">
+					<span>${crumb}</span>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+	</div>
+
+
+	<!--    <a href="#">Se déconnecter</a> -->
 </header>
