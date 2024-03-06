@@ -22,7 +22,7 @@ public class UserManager {
 
 	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer un nouvel user.
 	public static void createUser(User user, String checkPassword) throws BusinessException {
-		UserManager.checkUserInfo(u);	
+		UserManager.checkUserInfo(user);	
     comparePwd(user.getPassword(), checkPassword); //comparaison des saisies 
 		String mdphashe = UserManager.hashPwd(user.getPassword()); //récup du mdp hashé, et transféré dans la variable
 		user.setPassword(mdphashe);
