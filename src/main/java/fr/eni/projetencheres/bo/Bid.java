@@ -54,7 +54,7 @@ public class Bid {
         return "Bid{" +
                 "userId=" + userId +
                 ", articleId=" + articleId +
-                ", date=" + date +
+                ", date=" + datetime +
                 ", amount=" + amount +
                 '}';
     }

@@ -30,7 +30,8 @@ import fr.eni.projetencheres.bo.User;
 				"/encheres/supprimer",
 				"/encheres/modifier",
 				"/encheres/nouvelle",
-				
+				"/user",
+				"/user/edit",
 				"/credits",
 		}
 )

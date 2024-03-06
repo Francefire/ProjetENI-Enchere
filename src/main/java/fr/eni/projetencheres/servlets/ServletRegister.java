@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
-import fr.eni.projetencheres.ihm.Breadcrumb;
 
 /**
  * Servlet implementation class ServletCreateAccount
@@ -28,7 +27,6 @@ public class ServletRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("Breadcrumb" + Breadcrumb.breadcrumb(request));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/Register.jsp").forward(request, response);
 	}
 

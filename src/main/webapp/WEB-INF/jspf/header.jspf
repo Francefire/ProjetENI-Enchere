@@ -34,12 +34,12 @@
 
 </header>
 	<nav class="breadcrumb">
-		<a href="${pageContext.request.contextPath}">Accueil </a>&nbsp;&raquo;
+		<a href="${pageContext.request.contextPath}">Accueil </a>&nbsp;&raquo;&nbsp;
 
-		<c:forEach var="crumb" items="${breadcrumb}">
+		<c:forEach var="crumb" items="${breadcrumb}" varStatus="status">
 			<c:choose>
-				<c:when test="${not empty crumb}">
-					<a href="${pageContext.request.contextPath}/${crumb}">${crumb}</a>&nbsp;&raquo;
+				<c:when test="${not empty crumb && not status.last}">
+					<a href="${pageContext.request.contextPath}/${crumb}">${crumb}</a>&nbsp;&raquo;&nbsp;
             	</c:when>
 				<c:otherwise>
 					<span>${crumb}</span>
