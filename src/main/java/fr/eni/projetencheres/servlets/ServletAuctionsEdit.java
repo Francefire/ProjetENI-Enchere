@@ -2,7 +2,6 @@ package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
-import fr.eni.projetencheres.bo.User;
 
 /**
  * Servlet implementation class ServletauctionsEdit
