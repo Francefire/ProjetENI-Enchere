@@ -77,17 +77,14 @@ public class ServletLogin extends HttpServlet {
 					
 					//Destruction de la session au bout de x min 
 					session.setMaxInactiveInterval(pingTimeOut) ; 
-					
-				rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+					response.sendRedirect(request.getContextPath() + "/home");
+					rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
 			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 			System.out.println("je suis dans le catch");
 			rd.forward(request, response);
-		}
-		finally {
-			rd.forward(request, response) ;
 		}
 	}
 }

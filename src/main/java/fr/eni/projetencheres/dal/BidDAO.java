@@ -66,7 +66,7 @@ public class BidDAO {
 	        Bid bid = new Bid();
 	        bid.setUserId(rs.getInt("no_utilisateur"));
 	        bid.setArticleId(rs.getInt("no_article"));
-	        bid.setDate(rs.getDate("date_enchere").toLocalDate());
+	        //bid.setDateTime(rs.getDate("date_enchere").toLocalDate());
 	        bid.setAmount(rs.getDouble("montant_enchere"));
 	        return bid;
 	    }
