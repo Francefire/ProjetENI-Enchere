@@ -36,7 +36,7 @@
 	    <filter-name>Encode</filter-name>
 	    <url-pattern/>
 	</filter-mapping>
-		<filter-mapping>
+	<filter-mapping>
 	    <filter-name>IsLoggedIn</filter-name>
 	    <url-pattern/>
 	</filter-mapping>
@@ -45,11 +45,11 @@
 	    <url-pattern/>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>GetArticle</filter-name>
+	    <filter-name>IsDisabled</filter-name>
 	    <url-pattern/>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>IsDisabled</filter-name>
+	    <filter-name>GetArticle</filter-name>
 	    <url-pattern/>
 	</filter-mapping>
 	<filter-mapping>

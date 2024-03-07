@@ -26,13 +26,9 @@ public class ServletAuctionsBid extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
+		Article article = (Article) request.getAttribute("article");
 		
-		if (id == null || id.isEmpty()) {
-			response.sendError(404);
-		} else {
-			response.sendRedirect(request.getContextPath() + "/encheres?id=" + id);	
-		}
+		response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 	}
 
 	/**
@@ -68,8 +64,8 @@ public class ServletAuctionsBid extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		}  catch (DataException e) {
-			// TODO Log exception
-			response.sendError(503);				
+			System.out.println(e);
+			response.sendError(500);				
 		} catch (NumberFormatException e) {
 			request.setAttribute("error", "Le montant entré n'est pas valide");
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());

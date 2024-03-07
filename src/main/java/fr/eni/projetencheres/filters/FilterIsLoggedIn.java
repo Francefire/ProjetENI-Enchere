@@ -22,17 +22,16 @@ import fr.eni.projetencheres.bo.User;
 		filterName = "IsLoggedIn", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = {
-				"/encheres/encherir", 
-				"/encheres/supprimer",
 				"/encheres/modifier",
-				"/encheres/nouvelle",
+				"/encheres/supprimer",
+				"/encheres/encherir",
 				"/encheres/retrait",
 				"/utilisateur",
 				"/utilisateur/modifier",
 				"/utilisateur/supprimer",
 				"/credits",
 				"/admin",
-				"/admin/*",
+				"/admin/*"
 		}
 )
 public class FilterIsLoggedIn extends HttpFilter implements Filter {
@@ -47,12 +46,15 @@ public class FilterIsLoggedIn extends HttpFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
-
+		
+		System.out.println("IsLoggedIn");
+		
 		if (user == null) {
 			String path = String.format("%s/connexion?targetUrl=%s", httpRequest.getContextPath(),
 					httpRequest.getServletPath());
 			httpResponse.sendRedirect(path);
 		} else {
+			System.out.println(user.toString());
 			chain.doFilter(request, response);
 		}
 	}

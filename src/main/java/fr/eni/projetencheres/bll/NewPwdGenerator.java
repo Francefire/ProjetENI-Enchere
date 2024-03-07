@@ -34,8 +34,4 @@ public class NewPwdGenerator {
 
 	        return password.toString();
 	    }
-
-	    public static void main(String[] args) {
-	        System.out.println(generatePassword(8));
-	    }
 }

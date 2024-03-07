@@ -1,6 +1,5 @@
 package fr.eni.projetencheres.bo;
 
-
 //Classe permettant de définir un utilisateur, "qu'est ce qui le caractérise" ? 
 public class User {
 	private int id;
@@ -13,7 +12,7 @@ public class User {
 	private String zipCode;
 	private String city;
 	private String password;
-	private int credit;
+	private double credit;
 	private boolean admin;
 	private boolean disabled;
 
@@ -136,11 +135,11 @@ public class User {
 		this.password = password;
 	}
 
-	public int getCredit() {
+	public double getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(double credit) {
 		this.credit = credit;
 	}
 
@@ -159,11 +158,12 @@ public class User {
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", lastName=" + lastName + ", firstName=" + firstName
 				+ ", email=" + email + ", phoneNumber=" + phoneNumber + ", street=" + street + ", zipCode=" + zipCode
-				+ ", city=" + city + ", password=" + password + ", credit=" + credit + ", admin=" + admin + "]";
+				+ ", city=" + city + ", password=" + password + ", credit=" + credit + ", admin=" + admin
+				+ ", desactive=" + disabled + "]";
 	}
 }

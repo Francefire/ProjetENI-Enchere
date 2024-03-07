@@ -24,7 +24,6 @@ import fr.eni.projetencheres.bo.User;
 		urlPatterns = {
 				"/encheres/modifier",
 				"/encheres/supprimer",
-				"/encheres/nouvelle",
 				"/encheres/encherir",
 				"/encheres/retrait"
 		}
@@ -40,6 +39,8 @@ public class FilterIsDisabled extends HttpFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
+		
+		System.out.println("IsDisabled");
 		
 		if (user.isDisabled()) {
 			httpResponse.sendRedirect(httpRequest.getContextPath());

@@ -17,6 +17,7 @@ import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BidsManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.CategoryManager;
+import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.bo.User;
@@ -43,17 +44,17 @@ public class ServletAuctions extends HttpServlet {
 		RequestDispatcher auctionsRd = request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp");
 
 		if (id == null || id.isEmpty()) {
-			try { 
+			try {
 				CategoryManager categoryManager = new CategoryManager();
-	            List<Category> categories = categoryManager.getAllCategories();
-	            request.setAttribute("categories", categories);
-	            
+				List<Category> categories = categoryManager.getAllCategories();
+				request.setAttribute("categories", categories);
+
 				if (request.getParameterMap().size() == 0) {
 					List<Article> articles = ArticlesManager.getAllArticles();
 					request.setAttribute("articles", articles);
 					auctionsRd.forward(request, response);
 				} else {
-					String paramName = request.getParameter("name");
+					String paramSearch = request.getParameter("search");
 					String paramCategoryId = request.getParameter("categoryId");
 					String paramStartDate = request.getParameter("startDate");
 					String paramEndDate = request.getParameter("endDate");
@@ -74,7 +75,7 @@ public class ServletAuctions extends HttpServlet {
 						endDate = LocalDate.parse(paramEndDate, ServletAuctions.formatter);
 					}
 
-					List<Article> articles = ArticlesManager.getAllArticlesWhere(paramName, categoryId, startDate,
+					List<Article> articles = ArticlesManager.getAllArticlesWhere(paramSearch, categoryId, startDate,
 							endDate);
 
 					request.setAttribute("articles", articles);
@@ -84,7 +85,7 @@ public class ServletAuctions extends HttpServlet {
 				request.setAttribute("error", e.getMessage());
 				auctionsRd.forward(request, response);
 			} catch (DataException e) {
-				// TODO Log exception
+				System.out.println(e);
 				response.sendError(500);
 			} catch (NumberFormatException | DateTimeParseException e) {
 				request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
@@ -115,6 +116,8 @@ public class ServletAuctions extends HttpServlet {
 							response.sendRedirect(request.getContextPath() + "/encheres/retrait?id=" + article.getId());
 						}
 					} else {
+						User owner = UserManager.getUserById(article.getUserId());
+						request.setAttribute("owner", owner);
 						auctionsArticleRd.forward(request, response);
 					}
 				}
@@ -122,7 +125,6 @@ public class ServletAuctions extends HttpServlet {
 				request.setAttribute("error", e.getMessage());
 				auctionsRd.forward(request, response);
 			} catch (DataException e) {
-				// TODO Log exception
 				System.out.println(e);
 				response.sendError(500);
 			} catch (NumberFormatException e) {
