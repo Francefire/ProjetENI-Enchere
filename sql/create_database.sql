@@ -28,7 +28,7 @@ CREATE TABLE RETRAITS (
 	no_article     INTEGER NOT NULL,
     rue            VARCHAR(60) NOT NULL,
     code_postal    VARCHAR(15) NOT NULL,
-    ville          VARCHAR(30) NOT NULL
+    ville          VARCHAR(30) NOT NULL,
     -- Ajout d'une date de retrait
     date_retrait   DATE NOT NULL,
 )
