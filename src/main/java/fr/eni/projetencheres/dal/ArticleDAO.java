@@ -14,14 +14,16 @@ import fr.eni.projetencheres.bo.Article;
 
 public class ArticleDAO {
 	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS "
-			+ "(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) "
-			+ "VALUES (?,? ,? ,? ,? ,? ,? ,?)";
+			+ "(nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, url_image, no_utilisateur, no_categorie) "
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS "
-			+ "SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_categorie=? "
+			+ "SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, url_image=?, no_categorie=? "
 			+ "WHERE no_article=?";
 	private static final String SQL_UPDATE_ARTICLE_SELLING_PRICE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=?";
+	private static final String SQL_UPDATE_ARTICLE_AUCTION_STATE = "UPDATE ARTICLES_VENDUS SET etat_vente=? WHERE no_article=?";
 	private static final String SQL_SELECT_ARTICLE_BY_ARTICLE_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT * FROM ARTICLES_VENDUS";
+	private static final String SQL_SELECT_TOP_ARTICLES = "SELECT TOP (?) * FROM ARTICLES_VENDUS ORDER BY no_article DESC";
 	private static final String SQL_DELETE_ARTICLE_BY_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
 
 	// méthode pour insérer un article
@@ -37,8 +39,9 @@ public class ArticleDAO {
 			statement.setDate(4, Date.valueOf(a.getEndDate()));
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
-			statement.setInt(7, a.getUserId());
-			statement.setInt(8, a.getCategoryId()); // Remplacez 8 par l'index approprié selon requête SQL ????? *
+			statement.setString(7, a.getImageUrl());
+			statement.setInt(8, a.getUserId());
+			statement.setInt(9, a.getCategoryId());
 			statement.execute();
 
 			ResultSet rs = statement.getGeneratedKeys();
@@ -65,8 +68,9 @@ public class ArticleDAO {
 			statement.setDate(4, Date.valueOf(a.getEndDate()));
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
-			statement.setInt(7, a.getCategoryId());  
-			statement.setInt(8, a.getId());
+			statement.setString(7, a.getImageUrl());
+			statement.setInt(8, a.getCategoryId());
+			statement.setInt(9, a.getId());
 			statement.executeUpdate();
 
 			connection.close();
@@ -90,6 +94,21 @@ public class ArticleDAO {
 		}
 	}
 
+	public void updateAuctionSate(int articleId, String auctionState) throws DataException {
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ARTICLE_AUCTION_STATE);
+			statement.setInt(1, articleId);
+			statement.setString(2, auctionState);
+			statement.executeUpdate();
+
+			connection.close();
+		} catch (SQLException e) {
+			throw new DataException("la mise à jour de l'état de vente d'un article", e.getMessage());
+		}
+	}
+
 	public Article selectArticleByArticleId(int articleId) throws DataException {
 		Article article = null;
 
@@ -110,8 +129,10 @@ public class ArticleDAO {
 				article.setEndDate(rs.getDate(5).toLocalDate());
 				article.setInitialPrice(rs.getDouble(6));
 				article.setSellingPrice(rs.getDouble(7));
-				article.setUserId(rs.getInt(8));
-				article.setCategoryId(rs.getInt(9));
+				article.setAuctionState(rs.getString(8));
+				article.setImageUrl(rs.getString(9));
+				article.setUserId(rs.getInt(10));
+				article.setCategoryId(rs.getInt(11));
 			}
 
 			connection.close();
@@ -141,14 +162,51 @@ public class ArticleDAO {
 				article.setEndDate(rs.getDate(5).toLocalDate());
 				article.setInitialPrice(rs.getDouble(6));
 				article.setSellingPrice(rs.getDouble(7));
-				article.setUserId(rs.getInt(8));
-				article.setCategoryId(rs.getInt(9));
+				article.setAuctionState(rs.getString(8));
+				article.setImageUrl(rs.getString(9));
+				article.setUserId(rs.getInt(10));
+				article.setCategoryId(rs.getInt(11));
 				articles.add(article);
 			}
 
 			connection.close();
 		} catch (SQLException e) {
 			throw new DataException("l'obtention de tous les articles", e.getMessage());
+		}
+
+		return articles;
+	}
+
+	public List<Article> selectTopArticles(int top) throws DataException {
+		List<Article> articles = new ArrayList<Article>();
+
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_TOP_ARTICLES);
+			statement.setInt(1, top);
+			statement.setInt(2, top);
+
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				Article article = new Article();
+				article.setId(rs.getInt(1));
+				article.setName(rs.getString(2));
+				article.setDescription(rs.getString(3));
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
+				article.setInitialPrice(rs.getDouble(6));
+				article.setSellingPrice(rs.getDouble(7));
+				article.setAuctionState(rs.getString(8));
+				article.setUserId(rs.getInt(9));
+				article.setCategoryId(rs.getInt(10));
+				articles.add(article);
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			throw new DataException("l'obtention des articles du top " + top, e.getMessage());
 		}
 
 		return articles;

@@ -28,7 +28,7 @@
 										
 									</div>
 									<div class="col-12 col-md-6">
-										<form method="POST" action="${pageContext.request.contextPath}/encheres/nouvelle">
+										<form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/encheres/nouvelle">
 											<label for="name">Nom</label><br> <input type="text" name="name" id="name"
 												placeholder="Chaise en bois" value="${param.name}" required><br> <label
 												for="description">Description</label>

@@ -11,6 +11,7 @@ public class Article {
 	private double initialPrice;
 	private double sellingPrice;
 	private String auctionState;
+	private String imageUrl = "/assets/images/article_placeholder.jpg";
 	private int userId;
 	private int categoryId;   // Nouvel attribut pour la référence à la catégorie *
 
@@ -116,8 +117,16 @@ public class Article {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-    // ToString *
+    
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+	
+	// ToString *
     @Override
     public String toString() {
         return "Article{" +
