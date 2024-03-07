@@ -51,7 +51,7 @@
 			<c:forEach items="${articles}" var="article">
 				<article>
 					<a href="${pageContext.request.contextPath}/encheres?id=${article.id}">
-						<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="article placeholder">
+						<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}">
 						<h1>${article.name}</h1>
 						<span>${article.sellingPrice}</span>
 						<p>${article.description}</p>

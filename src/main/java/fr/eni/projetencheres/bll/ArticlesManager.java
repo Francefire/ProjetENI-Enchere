@@ -1,7 +1,13 @@
 package fr.eni.projetencheres.bll;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.List;
+
+import javax.servlet.http.Part;
 
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.dal.ArticleDAO;
@@ -9,6 +15,8 @@ import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.DataException;
 
 public class ArticlesManager {
+	private static final String PUBLIC_DIR = "/public";
+
 	private static ArticleDAO articleDAO;
 
 	public static ArticleDAO getIntance() {
@@ -19,7 +27,7 @@ public class ArticlesManager {
 		return articleDAO;
 	}
 
-	public static void addArticle(Article a) throws BusinessException, DataException {
+	public static void addArticle(Article a, String imagePath, Part imagePart) throws BusinessException, DataException {
 		Utils.verifyStringField("nom", a.getName(), 0, 30);
 		Utils.verifyStringField("description", a.getDescription(), 0, 300);
 
@@ -29,10 +37,39 @@ public class ArticlesManager {
 
 		Utils.verifyMoneyField("prix initial", a.getInitialPrice(), 0);
 
+		if (imagePart != null) {
+			String fileName = getFilename(imagePart);
+
+			if (fileName != null && !fileName.isEmpty()) {
+				try {
+					String path = imagePath + PUBLIC_DIR + File.separator + fileName;
+					saveImage(imagePart, path);
+					a.setImageUrl(PUBLIC_DIR + File.separator + fileName);
+				} catch (IOException e) {
+					throw new BusinessException(BusinessException.BLL_IMAGE_SAVE_FAILED);
+				}
+			}
+		}
+
 		ArticlesManager.getIntance().insertArticle(a);
 	}
 
-	public static void editArticle(Article a) throws BusinessException, DataException {
+	public static void editArticle(Article a, String imagePath, Part imagePart)
+			throws BusinessException, DataException {
+		if (imagePart != null) {
+			String fileName = getFilename(imagePart);
+
+			if (fileName != null && !fileName.isEmpty()) {
+				try {
+					String path = imagePath + PUBLIC_DIR + File.separator + fileName;
+					saveImage(imagePart, path);
+					a.setImageUrl(PUBLIC_DIR + File.separator + fileName);
+				} catch (IOException e) {
+					throw new BusinessException(BusinessException.BLL_IMAGE_SAVE_FAILED);
+				}
+			}
+		}
+
 		ArticlesManager.getIntance().updateArticle(a);
 	}
 
@@ -67,7 +104,43 @@ public class ArticlesManager {
 		return articles;
 	}
 
+	public static List<Article> getTopArticles(int top) throws BusinessException, DataException {
+		List<Article> articles = ArticlesManager.getIntance().selectTopArticles(top);
+
+		if (articles == null) {
+			throw new BusinessException(BusinessException.BLL_GET_ALL_ARTICLES_NULL);
+		}
+
+		return articles;
+	}
+
 	public static void deleteArticleByArticleId(int articleId) throws BusinessException, DataException {
 		ArticlesManager.getIntance().deleteArticleByArticleId(articleId);
+	}
+
+	// Source: https://docs.oracle.com/javaee/6/tutorial/doc/glraq.html
+	private static void saveImage(Part part, String path) throws IOException {
+		FileOutputStream out = new FileOutputStream(new File(path));
+		InputStream imageContent = part.getInputStream();
+
+		int read = 0;
+		byte[] bytes = new byte[1024];
+
+		while ((read = imageContent.read(bytes)) != -1) {
+			out.write(bytes, 0, read);
+		}
+	}
+
+	private static String getFilename(Part part) {
+		String filename = null;
+
+		for (String cd : part.getHeader("content-disposition").split(";")) {
+			if (cd.trim().startsWith("filename")) {
+				filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+				return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE
+			}
+		}
+
+		return null;
 	}
 }

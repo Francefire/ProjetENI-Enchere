@@ -69,7 +69,7 @@ public class ServletAuctions extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
 			} catch (DataException e) {
 				// TODO Log exception
-				response.sendError(503);
+				response.sendError(500);
 			} catch (NumberFormatException | DateTimeParseException e) {
 				request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
@@ -89,6 +89,7 @@ public class ServletAuctions extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
 			} catch (DataException e) {
 				// TODO Log exception
+				System.out.println(e);
 				response.sendError(503);
 			} catch (NumberFormatException e) {
 				request.setAttribute("error", "L'identifiant donné n'est pas valide");
