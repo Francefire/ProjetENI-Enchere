@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.CategoryManager;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.bo.User;
 
 /**
@@ -31,12 +34,21 @@ public class ServletAuctionsNew extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// List<Category> categories = CategoriesManager.getAllCategories();
-		// request.setAttribute("categories", categories);
+		try {
+            // Récupération de la liste des catégories depuis le CategoryManager
+            CategoryManager categoryManager = new CategoryManager();
+            List<Category> categories = categoryManager.recupererCategories();
 
-		request.setAttribute("dateNow", LocalDate.now());
-		
-		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
+            // Transmission de la liste des catégories à la JSP
+            request.setAttribute("categories", categories);
+            request.setAttribute("dateNow", LocalDate.now());
+            request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
+
+            // Redirection vers la JSP pour l'affichage
+        } catch (BusinessException e) {
+            // Gestion de l'exception
+            e.printStackTrace(); // À adapter selon votre gestion des erreurs
+        }
 	}
 
 	/**
