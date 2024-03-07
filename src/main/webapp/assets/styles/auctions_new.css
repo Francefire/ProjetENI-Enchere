@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+:root {
+	--text-input-color: #2b2b2b;
+}
+
 body {
 	background-color: var(--tertiary-color);
 }
@@ -7,4 +11,42 @@ body {
 .container h1 {
 		text-align: center;
 		font-weight: 600;
-	}
+}
+
+img {
+	width: 100%;
+	max-width: 600px;
+}
+
+form input {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color);
+	width: 100%;
+}
+form a {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color);
+	width: 100%;
+	text-align: center;
+}
+
+form textarea {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color);
+	width: 100%;
+}
