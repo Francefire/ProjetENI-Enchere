@@ -39,8 +39,12 @@ public class ServletAuctionsEdit extends HttpServlet {
 	         List<Category> categories = categoryManager.getAllCategories();
 	         request.setAttribute("categories", categories);
 			 request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (BusinessException e) {
+			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
+		} catch (DataException e) {
+			System.out.println(e);
+			response.sendError(500);
 		}
 	}
 
@@ -97,7 +101,6 @@ public class ServletAuctionsEdit extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 		} catch (DataException e) {
-			// TODO Log exception
 			System.out.println(e);
 			response.sendError(500);	
 		} catch (NullPointerException | NumberFormatException | DateTimeParseException e) {

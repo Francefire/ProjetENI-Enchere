@@ -65,9 +65,6 @@ public class ServletUserEdit extends HttpServlet {
 		editedUser.setCredit(u.getCredit());
 		editedUser.setAdmin(u.isAdmin());
 		try {
-			System.out.println("editUser " + editedUser);
-			System.out.println("userConnected " + u);
-			System.out.println("passwordValidation : " + passwordValidation);
 			UserManager.comparePwd(u.getPassword(), passwordValidation);
 			UserManager.checkUserInfo(editedUser, false);
 
@@ -82,8 +79,8 @@ public class ServletUserEdit extends HttpServlet {
 		} catch (BusinessException e) {
 			request.setAttribute("error", e.getMessage());
 		} catch (DataException e) {
-			// TODO Log exception
-			response.sendError(503);
+			System.out.println(e);
+			response.sendError(500);
 		} finally {
 			rd.forward(request, response);
 		}

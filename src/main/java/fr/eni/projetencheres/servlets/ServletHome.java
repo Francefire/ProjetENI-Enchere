@@ -33,8 +33,8 @@ public class ServletHome extends HttpServlet {
 		    request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		} catch (DataException e) {
-			// TODO Log exception
 			System.out.println(e);
 			response.sendError(500);
 		}

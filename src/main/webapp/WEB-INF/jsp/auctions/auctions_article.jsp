@@ -20,10 +20,11 @@
 			</div>
 		</section>
 		<section class="seller">
-			<h1>Nom vendeur</h1>
+			<h2>${owner.lastName} ${owner.firstName}</h1>
+			<a href="${pageContext.request.contextPath}/utilisateur?id=${owner.id}">Voir le profil</a>
 		</section>
-		<section class="actions">
-			<c:if test="${not empty userConnected}">
+		<c:if test="${not empty userConnected}">
+			<section class="actions">
 				<c:choose>
 					<c:when test="${userConnected.id == article.userId}">
 						<a href="${pageContext.request.contextPath}/encheres/modifier?id=${article.id}">Modifier</a>
@@ -47,8 +48,8 @@
 							</form>
 					</c:otherwise>
 				</c:choose>
-			</c:if>
-		</section>
+			</section>
+		</c:if>
 		<section class="bids">
 			<p>Nom Prénom XX crédits</p>
 			<p>Nom Prénom X crédits</p>

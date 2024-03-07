@@ -63,7 +63,6 @@ public class ServletAuctionsTakeout extends HttpServlet {
 			request.setAttribute("error", e);
 			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
 		} catch (DataException e) {
-			// TODO Log exception
 			System.out.println(e);
 			response.sendError(500);	
 		}

@@ -49,8 +49,8 @@ public class ServletAuctionsDelete extends HttpServlet {
 			request.setAttribute("error", e);
 			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
 		} catch (DataException e) {
-			// TODO Log exception
-			response.sendError(503);	
+			System.out.println(e);
+			response.sendError(500);	
 		}
 	}
 }

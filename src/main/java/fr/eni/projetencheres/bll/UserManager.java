@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.ConnectionProvider;
@@ -33,7 +34,6 @@ public class UserManager {
 		String mdphashe = UserManager.hashPwd(user.getPassword()); // récup du mdp hashé, et transféré dans la variable
 		user.setPassword(mdphashe);
 		UserManager.getInstance().insert(user);
-		System.out.println("mot de passe mdphashé: " + mdphashe + " u.getPassword () : " + user.getPassword());
 	}
 
 	// VERIFICATION DES CHEATERS
@@ -55,7 +55,6 @@ public class UserManager {
 
 	// INSCRIPTION : Création d'une méthode pour comparer les saisies mot de passe
 	public static void comparePwd(String password, String checkPassword) throws BusinessException {
-		System.out.println(password + " " + checkPassword);
 		if (!password.trim().equals(checkPassword.trim())) {
 			throw new BusinessException(BusinessException.BLL_PWD_USER_EXCEPTION);
 		}
@@ -83,8 +82,8 @@ public class UserManager {
 		return UserManager.getInstance().selectById(userId);
 	}
 
-	public static void getAllUsers() throws BusinessException, DataException {
-		UserManager.getInstance().selectAllUsers();
+	public static List<User> getAllUsers() throws BusinessException, DataException {
+		return UserManager.getInstance().selectAllUsers();
 	}
 
 	public static void editUser(User u) throws DataException {
@@ -181,7 +180,6 @@ public class UserManager {
 		// on vérifie si l'adresse mail renseignée par l'utilisateur est bien dans la base de données
 		if (mailExist(mailFromUser)) {
 			UserManager.getInstance().updateNewPassword(mailFromUser, UserManager.hashPwd(password));
-			System.out.println("BLL UserManager ligne 185");
 		}
 	}
 }

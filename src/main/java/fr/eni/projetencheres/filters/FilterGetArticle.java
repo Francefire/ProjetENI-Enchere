@@ -25,10 +25,10 @@ import fr.eni.projetencheres.dal.DataException;
 		filterName = "GetArticle", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = { 
-				"/encheres/encherir",
-				"/encheres/supprimer", 
 				"/encheres/modifier",
-				"/encheres/retrait",
+				"/encheres/supprimer",
+				"/encheres/encherir",
+				"/encheres/retrait"
 		}
 )
 public class FilterGetArticle extends HttpFilter implements Filter {
@@ -43,6 +43,8 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 		
 		String id = (String) httpRequest.getParameter("id");
 		
+		System.out.println("GetArticle");
+		
 		if (id == null || id.isEmpty()) {
 			httpResponse.sendError(404);
 		} else {
@@ -54,6 +56,8 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 				if (article == null) {
 					httpResponse.sendError(404);
 				} else {
+					System.out.println(article.toString());
+					
 					if (article.getStartDate().isBefore(LocalDate.now())) {
 						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
 					}
@@ -68,7 +72,7 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 			} catch (BusinessException e) {
 				httpResponse.sendRedirect(httpRequest.getContextPath() + "/encheres");
 			} catch (DataException e) {
-				// TODO: Log
+				System.out.println(e);
 				httpResponse.sendError(500);
 			}
 		}

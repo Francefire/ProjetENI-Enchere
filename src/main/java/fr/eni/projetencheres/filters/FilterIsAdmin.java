@@ -23,7 +23,7 @@ import fr.eni.projetencheres.bo.User;
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = {
 				"/admin",
-				"/admin/*",
+				"/admin/*"
 		}
 )
 public class FilterIsAdmin extends HttpFilter implements Filter {
@@ -37,6 +37,8 @@ public class FilterIsAdmin extends HttpFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
+		
+		System.out.println("IsAdmin");
 		
 		if (user.isAdmin()) {
 			chain.doFilter(request, response);
