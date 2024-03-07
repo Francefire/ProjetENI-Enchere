@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +12,7 @@
 	<main>
 		<%@ include file="/WEB-INF/jspf/error.jspf" %>
 		<section class="article">
-			<img src="${pageContext.request.contextPath}/assets/images/article_placeholder.jpg" alt="Article placeholder" width="800" height="400"> 
+			<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}" width="800" height="400"> 
 			<div>
 				<h1>${article.name}</h1>
 				<span>${article.sellingPrice} crédits</span>
