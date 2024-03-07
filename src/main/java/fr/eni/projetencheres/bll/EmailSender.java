@@ -10,7 +10,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class EmailSender {
-    public static void sendPasswordRecoveryEmail(String mailFromUser) {
+//	****************CHATGPT********************
+	public static void sendPasswordRecoveryEmail(String mailFromUser, String newPassword) {
+//	****************CHATGPT********************
+
+//    public static void sendPasswordRecoveryEmail(String mailFromUser) {
         final String username = "eni-projets@hotmail.com"; // Adresse email de l'expéditeur
         final String password = "***REMOVED***"; // Mot de passe de l'expéditeur
         
@@ -32,7 +36,7 @@ public class EmailSender {
             		InternetAddress.parse(mailFromUser)); // Adresse email du destinataire
             message.setSubject("Réinitialisation de mot de passe"); // Objet du mail
             message.setText("Bonjour,\n\n"
-                + "Vous avez demandé à réinitialiser votre mot de passe. Veuillez cliquer sur le lien suivant pour réinitialiser votre mot de passe :\n"
+                + "Vous avez demandé à réinitialiser votre mot de passe. Voici votre nouveau mot de passe : " + newPassword + " Vous pouvez utiliser ce nouveau mot de passe en vous rendant ici :\n"
                 + "http://localhost:8080/ProjetENI-Enchere\n\n"
                 + "Ceci est un email automatique, merci de ne pas répondre.");
 

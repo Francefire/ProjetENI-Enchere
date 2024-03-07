@@ -73,6 +73,7 @@ public class ServletLogin extends HttpServlet {
 
 			session.setMaxInactiveInterval(pingTimeout);
 			if (request.getParameter("targetUrl") != null) {
+				System.out.println("dans le target");
 				request.setAttribute("message", "Vous devez être connecté pour accéder à cette page");
 				response.sendRedirect(request.getContextPath() + request.getParameter("targetUrl"));
 			} else {
@@ -85,6 +86,7 @@ public class ServletLogin extends HttpServlet {
 			rd.forward(request, response);
 		} catch (DataException e) {
 			// TODO Log exception
+			System.out.println(e.getMessage());
 			response.sendError(503);
 		}
 	}
