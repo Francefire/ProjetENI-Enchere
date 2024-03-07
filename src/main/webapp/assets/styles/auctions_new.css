@@ -28,6 +28,17 @@ form input {
 	color: var(--text-input-color);
 	width: 100%;
 }
+form a {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color);
+	width: 100%;
+	text-align: center;
+}
 
 form textarea {
 	padding: 10px;
