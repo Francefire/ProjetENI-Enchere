@@ -48,13 +48,11 @@
 												accept="image/png, image/jpeg"><br>
 											<label for="categoryId">Catégorie</label> <select name="categoryId"
 												id="categoryId" required>
-												<option value="1">Catégorie temporaire 1</option>
-												<option value="2">Catégorie temporaire 2</option>
-												<!--
-				<c:forEach items="${categories}" var="category">
-					<option value="${category.id}">${category.name}</option>
-				</c:forEach>
-				-->
+										
+													<c:forEach items="${categories}" var="category">
+														<option value="${category.id}">${category.name}</option>
+													</c:forEach>
+				
 											</select><br> <a
 												href="${pageContext.request.contextPath}/encheres">Annuler</a>
 											<input type="reset" value="Réinitialiser"> <input type="submit"
@@ -63,6 +61,7 @@
 									</div>
 								</div>
 							</div>
+						</div>
 				</main>
 				<%@ include file="/WEB-INF/jspf/footer.jspf" %>
 					<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

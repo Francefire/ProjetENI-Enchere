@@ -65,7 +65,7 @@ public class ArticleDAO {
 			statement.setDate(4, Date.valueOf(a.getEndDate()));
 			statement.setDouble(5, a.getInitialPrice());
 			statement.setDouble(6, a.getSellingPrice());
-			statement.setInt(7, a.getCategoryId()); //// Remplacez 7 par l'index approprié selon requête SQL ????? *
+			statement.setInt(7, a.getCategoryId());  
 			statement.setInt(8, a.getId());
 			statement.executeUpdate();
 

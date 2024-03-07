@@ -38,18 +38,21 @@ public class ServletAuctionsNew extends HttpServlet {
 		try {
             // Récupération de la liste des catégories depuis le CategoryManager
             CategoryManager categoryManager = new CategoryManager();
-            List<Category> categories = categoryManager.recupererCategories();
+            List<Category> categories = categoryManager.getAllCategories();
+            request.setAttribute("categories", categories);
 
             // Transmission de la liste des catégories à la JSP
-            request.setAttribute("categories", categories);
             request.setAttribute("dateNow", LocalDate.now());
             request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 
             // Redirection vers la JSP pour l'affichage
         } catch (BusinessException e) {
             // Gestion de l'exception
-            e.printStackTrace(); // À adapter selon votre gestion des erreurs
-        }
+            e.printStackTrace(); // À adapter selon la gestion des erreurs
+        } catch (DataException e) {
+        	 request.setAttribute("error", "Une erreur est survenue lors de l'accès aux données: " + e.getMessage());
+        	    doGet(request, response); // Redirige vers la page avec le formulaire*
+		}
 	}
 
 	/**
@@ -77,8 +80,10 @@ public class ServletAuctionsNew extends HttpServlet {
 			article.setUserId(user.getId());
 			article.setCategoryId(categoryId);
 			
+			//ajout de l'article
+			
 			ArticlesManager.addArticle(article);
-
+			
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (BusinessException e) {
 			request.setAttribute("error", e.getMessage());
