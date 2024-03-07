@@ -66,7 +66,6 @@
 												</div>
 												<div class="col">
 													<input type="reset" value="Réinitialiser">
-
 												</div>
 											</div>
 											<div class="row">

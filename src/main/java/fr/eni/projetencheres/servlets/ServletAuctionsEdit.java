@@ -3,6 +3,7 @@ package fr.eni.projetencheres.servlets;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,7 +15,9 @@ import javax.servlet.http.Part;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.CategoryManager;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.dal.DataException;
 
 /**
@@ -31,8 +34,14 @@ public class ServletAuctionsEdit extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
-
+		try { 
+			CategoryManager categoryManager = new CategoryManager();
+	         List<Category> categories = categoryManager.getAllCategories();
+	         request.setAttribute("categories", categories);
+			 request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	/**

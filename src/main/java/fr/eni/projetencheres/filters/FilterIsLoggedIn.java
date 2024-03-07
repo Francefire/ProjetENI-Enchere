@@ -26,6 +26,7 @@ import fr.eni.projetencheres.bo.User;
 				"/encheres/supprimer",
 				"/encheres/modifier",
 				"/encheres/nouvelle",
+				"/encheres/retrait",
 				"/utilisateur",
 				"/utilisateur/modifier",
 				"/utilisateur/supprimer",

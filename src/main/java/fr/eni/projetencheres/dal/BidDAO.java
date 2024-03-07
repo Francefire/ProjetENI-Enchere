@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Bid;
 
 public class BidDAO {
@@ -54,10 +53,38 @@ public class BidDAO {
 
 			connection.close();
 		} catch (SQLException e) {
-			throw new DataException("l'obtention de toutes les enchères par leurs identifiants d'article", e.getMessage());
+			throw new DataException("l'obtention de toutes les enchères par leurs identifiants d'article",
+					e.getMessage());
 		}
 
 		return bids;
+	}
+
+	public Bid selectLastBidForAticleId(int articleId) throws DataException {
+		Bid bid = new Bid();
+
+		try {
+			Connection connection = ConnectionProvider.getConnection();
+
+			PreparedStatement statement = connection.prepareStatement(SQL_SELECT_BIDS_BY_ARTICLE_ID);
+			statement.setInt(1, articleId);
+
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				bid.setUserId(rs.getInt(1));
+				bid.setArticleId(rs.getInt(2));
+				bid.setDateTime(rs.getTimestamp(3).toLocalDateTime());
+				bid.setAmount(rs.getDouble(4));
+			}
+
+			connection.close();
+		} catch (SQLException e) {
+			throw new DataException("l'obtention de la dernière enchère pour l'article d'identifiant" + articleId,
+					e.getMessage());
+		}
+
+		return bid;
 	}
 
 	// une méthode utilitaire pour convertir un objet ResultSet (résultat d'une
