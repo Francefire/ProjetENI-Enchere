@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
 
 public class ArticleDAO {
@@ -94,7 +93,7 @@ public class ArticleDAO {
 		}
 	}
 
-	public void updateAuctionSate(int articleId, String auctionState) throws DataException {
+	public void updateArticleAuctionState(int articleId, String auctionState) throws DataException {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 

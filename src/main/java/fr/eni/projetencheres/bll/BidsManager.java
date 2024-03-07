@@ -28,4 +28,8 @@ public class BidsManager {
 	public static List<Bid> getBidsByArticleId(int articleId) throws BusinessException, DataException {
 		return BidsManager.getIntance().selectBidsByArticleId(articleId);
 	}
+
+	public static Bid getLastBidForArticle(int articleId) throws DataException {
+		return BidsManager.getIntance().selectLastBidForAticleId(articleId);
+	}
 }

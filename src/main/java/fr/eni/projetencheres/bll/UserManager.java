@@ -2,8 +2,12 @@ package fr.eni.projetencheres.bll;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.ConnectionProvider;
 import fr.eni.projetencheres.dal.DAOFactory;
 import fr.eni.projetencheres.dal.DataException;
 import fr.eni.projetencheres.dal.UserDAO;
@@ -21,24 +25,29 @@ public class UserManager {
 		return instance;
 	}
 
-	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer un nouvel user.
+	// INSCRIPTION : création d'une méthode qui se sert de la DAO factory pour créer
+	// un nouvel user.
 	public static void createUser(User user, String checkPassword) throws BusinessException, DataException {
-		UserManager.checkUserInfo(user);	
-    comparePwd(user.getPassword(), checkPassword); //comparaison des saisies 
-		String mdphashe = UserManager.hashPwd(user.getPassword()); //récup du mdp hashé, et transféré dans la variable
+		UserManager.checkUserInfo(user);
+		comparePwd(user.getPassword(), checkPassword); // comparaison des saisies
+		String mdphashe = UserManager.hashPwd(user.getPassword()); // récup du mdp hashé, et transféré dans la variable
 		user.setPassword(mdphashe);
 		UserManager.getInstance().insert(user);
 		System.out.println("mot de passe mdphashé: " + mdphashe + " u.getPassword () : " + user.getPassword());
 	}
 
 	// VERIFICATION DES CHEATERS
-	public static void check_cheaters(String username, String lastName, String firstName, String email, String street, String zipCode, String city, String password) throws BusinessException {
-		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null || firstName.isEmpty() || email == null || email.isEmpty() || street == null || street.isEmpty() || zipCode == null || zipCode.isEmpty() || city == null || city.isEmpty() || password == null || password.isEmpty())  {
+	public static void check_cheaters(String username, String lastName, String firstName, String email, String street,
+			String zipCode, String city, String password) throws BusinessException {
+		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null
+				|| firstName.isEmpty() || email == null || email.isEmpty() || street == null || street.isEmpty()
+				|| zipCode == null || zipCode.isEmpty() || city == null || city.isEmpty() || password == null
+				|| password.isEmpty()) {
 			throw new BusinessException(BusinessException.BLL_INSERT_CHEAT);
 		}
 		if (!email.matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$")) {
 			throw new BusinessException(BusinessException.BLL_INSERT_CHEAT);
-        }
+		}
 		if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
 			throw new BusinessException(BusinessException.BLL_INSERT_CHEAT);
 		}
@@ -60,9 +69,9 @@ public class UserManager {
 		return true;
 	}
 
-	public static User login(String userName, String password) throws BusinessException, DataException {
-			String pass = UserManager.hashPwd(password);
-			User u = UserManager.getInstance().login(userName, pass);
+	public static User login(String username, String password) throws BusinessException, DataException {
+		String pass = UserManager.hashPwd(password);
+		User u = UserManager.getInstance().login(username, pass);
 		if (u == null) {
 			throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 		}
@@ -73,7 +82,7 @@ public class UserManager {
 	public static User getUserById(int userId) throws BusinessException, DataException {
 		return UserManager.getInstance().selectById(userId);
 	}
-	
+
 	public static void getAllUsers() throws BusinessException, DataException {
 		UserManager.getInstance().selectAllUsers();
 	}
@@ -81,10 +90,10 @@ public class UserManager {
 	public static void editUser(User u) throws DataException {
 		UserManager.getInstance().update(u);
 	}
-	
+
 	public static void addCreditsToUser(double amount, int userId) throws BusinessException, DataException {
 		Utils.verifyMoneyField("montant", amount, 1);
-		
+
 		UserManager.getInstance().updateCreditsForUser(amount, userId);
 	}
 
@@ -113,20 +122,18 @@ public class UserManager {
 		}
 
 	}
-	
-	public static String hashPwd(String password)
-	{
+
+	public static String hashPwd(String password) {
 		MessageDigest md = null;
 		StringBuffer sb = new StringBuffer();
 		byte[] response;
 		try {
-			md=MessageDigest.getInstance("SHA-256");			
-			response=md.digest(password.getBytes());			
-			for(int i:response)
-			{
-				sb.append((Integer.toString((i&0xff)+0x100, 16).substring(1)));
+			md = MessageDigest.getInstance("SHA-256");
+			response = md.digest(password.getBytes());
+			for (int i : response) {
+				sb.append((Integer.toString((i & 0xff) + 0x100, 16).substring(1)));
 			}
-			
+
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -151,6 +158,30 @@ public class UserManager {
 
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
+		}
+
+	}
+
+	// TODO : implémenter des nom et pseudo dans la BDD
+	// TODO : mettre une contrainte d'unicité sur l'adresse mail
+	// TODO : mettre un pattern sur le pseudo
+	// TODO : placer une ternaire
+	public static boolean mailExist(String email) throws BusinessException {
+		try {
+			if (UserManager.getInstance().mailExist(email) == 0) {
+				throw new BusinessException(BusinessException.BLL_USER_MAILDOESNOTEXIST);
+			}
+		} catch (DataException e) {
+			System.out.println(e.getMessage());
+		}
+		return true;
+	}
+
+	public static void updateNewPassword(String mailFromUser, String password) throws BusinessException, DataException {
+		// on vérifie si l'adresse mail renseignée par l'utilisateur est bien dans la base de données
+		if (mailExist(mailFromUser)) {
+			UserManager.getInstance().updateNewPassword(mailFromUser, UserManager.hashPwd(password));
+			System.out.println("BLL UserManager ligne 185");
 		}
 	}
 }

@@ -89,7 +89,7 @@
 		    			</div>
 		    		</section>
 	    </form>
-		  <section class="myButtons">
+		  <div class="myButtons">
 		        <button form= "Register" type ="submit">Créer</button>
 		         <button><a href="${pageContext.request.contextPath}/accueil">Annuler</a></button>
 	 	</section>
