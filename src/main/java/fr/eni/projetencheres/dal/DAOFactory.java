@@ -12,7 +12,12 @@ public abstract class DAOFactory {
 	public static BidDAO getBidDAO() {
 		return new BidDAO();
 	}
+	
 	public static CategoriesDAO getCategoriesDAO() {
 		return new CategoriesDAO();
+	}
+	
+	public static TakeoutDAO getTakeoutDAO() {
+		return new TakeoutDAO();
 	}
 }

@@ -25,10 +25,12 @@ ALTER TABLE ENCHERES ADD constraint enchere_pk PRIMARY KEY (no_utilisateur, no_a
 ALTER TABLE ENCHERES ADD CONSTRAINT CK_Montant_Positif CHECK (montant_enchere >= 0)
 
 CREATE TABLE RETRAITS (
-	no_article         INTEGER NOT NULL,
-    rue              VARCHAR(60) NOT NULL,
-    code_postal      VARCHAR(15) NOT NULL,
-    ville            VARCHAR(30) NOT NULL
+	no_article     INTEGER NOT NULL,
+    rue            VARCHAR(60) NOT NULL,
+    code_postal    VARCHAR(15) NOT NULL,
+    ville          VARCHAR(30) NOT NULL
+    -- Ajout d'une date de retrait
+    date_retrait   DATE NOT NULL,
 )
 
 ALTER TABLE RETRAITS ADD constraint retrait_pk PRIMARY KEY  (no_article)
