@@ -59,7 +59,7 @@ public class ServletLogin extends HttpServlet {
 
 		// vérification avec la BDD des infos fournies par l'user.
 		try {
-			u = UserManager.login(userName, password);
+			u = UserManager.login(username, password);
 // 				*********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
 			if (rememberMe != null) {
 				cook = new Cookie("lastLogin", u.getUsername());
@@ -81,7 +81,7 @@ public class ServletLogin extends HttpServlet {
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
-			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
+			rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 			rd.forward(request, response);
 		} catch (DataException e) {
 			// TODO Log exception
