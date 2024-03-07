@@ -30,5 +30,5 @@ public interface UserDAO {
 	
 	public int mailExist(String email) throws DataException ; 
 	
-	public void updateNewPassword(String mailFromUser, String password) throws BusinessException, DataException ;
+	public void updateNewPassword(String mailFromUser, String password) throws  DataException ;
 }
