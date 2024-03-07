@@ -72,6 +72,10 @@ public class ArticlesManager {
 
 		ArticlesManager.getIntance().updateArticle(a);
 	}
+	
+	public static void editArticleAuctionState(int articleId, String auctionState) throws DataException {
+		ArticlesManager.getIntance().updateArticleAuctionState(articleId, auctionState);
+	}
 
 	public static Article getArticleByArticleId(int articleId) throws BusinessException, DataException {
 		Article article = ArticlesManager.getIntance().selectArticleByArticleId(articleId);
