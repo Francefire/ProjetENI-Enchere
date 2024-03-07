@@ -27,4 +27,6 @@ public interface UserDAO {
 	public int check(String userName, String password) throws DataException;
 
 	public List<User> selectAllUsers() throws DataException;
+	
+	public int mailExist(String email) throws BusinessException ; 
 }
