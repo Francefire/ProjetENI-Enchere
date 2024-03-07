@@ -45,7 +45,11 @@
 	    <url-pattern/>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>ParseArticleId</filter-name>
+	    <filter-name>GetArticle</filter-name>
+	    <url-pattern/>
+	</filter-mapping>
+	<filter-mapping>
+	    <filter-name>IsDisabled</filter-name>
 	    <url-pattern/>
 	</filter-mapping>
 	<filter-mapping>
