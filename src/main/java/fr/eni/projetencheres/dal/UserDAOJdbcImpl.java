@@ -294,7 +294,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 		return id;
 	}
 
-	public void updateNewPassword(String mailFromUser, String password) throws BusinessException, DataException {
+	public void updateNewPassword(String mailFromUser, String password) throws DataException {
 		// on vérifie si l'adresse mail renseignée par l'utilisateur est bien dans la
 		// base de données
 		if (mailExist(mailFromUser) != 0) {

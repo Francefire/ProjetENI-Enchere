@@ -27,7 +27,7 @@
 
 								</div>
 								<div class="col-12 col-md-8">
-									<form method="POST" action="${pageContext.request.contextPath}/encheres/nouvelle">
+									<form method="POST" enctype="multipart/form-data" action="${pageContext.request.contextPath}/encheres/nouvelle">
 										<div class="row">
 											<div class="col">
 												<label for="name">Nom</label><br> <input type="text" name="name"

@@ -36,7 +36,7 @@ public class ServletHome extends HttpServlet {
 		} catch (DataException e) {
 			// TODO Log exception
 			System.out.println(e);
-			response.sendError(503);
+			response.sendError(500);
 		}
 	}
 		
