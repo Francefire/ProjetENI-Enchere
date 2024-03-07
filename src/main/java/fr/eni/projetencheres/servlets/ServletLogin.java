@@ -16,10 +16,8 @@ import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.DataException;
 
-//TODO:	 faire quelque chose de "se souvenir de moi"
 //TODO : faire quelque chose de "mot de passe oublié"		
 //TODO : déplacer les jsp dans un unique dossier 
-//TODO : mettre contrainte unicité sur le pseudo
 
 /**
  * Servlet implementation class ServletSeConnecter
@@ -61,9 +59,8 @@ public class ServletLogin extends HttpServlet {
 
 		// vérification avec la BDD des infos fournies par l'user.
 		try {
-			u = UserManager.login(username, password);
-			System.out.println("je suis dans le login");
-			// *********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
+			u = UserManager.login(userName, password);
+// 				*********COOKIE DE SESSION -- SE SOUVENIR DE MOI **********
 			if (rememberMe != null) {
 				cook = new Cookie("lastLogin", u.getUsername());
 				cook.setMaxAge(cookieMaxAge);
@@ -71,7 +68,6 @@ public class ServletLogin extends HttpServlet {
 			}
 			// ***********************************************************
 			session.setAttribute("userConnected", u);
-			System.out.println("je suis connecté");
 
 			// Destruction de la session au bout de x min
 
@@ -85,8 +81,7 @@ public class ServletLogin extends HttpServlet {
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
-			rd = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-			System.out.println("je suis dans le catch");
+			rd = request.getRequestDispatcher("/WEB-INF/Login.jsp");
 			rd.forward(request, response);
 		} catch (DataException e) {
 			// TODO Log exception

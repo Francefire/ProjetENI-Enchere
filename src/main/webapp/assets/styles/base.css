@@ -98,6 +98,16 @@ a {
 	color: var(--quinary-color); 
 }
 
+.blabla {
+	margin-top: 22%;
+	text-align: center;
+	color : var(--senary-color);
+}
+
+.blabla li {
+	text-align :justify;
+}
+
 /* ************************************************** */
 /* ***************FIL D'ARIANE' ********************* */
 /* ************************************************** */

@@ -20,7 +20,8 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private static final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, code_postal=?, ville=?, mot_de_passe=? WHERE no_utilisateur=?";
 	private static final String UPDATE_CREDITS_FOR_USER = "UPDATE UTILISATEURS SET credit=credit+? WHERE no_utilisateur=?";
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
-	private static final String CHECK = " SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
+	private static final String CHECK = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
+	private static final String MAIL = "SELECT no_utilisateur FROM UTILISATEURS WHERE email=?";
 
 	@Override
 	public void insert(User user) throws DataException {
@@ -250,7 +251,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement pstmt = cnx
-					.prepareStatement("SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?");
+					.prepareStatement(CHECK);
 			pstmt.setString(1, userName);
 			pstmt.setString(2, password);
 			ResultSet res = pstmt.executeQuery();
@@ -274,4 +275,22 @@ public class UserDAOJdbcImpl implements UserDAO {
 		}
 		return user;
 	}
+	public int mailExist(String email) throws BusinessException {
+		int id = 0;
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement pstmt = cnx.prepareStatement(MAIL);
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				id = rs.getInt("no_utilisateur");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException(BusinessException.BLL_LOGIN_USER_EXCEPTION);
+		}
+		return id;
+	}
 }
+
