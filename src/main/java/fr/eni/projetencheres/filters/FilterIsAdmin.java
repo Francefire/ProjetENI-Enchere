@@ -20,11 +20,7 @@ import fr.eni.projetencheres.bo.User;
  */
 @WebFilter(
 		filterName = "IsAdmin", 
-		dispatcherTypes = { DispatcherType.REQUEST }, 
-		urlPatterns = {
-				"/admin",
-				"/admin/*"
-		}
+		dispatcherTypes = { DispatcherType.REQUEST }
 )
 public class FilterIsAdmin extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
@@ -37,8 +33,6 @@ public class FilterIsAdmin extends HttpFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
-		
-		System.out.println("IsAdmin");
 		
 		if (user.isAdmin()) {
 			chain.doFilter(request, response);

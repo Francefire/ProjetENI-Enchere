@@ -21,51 +21,43 @@ import fr.eni.projetencheres.dal.DataException;
 /**
  * Servlet Filter implementation class FilterParseArticleId
  */
-@WebFilter(
-		filterName = "GetArticle", 
-		dispatcherTypes = { DispatcherType.REQUEST }, 
-		urlPatterns = { 
-				"/encheres/modifier",
-				"/encheres/supprimer",
-				"/encheres/encherir",
-				"/encheres/retrait"
-		}
-)
+@WebFilter(filterName = "GetArticle", dispatcherTypes = { DispatcherType.REQUEST })
 public class FilterGetArticle extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		
+
 		String id = (String) httpRequest.getParameter("id");
-		
+
 		System.out.println("GetArticle");
-		
+
 		if (id == null || id.isEmpty()) {
 			httpResponse.sendError(404);
 		} else {
 			try {
 				int articleId = Integer.parseInt(id);
-				
+
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
-				
+
 				if (article == null) {
 					httpResponse.sendError(404);
 				} else {
 					System.out.println(article.toString());
-					
+
 					if (article.getStartDate().isBefore(LocalDate.now())) {
 						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
 					}
-					
+
 					if (article.getEndDate().isBefore(LocalDate.now())) {
 						ArticlesManager.editArticleAuctionState(article.getId(), "ENDED");
 					}
-					
+
 					httpRequest.setAttribute("article", article);
 					chain.doFilter(httpRequest, response);
 				}
