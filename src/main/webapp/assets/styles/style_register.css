@@ -28,24 +28,47 @@ form section div input {
     padding: 3px; 
     height: 50%;
     background-color: var(--tertiary-color);
-    
 }
 
-.myButtons {
-	padding : 5px;
-	display: flex;
-	justify-content: space-between;
-	align-items : flex-start;
-	gap : 0px;
-	width: 20%;
+button {
+	padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    background-color: var(--quaternary-color);
+    text-align: center; 
+    font-weight: bold;
+    font-size: 1.2em;
 }
 
+button a {
+     	color: var(--quinary-color);
+}
 
 .myButtons button {
-    background-color: #FAEDCD;
-    border: 1px solid var(--quinary-color);
-	border-radius : 5px;
+	padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    background-color: var(--quaternary-color);
+    text-align: center; 
+    font-weight: bold;
+    font-size: 1.2em;
+ 	color: var(--quinary-color);
 	margin-top : 10%;
 	padding-left : 15%;
 	padding-right: 15%;
+    border: 1px solid var(--quinary-color);
+}
+
+.msgBox {
+	margin-bottom : 5%;
+	border: 1px solid var(--quinary-color);
+	border-radius : 5px;
+	padding: 3px; 
+	color: var(--quinary-color); 
+	font-weight: bold;
+    font-size: 1.2em;
 }

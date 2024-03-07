@@ -44,7 +44,7 @@ public class ServletUserDelete extends HttpServlet {
 			UserManager.comparePwd(password, confirmPassword);
 			UserManager.getInstance().delete(u.getId());
 			session.invalidate();
-			rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 		} catch (BusinessException e) {
 			request.setAttribute("error", e.getMessage());
 			rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");

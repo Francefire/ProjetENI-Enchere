@@ -22,21 +22,37 @@ input {
 	margin-right: 10px;
 }
 
-.buttonReg {
-	padding-top : 25px ;
-	padding-bottom : 25px ;
-	padding-left : 40px ;
-	padding-right: 40px ;
-	justify-content : center;
-	display: flex;
-	flex-flow: row;
-	gap : 50px;
-	font-family: 'Century Gothic', sans-serif;
-	border: 1px solid #D4A373;
-    border-radius : 5px;
-    height: 50%;
-    background-color: #FAEDCD;
+.forgot {
+	margin-top : 20px;
+	padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    background-color: var(--quaternary-color);
+    text-align: center; 
+    font-weight: bold;
+    font-size: 1.2em;
+    border: 1px solid var(--quinary-color);
+}
+.forgot a {
+    color: #D4A373;
 }
 
+.buttonReg {
+    padding: 10px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    background-color: var(--quaternary-color);
+    text-align: center; 
+    font-weight: bold;
+    font-size: 1.2em;
+    border: 1px solid var(--quinary-color);
+}
+.buttonReg a{
+	 color: #D4A373;
+}
 
 /* @media screen and (max-width: 576px) and (orientation: portrait) {} */

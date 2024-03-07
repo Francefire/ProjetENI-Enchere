@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
+import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.DataException;
 
@@ -21,7 +22,7 @@ import fr.eni.projetencheres.dal.DataException;
 @WebServlet("/inscription")
 public class ServletRegister extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -63,8 +64,8 @@ public class ServletRegister extends HttpServlet {
 //  	Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
 		User new_user = new User(userName, lastName, firstName, email, phone, street, zipCode, city, password);
 
-		try {
-// 			Vérification saisie du pseudo
+		try {			
+			//Vérification saisie du pseudo
 //        	UserManager.check_username(userName);
 			UserManager.check_cheaters(userName, lastName, firstName, email, street, zipCode, city, password);
 
@@ -77,7 +78,7 @@ public class ServletRegister extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("userConnected", new_user);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 			rd.forward(request, response);
 
 		} catch (BusinessException e) {
