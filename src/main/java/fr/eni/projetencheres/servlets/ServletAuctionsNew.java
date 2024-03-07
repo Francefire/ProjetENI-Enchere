@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -40,14 +41,17 @@ public class ServletAuctionsNew extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-            // Récupération de la liste des catégories depuis le CategoryManager
-            CategoryManager categoryManager = new CategoryManager();
-            List<Category> categories = categoryManager.getAllCategories();
-            request.setAttribute("categories", categories);
+			// Récupération de la liste des catégories depuis le CategoryManager
+			CategoryManager categoryManager = new CategoryManager();
+			List<Category> categories = categoryManager.getAllCategories();
+			request.setAttribute("categories", categories);
 
-		request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
+			request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
 
-		request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -76,7 +80,7 @@ public class ServletAuctionsNew extends HttpServlet {
 			article.setCategoryId(categoryId);
 
 			Part imagePart = request.getPart("image");
-			
+
 			ArticlesManager.addArticle(article, this.getServletContext().getRealPath(""), imagePart);
 
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
