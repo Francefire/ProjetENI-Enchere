@@ -60,9 +60,9 @@ public class UserManager {
 		return true;
 	}
 
-	public static User login(String userName, String password) throws BusinessException, DataException {
+	public static User login(String username, String password) throws BusinessException, DataException {
 			String pass = UserManager.hashPwd(password);
-			User u = UserManager.getInstance().login(userName, pass);
+			User u = UserManager.getInstance().login(username, pass);
 		if (u == null) {
 			throw new BusinessException(BusinessException.BLL_ERROR_SQLEXCEPTION_LOGIN);
 		}
