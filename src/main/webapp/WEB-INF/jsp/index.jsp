@@ -38,7 +38,19 @@
        </c:choose>
     </ul>
 </section>
-			
+ <section class=blabla>
+    <h3>Qui sommes-nous ? </h3>
+    <p> L’appétence grandissante pour la réutilisation et le recyclage nous pousse à trouver de nouvelles solutions. 
+   	<br><strong>ENI-Encheres.com</strong> vous permet de <strong>recycler</strong> vos objets plutôt que les jeter.
+   	<br><cite>C'est éco-responsable, intelligent et enrichissant. Bref, c'est Smart</cite></p>
+    <br>
+    <h4>Nos ambitions :</h4> 
+    <ul>
+	    <li>Donner une seconde vie aux objets en facilitant les échanges.</li>
+	    <li>Encourager la réutilisation.</li>
+		<li>Promouvoir des échanges non commerciaux.</li>
+	</ul>
+</section>			
 			
 			<!-- <section id="auctions-list">
 				<h2>Liste des enchères</h2>
