@@ -77,7 +77,7 @@ public class ServletRegister extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("userConnected", new_user);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/index.jsp");
 			rd.forward(request, response);
 
 		} catch (BusinessException e) {
