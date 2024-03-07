@@ -41,7 +41,7 @@
 
 				<!-- 		    MOT DE PASSE OUBLIÉ -->
 				<div class="forgot">
-					<a href="${pageContext.request.contextPath}/ForgottenPwd">Mot de passe oublié</a>
+					<a href="${pageContext.request.contextPath}/mot_de_passe_oublie">Mot de passe oublié</a>
 					</div>
 			</form>
 

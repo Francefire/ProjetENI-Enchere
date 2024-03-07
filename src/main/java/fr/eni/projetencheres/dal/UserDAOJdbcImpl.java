@@ -22,6 +22,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 	private static final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
 	private static final String CHECK = "SELECT no_utilisateur FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 	private static final String MAIL = "SELECT no_utilisateur FROM UTILISATEURS WHERE email=?";
+	private static final String LOGIN = "SELECT * FROM UTILISATEURS WHERE pseudo=? AND mot_de_passe=?";
 
 	@Override
 	public void insert(User user) throws DataException {
@@ -241,18 +242,19 @@ public class UserDAOJdbcImpl implements UserDAO {
 				id = rs.getInt("no_utilisateur");
 			}
 		} catch (SQLException e) {
-			throw new DataException("l'obtention de l'identifiant d'un utilisateur par son pseudonyme et son mot de passe", e.getMessage());
+			throw new DataException(
+					"l'obtention de l'identifiant d'un utilisateur par son pseudonyme et son mot de passe",
+					e.getMessage());
 		}
 		return id;
 	}
 
-	public User login(String userName, String password) throws DataException {
+	public User login(String username, String password) throws DataException {
 		User user = null;
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
-			PreparedStatement pstmt = cnx
-					.prepareStatement(CHECK);
-			pstmt.setString(1, userName);
+			PreparedStatement pstmt = cnx.prepareStatement(LOGIN);
+			pstmt.setString(1, username);
 			pstmt.setString(2, password);
 			ResultSet res = pstmt.executeQuery();
 			if (res.next()) {
@@ -275,7 +277,8 @@ public class UserDAOJdbcImpl implements UserDAO {
 		}
 		return user;
 	}
-	public int mailExist(String email) throws BusinessException {
+//TODO : renommer cette méthode (genre selectIdFromEmail)
+	public int mailExist(String email) throws DataException {
 		int id = 0;
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
@@ -287,10 +290,25 @@ public class UserDAOJdbcImpl implements UserDAO {
 				id = rs.getInt("no_utilisateur");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new BusinessException(BusinessException.BLL_LOGIN_USER_EXCEPTION);
+			throw new DataException("erreur lors de la requête vers la base de données", e.getMessage());
 		}
 		return id;
 	}
-}
 
+	public void updateNewPassword(String mailFromUser, String password) throws BusinessException, DataException {
+		// on vérifie si l'adresse mail renseignée par l'utilisateur est bien dans la
+		// base de données
+		if (mailExist(mailFromUser) != 0) {
+			try {
+				Connection cnx;
+				cnx = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = cnx.prepareStatement("UPDATE UTILISATEURS SET mot_de_passe=? WHERE email=?");
+				pstmt.setString(1, password);
+				pstmt.setString(2, mailFromUser);
+				pstmt.executeQuery();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
