@@ -3,7 +3,6 @@ package fr.eni.projetencheres.bo;
 public class Category {
 	private int id;
 	private String label;
-	
 	// CONSTRUCTEURS
 	// TODO: Constructeur vide
 	// TODO: Constructeur sans id
@@ -40,6 +39,10 @@ public class Category {
 		builder.append(label);
 		builder.append("]");
 		return builder.toString();
+	}
+
+	public String getLibelle() {
+		return "String";
 	}
 
 }
