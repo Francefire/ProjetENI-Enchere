@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -16,43 +17,31 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bo.User;
 
 /**
- * Servlet Filter implementation class FilterIsLoggedIn
+ * Servlet Filter implementation class FilterIsAdmin
  */
 @WebFilter(
-		filterName = "IsLoggedIn", 
+		filterName = "IsAdmin", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = {
-				"/encheres/encherir", 
-				"/encheres/supprimer",
-				"/encheres/modifier",
-				"/encheres/nouvelle",
-				"/utilisateur",
-				"/utilisateur/modifier",
-				"/utilisateur/supprimer",
-				"/credits",
 				"/admin",
 				"/admin/*",
 		}
 )
-public class FilterIsLoggedIn extends HttpFilter implements Filter {
-	private static final long serialVersionUID = 1L;
+public class FilterIsAdmin extends HttpFilter implements Filter {
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-
+		
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
-
-		if (user == null) {
-			String path = String.format("%s/connexion?targetUrl=%s", httpRequest.getContextPath(),
-					httpRequest.getServletPath());
-			httpResponse.sendRedirect(path);
-		} else {
+		
+		if (user.isAdmin()) {
 			chain.doFilter(request, response);
+		} else {
+			httpResponse.sendRedirect(httpRequest.getContextPath());
 		}
 	}
 }
