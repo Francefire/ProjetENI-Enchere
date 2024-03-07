@@ -84,7 +84,7 @@ public class UserManager {
 	
 	public static void addCreditsToUser(double amount, int userId) throws BusinessException, DataException {
 		Utils.verifyMoneyField("montant", amount, 1);
-		
+
 		UserManager.getInstance().updateCreditsForUser(amount, userId);
 	}
 
@@ -113,20 +113,18 @@ public class UserManager {
 		}
 
 	}
-	
-	public static String hashPwd(String password)
-	{
+
+	public static String hashPwd(String password) {
 		MessageDigest md = null;
 		StringBuffer sb = new StringBuffer();
 		byte[] response;
 		try {
-			md=MessageDigest.getInstance("SHA-256");			
-			response=md.digest(password.getBytes());			
-			for(int i:response)
-			{
-				sb.append((Integer.toString((i&0xff)+0x100, 16).substring(1)));
+			md = MessageDigest.getInstance("SHA-256");
+			response = md.digest(password.getBytes());
+			for (int i : response) {
+				sb.append((Integer.toString((i & 0xff) + 0x100, 16).substring(1)));
 			}
-			
+
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -152,5 +150,17 @@ public class UserManager {
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
 		}
+
+	}
+	//TODO : implémenter des nom et pseudo dans la BDD
+	//TODO : mettre une contrainte d'unicité sur l'adresse mail
+	//TODO : mettre un pattern sur le pseudo
+	//TODO : placer une ternaire
+	public static boolean mailExist(String email) throws BusinessException {
+		if (UserManager.getInstance().mailExist(email) == 0) 
+		{
+			throw new BusinessException(BusinessException.BLL_USER_MAILDOESNOTEXIST);
+		}
+		return true;
 	}
 }

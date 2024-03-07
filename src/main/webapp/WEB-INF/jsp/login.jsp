@@ -40,7 +40,9 @@
 				souvenir de moi <br>
 
 				<!-- 		    MOT DE PASSE OUBLIÉ -->
-				<a href="">Mot de passe oublié</a>
+				<div class="forgot">
+					<a href="${pageContext.request.contextPath}/ForgottenPwd">Mot de passe oublié</a>
+					</div>
 			</form>
 
 			<br>
