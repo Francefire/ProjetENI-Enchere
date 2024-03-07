@@ -5,10 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
@@ -19,6 +21,7 @@ import fr.eni.projetencheres.dal.DataException;
  * Servlet implementation class ServletAuctionsEdit
  */
 @WebServlet("/encheres/modifier")
+@MultipartConfig
 public class ServletAuctionsEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,21 +43,21 @@ public class ServletAuctionsEdit extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			String paramName = request.getParameter("name").trim();
-			String paramDescription = request.getParameter("description").trim();
+			String paramName = request.getParameter("name");
+			String paramDescription = request.getParameter("description");
 			String paramStartDate = request.getParameter("startDate");
 			String paramEndDate = request.getParameter("startDate");
 			String paramInitialPrice = request.getParameter("initialPrice");
 			String paramCategoryId = request.getParameter("categoryId");
-
+			
 			Article article = (Article) request.getAttribute("article");
 			
 			if (paramName != null && !paramName.isEmpty()) {
-				article.setName(paramName);
+				article.setName(paramName.trim());
 			}
 
 			if (paramDescription != null && !paramDescription.isEmpty()) {
-				article.setDescription(paramDescription);
+				article.setDescription(paramDescription.trim());
 			}
 
 			if (paramStartDate != null) {
@@ -76,7 +79,9 @@ public class ServletAuctionsEdit extends HttpServlet {
 				article.setCategoryId(Integer.parseInt(paramCategoryId));
 			}
 
-			ArticlesManager.editArticle(article);
+			Part imagePart = request.getPart("image");
+			
+			ArticlesManager.editArticle(article, this.getServletContext().getRealPath(""), imagePart);
 
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (BusinessException e) {
@@ -84,8 +89,10 @@ public class ServletAuctionsEdit extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 		} catch (DataException e) {
 			// TODO Log exception
-			response.sendError(503);	
-		} catch (NumberFormatException | DateTimeParseException e) {
+			System.out.println(e);
+			response.sendError(500);	
+		} catch (NullPointerException | NumberFormatException | DateTimeParseException e) {
+			System.out.println(e);
 			request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 		}

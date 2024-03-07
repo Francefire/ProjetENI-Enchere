@@ -37,7 +37,7 @@ public class FilterIsOwner implements Filter {
 
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
 		
-		if (article.getUserId() == user.getId()) {
+		if (article.getUserId() == user.getId() && article.getAuctionState() != "ADDED") {
 			httpRequest.setAttribute("article", article);
 			chain.doFilter(httpRequest, response);
 		} else {

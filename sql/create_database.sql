@@ -50,7 +50,7 @@ CREATE TABLE UTILISATEURS (
 	-- Ajout d'une valeur par defaut a 0 car un utilisateur n'est pas admin par defaut
     administrateur   bit CONSTRAINT DF_Admin_False DEFAULT 0,
 	-- Ajout de la colonne active : qui permet d'activer ou de desactiver le compte, uniquement modifiable par l'administrateur
-	active			 bit CONSTRAINT DF_Active DEFAULT 1 
+	desactive			 bit CONSTRAINT DF_Desactive DEFAULT 0 
 )
 
 ALTER TABLE UTILISATEURS ADD constraint utilisateur_pk PRIMARY KEY (no_utilisateur)
@@ -67,7 +67,11 @@ CREATE TABLE ARTICLES_VENDUS (
 	--Ajout de la contrainte CK_Prix_Initial_Positif car le prix initial ne peut etre negatif
     prix_initial                  INTEGER NOT NULL,
 	--Ajout de la contrainte CK_Prix_Vente car le prix de vente doit etre superieur au prix initial.
-    prix_vente                    INTEGER,
+    prix_vente                    INTEGER NOT NULL,
+    -- Ajout d'un attribut etat_vente permettant de savoir l'état de la vente
+   	etat_vente                    VARCHAR(7) NOT NULL CONSTRAINT DF_Etata_Vente DEFAULT 'ADDED',
+   	-- Ajout d'un attribut url_image permettant de stocker l'url de l'image de l'article envoyé par l'utilisateur
+   	url_image                     VARCHAR(128) NULL,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )

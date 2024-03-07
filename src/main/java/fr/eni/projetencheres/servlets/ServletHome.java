@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.ArticlesManager;
+import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletHome
@@ -21,21 +24,20 @@ public class ServletHome extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Article> articles = null;
-//		List<String> breadCrumb 
-//		Article = articleManager.getAllArticles();
-		
-//		try {
-//	        ArticleDAO articleDAO = new ArticleDAO();
-//	        articles = articleDAO.selectAllArticles();
-//	    } catch (BusinessException e) {
-//	        // Gérer les exceptions
-//	    }
-	    request.setAttribute("articles", articles);
-	    
-	    request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+	 */	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		try {
+			List<Article> articles = ArticlesManager.getAllArticles();
+			
+		    request.setAttribute("articles", articles);
+		    request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+		} catch (BusinessException e) {
+			request.setAttribute("error", e.getMessage());
+		} catch (DataException e) {
+			// TODO Log exception
+			System.out.println(e);
+			response.sendError(503);
+		}
 	}
 		
 

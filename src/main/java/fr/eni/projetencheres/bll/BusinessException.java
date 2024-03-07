@@ -27,6 +27,8 @@ public class BusinessException extends Exception {
 	
 	public static final String BLL_INSERT_CHEAT = "";
 	
+	public static final String BLL_IMAGE_SAVE_FAILED = "Une erreur s'est produite, l'image de l'article n'a pas pu être sauvegardée";
+	
 	public BusinessException() {
 	}
 
