@@ -21,7 +21,7 @@
 		<error-code>500</error-code>
 		<location>/WEB-INF/jsp/error.jsp</location>
 	</error-page>
-	
+
 	<servlet-mapping>
 		<servlet-name>jsp</servlet-name>
 		<url-pattern>*.jsp</url-pattern>
@@ -29,35 +29,51 @@
 	</servlet-mapping>
 
 	<filter-mapping>
-	    <filter-name>Log</filter-name>
-	    <url-pattern/>
+		<filter-name>Log</filter-name>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>Encode</filter-name>
-	    <url-pattern/>
+		<filter-name>Encode</filter-name>
+		<url-pattern>*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>IsLoggedIn</filter-name>
-	    <url-pattern/>
+		<filter-name>IsLoggedIn</filter-name>
+		<url-pattern>/encheres/modifier</url-pattern>
+		<url-pattern>/encheres/supprimer</url-pattern>
+		<url-pattern>/encheres/encherir</url-pattern>
+		<url-pattern>/encheres/retrait</url-pattern>
+		<url-pattern>/encheres/nouvelle</url-pattern>
+		<url-pattern>/utilisateur</url-pattern>
+		<url-pattern>/utilisateur/modifier</url-pattern>
+		<url-pattern>/utilisateur/supprimer</url-pattern>
+		<url-pattern>/credits</url-pattern>
+		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>IsAdmin</filter-name>
-	    <url-pattern/>
+		<filter-name>IsAdmin</filter-name>
+		<url-pattern>/admin/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>IsDisabled</filter-name>
-	    <url-pattern/>
+		<filter-name>IsDisabled</filter-name>
+		<url-pattern>/encheres/modifier</url-pattern>
+		<url-pattern>/encheres/supprimer</url-pattern>
+		<url-pattern>/encheres/encherir</url-pattern>
+		<url-pattern>/encheres/retrait</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>GetArticle</filter-name>
-	    <url-pattern/>
+		<filter-name>GetArticle</filter-name>
+		<url-pattern>/encheres/modifier</url-pattern>
+		<url-pattern>/encheres/supprimer</url-pattern>
+		<url-pattern>/encheres/encherir</url-pattern>
+		<url-pattern>/encheres/retrait</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>IsOwner</filter-name>
-	    <url-pattern/>
+		<filter-name>IsOwner</filter-name>
+		<url-pattern>/encheres/modifier</url-pattern>
+		<url-pattern>/encheres/supprimer</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-	    <filter-name>Breadcrumb</filter-name>
-	    <url-pattern/>
+		<filter-name>Breadcrumb</filter-name>
+		<url-pattern />
 	</filter-mapping>
 </web-app>

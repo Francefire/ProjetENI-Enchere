@@ -17,11 +17,7 @@ import fr.eni.projetencheres.bo.User;
 
 @WebFilter(
 		filterName = "IsOwner", 
-		dispatcherTypes = { DispatcherType.REQUEST }, 
-		urlPatterns = { 
-				"/encheres/supprimer", 
-				"/encheres/modifier", 
-		}
+		dispatcherTypes = { DispatcherType.REQUEST }
 )
 public class FilterIsOwner implements Filter {
 
@@ -36,8 +32,6 @@ public class FilterIsOwner implements Filter {
 		Article article = (Article) httpRequest.getAttribute("article");
 
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
-		
-		System.out.println("IsOwner");
 		
 		if (article.getUserId() == user.getId() && article.getAuctionState() != "ADDED") {
 			httpRequest.setAttribute("article", article);

@@ -20,8 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @WebFilter(
 		filterName = "Breadcrumb",
-		dispatcherTypes = { DispatcherType.REQUEST }, 
-		urlPatterns = { "/*" }
+		dispatcherTypes = { DispatcherType.REQUEST }
 )
 public class FilterBreadcrumb extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;

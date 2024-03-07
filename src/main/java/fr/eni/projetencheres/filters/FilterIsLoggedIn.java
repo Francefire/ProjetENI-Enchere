@@ -20,19 +20,7 @@ import fr.eni.projetencheres.bo.User;
  */
 @WebFilter(
 		filterName = "IsLoggedIn", 
-		dispatcherTypes = { DispatcherType.REQUEST }, 
-		urlPatterns = {
-				"/encheres/modifier",
-				"/encheres/supprimer",
-				"/encheres/encherir",
-				"/encheres/retrait",
-				"/utilisateur",
-				"/utilisateur/modifier",
-				"/utilisateur/supprimer",
-				"/credits",
-				"/admin",
-				"/admin/*"
-		}
+		dispatcherTypes = { DispatcherType.REQUEST }
 )
 public class FilterIsLoggedIn extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
@@ -47,14 +35,11 @@ public class FilterIsLoggedIn extends HttpFilter implements Filter {
 
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
 		
-		System.out.println("IsLoggedIn");
-		
 		if (user == null) {
 			String path = String.format("%s/connexion?targetUrl=%s", httpRequest.getContextPath(),
 					httpRequest.getServletPath());
 			httpResponse.sendRedirect(path);
 		} else {
-			System.out.println(user.toString());
 			chain.doFilter(request, response);
 		}
 	}
