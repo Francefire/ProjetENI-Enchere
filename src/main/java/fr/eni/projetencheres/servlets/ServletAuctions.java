@@ -16,9 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BidsManager;
 import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.CategoryManager;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.dal.DataException;
 
 /**
@@ -41,7 +43,11 @@ public class ServletAuctions extends HttpServlet {
 		RequestDispatcher auctionsRd = request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp");
 
 		if (id == null || id.isEmpty()) {
-			try {
+			try { 
+				CategoryManager categoryManager = new CategoryManager();
+	            List<Category> categories = categoryManager.getAllCategories();
+	            request.setAttribute("categories", categories);
+	            
 				if (request.getParameterMap().size() == 0) {
 					List<Article> articles = ArticlesManager.getAllArticles();
 					request.setAttribute("articles", articles);

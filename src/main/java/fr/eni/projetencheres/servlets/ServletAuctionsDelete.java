@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.CategoryManager;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.dal.DataException;
 
@@ -38,6 +39,10 @@ public class ServletAuctionsDelete extends HttpServlet {
 		
 		try {
 			ArticlesManager.deleteArticleByArticleId(article.getId());
+			
+			// Supprimer la catégorie associée à l'article *
+            CategoryManager categoryManager = new CategoryManager();
+            categoryManager.deleteCategory(article.getCategoryId());
 
 			response.sendRedirect(request.getContextPath() + "/encheres");
 		} catch (BusinessException e) {
