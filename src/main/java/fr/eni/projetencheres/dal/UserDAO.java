@@ -8,23 +8,23 @@ import fr.eni.projetencheres.bo.User;
 public interface UserDAO {
 
 //Pattern de méthodes permettant de faire les requetes vers la BDD
-	public void insert(User user) throws BusinessException; 
+	public void insert(User user) throws DataException;
 
-	public User selectById(int id) throws BusinessException;
+	public User selectById(int id) throws DataException;
 
-	public User selectByUsername(String username);
+	public User selectByUsername(String username) throws DataException;
 
-	public User selectByEmail(String email);
-	
-	public void update(User user);
-	
-	public void updateCreditsForUser(double amount, int userId) throws BusinessException;
+	public User selectByEmail(String email) throws DataException;
 
-	public void delete(int id);
+	public void update(User user) throws DataException;
 
-	public User login(String userName, String password) throws BusinessException ;
+	public void updateCreditsForUser(double amount, int userId) throws DataException;
 
-	public int check(String userName, String password) throws BusinessException;
+	public void delete(int id) throws DataException;
 
-	public List<User> selectAllUsers();
+	public User login(String userName, String password) throws DataException;
+
+	public int check(String userName, String password) throws DataException;
+
+	public List<User> selectAllUsers() throws DataException;
 }

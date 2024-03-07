@@ -15,7 +15,7 @@ public class BidDAO {
 	private static final String SQL_INSERT_BID = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
 	private static final String SQL_SELECT_BIDS_BY_ARTICLE_ID = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article=?";
 
-	public void insertBid(Bid b) throws BusinessException {
+	public void insertBid(Bid b) throws DataException {
 		try {
 			Connection connection = ConnectionProvider.getConnection();
 
@@ -26,13 +26,13 @@ public class BidDAO {
 			statement.setDouble(4, b.getAmount());
 			statement.execute();
 
-			connection.close();	
+			connection.close();
 		} catch (SQLException e) {
-			throw new BusinessException(BusinessException.DAL_INSERT_BID_SQLEXCEPTION, e);
+			throw new DataException("l'insertion d'une enchère", e.getMessage());
 		}
 	}
 
-	public List<Bid> selectBidsByArticleId(int articleId) throws BusinessException {
+	public List<Bid> selectBidsByArticleId(int articleId) throws DataException {
 		List<Bid> bids = new ArrayList<Bid>();
 
 		try {
@@ -54,20 +54,20 @@ public class BidDAO {
 
 			connection.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new BusinessException(BusinessException.DAL_SELECT_BID_SQLEXCEPTION);
+			throw new DataException("l'obtention de toutes les enchères par leurs identifiants d'article", e.getMessage());
 		}
 
 		return bids;
 	}
-	
-	// une méthode utilitaire pour convertir un objet ResultSet (résultat d'une requête SQL) en un objet de type Bid *
-	 public Bid selectBid(ResultSet rs) throws SQLException {
-	        Bid bid = new Bid();
-	        bid.setUserId(rs.getInt("no_utilisateur"));
-	        bid.setArticleId(rs.getInt("no_article"));
-	        bid.setDate(rs.getDate("date_enchere").toLocalDate());
-	        bid.setAmount(rs.getDouble("montant_enchere"));
-	        return bid;
-	    }
+
+	// une méthode utilitaire pour convertir un objet ResultSet (résultat d'une
+	// requête SQL) en un objet de type Bid *
+	public Bid selectBid(ResultSet rs) throws SQLException {
+		Bid bid = new Bid();
+		bid.setUserId(rs.getInt("no_utilisateur"));
+		bid.setArticleId(rs.getInt("no_article"));
+		bid.setDateTime(rs.getTimestamp("date_enchere").toLocalDateTime());
+		bid.setAmount(rs.getDouble("montant_enchere"));
+		return bid;
+	}
 }

@@ -4,24 +4,21 @@ import java.util.List;
 
 import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.dal.CategoriesDAO;
+import fr.eni.projetencheres.dal.DataException;
 
-public class CategoryManager {	
-		public static CategoriesDAO categoriesDAO = null; // Instance de CategoriesDAO pour interagir avec la base de données*
-		
-		public static CategoriesDAO getInstance() { // Constructeur qui initialise l'instance de CategoriesDAO
-				if(categoriesDAO == null) {
-					categoriesDAO = new CategoriesDAO();
-				}
-				return categoriesDAO;
+public class CategoryManager {
+	public static CategoriesDAO categoriesDAO = null;
+
+	public static CategoriesDAO getInstance() {
+		if (categoriesDAO == null) {
+			categoriesDAO = new CategoriesDAO();
 		}
-		// Méthode pour récupérer toutes les catégories*
-		public List<Category> recupererCategories() throws BusinessException {
-			try {
-			return CategoryManager.getInstance().selectAllCategory();
-			}catch (BusinessException e) {
-				throw e;
-			}
-		}
+		return categoriesDAO;
+	}
+
+	public List<Category> getAllCategories() throws BusinessException, DataException {
+		return CategoryManager.getInstance().selectAllCategories();
+	}
 //		// Méthode pour créer une nouvelle catégorie
 //		public void ajouterCategorie(Category categorie) throws BusinessException {
 //		    try {
@@ -57,4 +54,3 @@ public class CategoryManager {
 //		    }
 //		}
 }
-

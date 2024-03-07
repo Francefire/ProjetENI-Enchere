@@ -14,11 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletAuctions
  */
-@WebServlet({"/auctions", "/encheres"})
+@WebServlet("/encheres")
 public class ServletAuctions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -64,10 +65,13 @@ public class ServletAuctions extends HttpServlet {
 					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
 				}
 			} catch (BusinessException e) {
-				request.setAttribute("message", e.getMessage());
-				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
+			} catch (DataException e) {
+				// TODO Log exception
+				response.sendError(503);
 			} catch (NumberFormatException | DateTimeParseException e) {
-				System.out.println(e.getMessage());
+				request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);	
 			}			
 		} else {
@@ -81,10 +85,13 @@ public class ServletAuctions extends HttpServlet {
 				// request.setAttribute("bids", bids);
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_article.jsp").forward(request, response);
 			} catch (BusinessException e) {
-				request.setAttribute("message", e.getMessage());
+				request.setAttribute("error", e.getMessage());
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
+			} catch (DataException e) {
+				// TODO Log exception
+				response.sendError(503);
 			} catch (NumberFormatException e) {
-				request.setAttribute("message", "L'identifiant donné n'est pas valide");
+				request.setAttribute("error", "L'identifiant donné n'est pas valide");
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions.jsp").forward(request, response);
 			}
 		}

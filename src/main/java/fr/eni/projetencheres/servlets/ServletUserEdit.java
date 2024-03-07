@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletUserEdit
  */
-@WebServlet("/user/edit")
+@WebServlet("/utilisateur/modifier")
 public class ServletUserEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +30,7 @@ public class ServletUserEdit extends HttpServlet {
 
 		User u = (User) request.getSession().getAttribute("userConnected");
 		if (u == null) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			response.sendRedirect(request.getContextPath() + "/accueil");
 			return;
 		}
 		request.setAttribute("user", u);
@@ -46,8 +47,7 @@ public class ServletUserEdit extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		User u = (User) request.getSession().getAttribute("userConnected");
 		if (u == null) {
-			response.sendRedirect(request.getContextPath() + "/home");
-			return;
+			response.sendRedirect(request.getContextPath() + "/accueil");
 		}
 		String username = request.getParameter("editUsername");
 		String passwordValidation = request.getParameter("passwordValidation");
@@ -70,20 +70,21 @@ public class ServletUserEdit extends HttpServlet {
 			System.out.println("passwordValidation : " + passwordValidation);
 			UserManager.comparePwd(u.getPassword(), passwordValidation);
 			UserManager.checkUserInfo(editedUser, false);
+
 			if (password != null && !password.isEmpty()) {
 				UserManager.comparePwd(password, confirmEditPassword);
 				UserManager.checkUserInfo(editedUser);
 				editedUser.setPassword(password);
 			}
+
 			UserManager.editUser(editedUser);
 			request.getSession().setAttribute("userConnected", editedUser);
-			request.setAttribute("message", null);
-			
-
 		} catch (BusinessException e) {
-			request.setAttribute("message", e.getMessage());
-		}
-		finally {
+			request.setAttribute("error", e.getMessage());
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);
+		} finally {
 			rd.forward(request, response);
 		}
 		// A definir si on garde dans la session ou la requete

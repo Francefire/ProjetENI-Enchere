@@ -6,6 +6,7 @@ import java.util.List;
 import fr.eni.projetencheres.bo.Article;
 import fr.eni.projetencheres.dal.ArticleDAO;
 import fr.eni.projetencheres.dal.DAOFactory;
+import fr.eni.projetencheres.dal.DataException;
 
 public class ArticlesManager {
 	private static ArticleDAO articleDAO;
@@ -18,7 +19,7 @@ public class ArticlesManager {
 		return articleDAO;
 	}
 
-	public static void addArticle(Article a) throws BusinessException {
+	public static void addArticle(Article a) throws BusinessException, DataException {
 		Utils.verifyStringField("nom", a.getName(), 0, 30);
 		Utils.verifyStringField("description", a.getDescription(), 0, 300);
 
@@ -31,11 +32,11 @@ public class ArticlesManager {
 		ArticlesManager.getIntance().insertArticle(a);
 	}
 
-	public static void editArticle(Article a) throws BusinessException {
+	public static void editArticle(Article a) throws BusinessException, DataException {
 		ArticlesManager.getIntance().updateArticle(a);
 	}
 
-	public static Article getArticleByArticleId(int articleId) throws BusinessException {
+	public static Article getArticleByArticleId(int articleId) throws BusinessException, DataException {
 		Article article = ArticlesManager.getIntance().selectArticleByArticleId(articleId);
 
 		if (article == null) {
@@ -45,7 +46,7 @@ public class ArticlesManager {
 		return article;
 	}
 
-	public static List<Article> getAllArticles() throws BusinessException {
+	public static List<Article> getAllArticles() throws BusinessException, DataException {
 		List<Article> articles = ArticlesManager.getIntance().selectAllArticles();
 
 		if (articles == null) {
@@ -56,7 +57,7 @@ public class ArticlesManager {
 	}
 
 	public static List<Article> getAllArticlesWhere(String name, int categoryId, LocalDate startDate, LocalDate endDate)
-			throws BusinessException {
+			throws BusinessException, DataException {
 		List<Article> articles = ArticlesManager.getIntance().selectArticlesWhere(name, categoryId, startDate, endDate);
 
 		if (articles == null) {
@@ -66,7 +67,7 @@ public class ArticlesManager {
 		return articles;
 	}
 
-	public static void deleteArticleByArticleId(int articleId) throws BusinessException {
+	public static void deleteArticleByArticleId(int articleId) throws BusinessException, DataException {
 		ArticlesManager.getIntance().deleteArticleByArticleId(articleId);
 	}
 }

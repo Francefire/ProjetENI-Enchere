@@ -13,11 +13,12 @@ import javax.servlet.http.HttpSession;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet implementation class ServletUser
  */
-@WebServlet("/user")
+@WebServlet("/utilisateur")
 public class ServletUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,37 +33,29 @@ public class ServletUser extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		String idParam = request.getParameter("id");
 		User u = null;
-		if (userConnected == null) {
-			
-			request.setAttribute("from", rd);
-			request.setAttribute("message", "Vous devez être connecté pour accéder à cette page.");
-			rd = getServletContext().getRequestDispatcher("/Login");
-			rd.forward(request, response);
-			return;
-		} else {
-			if (idParam != null) {
-				try {
-                    int id = Integer.parseInt(idParam);
-                    
-                    u = UserManager.getUserById(id);
-                    if(u.getId() != userConnected.getId()){
-                    	request.setAttribute("displayUser", u);
-                    }else {
-                    	request.setAttribute("user", null);//Ceci permettra d'afficher directement la page de modification du profil si l'utilisateur veut voir son propre profile
-                    }
-                    
-                } catch (NumberFormatException e) {
-                    request.setAttribute("message", "ID non valide");
-                    response.sendError(500);
-                    return;
-				} catch (BusinessException e) {
-					request.setAttribute("message", e.getMessage());
-					response.sendError(500);
-					return;
+
+		if (idParam != null) {
+			try {
+				int id = Integer.parseInt(idParam);
+
+				u = UserManager.getUserById(id);
+				if (u.getId() != userConnected.getId()) {
+					request.setAttribute("displayUser", u);
+				} else {
+					// Ceci permettra d'afficher directement la page de modification du profil si
+					// l'utilisateur veut voir son propre profile
+					request.setAttribute("user", null);
 				}
-				
+			} catch (BusinessException e) {
+				request.setAttribute("error", e.getMessage());
+				response.sendError(500);
+			} catch (DataException e) {
+				// TODO Log exception
+				response.sendError(503);
+			} catch (NumberFormatException e) {
+				request.setAttribute("error", "ID non valide");
+				response.sendError(500);
 			}
-			
 		}
 
 		rd.forward(request, response);

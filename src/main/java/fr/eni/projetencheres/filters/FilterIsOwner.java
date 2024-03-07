@@ -19,8 +19,6 @@ import fr.eni.projetencheres.bo.User;
 		filterName = "IsOwner", 
 		dispatcherTypes = { DispatcherType.REQUEST }, 
 		urlPatterns = { 
-				"/auctions/delete",
-				"/auctions/edit", 
 				"/encheres/supprimer", 
 				"/encheres/modifier", 
 		}
@@ -43,7 +41,7 @@ public class FilterIsOwner implements Filter {
 			httpRequest.setAttribute("article", article);
 			chain.doFilter(httpRequest, response);
 		} else {
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/auctions?id=" + article.getId());
+			httpResponse.sendRedirect(httpRequest.getContextPath() + "/encheres?id=" + article.getId());
 		}
 	}
 }
