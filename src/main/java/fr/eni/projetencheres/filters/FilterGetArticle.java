@@ -50,6 +50,10 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 				if (article == null) {
 					httpResponse.sendError(404);
 				} else {
+					if (article.getStartDate().equals(LocalDate.now())) {
+						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
+						article.setAuctionState("STARTED");
+					}
 					if (article.getStartDate().isBefore(LocalDate.now())) {
 						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
 						article.setAuctionState("STARTED");

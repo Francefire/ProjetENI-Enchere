@@ -16,14 +16,13 @@
 			  </tr>
 			  <c:forEach items="${categories}" var="category">
 			  	<tr>
-			  		<form method="POST" id="edit" action="${pageContext.request.contextPath}/admin/categories?action=edit&id=${category.id}">
+			  		<form method="POST" id="edit">
 				  		<td><input type="text" name="label" value="${category.label}"></td>
-				  	</form>
-				  	<form method="POST" id="delete" action="${pageContext.request.contextPath}/admin/categories?action=delete&id=${category.id}"></form>
 				  	<td>
-				  		<button form="edit">Modifier</button>
-				  		<button form="delete">Supprimer</button>
+				  		<input type="submit" value="Modifier" formaction="${pageContext.request.contextPath}/admin/categories?action=edit&id=${category.id}">
+				  		<input type="submit" value="Supprimer" formaction="${pageContext.request.contextPath}/admin/categories?action=edit&id=${category.id}">
 				  	</td>
+				  	</form>
 			  	</tr>
 			  </c:forEach>
 		</table>

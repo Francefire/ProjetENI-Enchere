@@ -32,7 +32,7 @@
 						<c:if test="${article.auctionState eq 'ADDED'}">
 							<a href="${pageContext.request.contextPath}/encheres/modifier?id=${article.id}">Modifier</a>
 							<form method="POST" action="${pageContext.request.contextPath}/encheres/supprimer?id=${article.id}">
-								<button type="submit">Supprimer</button>
+								<input value="Supprimer" type="submit">
 							</form>
 						</c:if>
 					</c:when>
