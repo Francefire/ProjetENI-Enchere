@@ -18,7 +18,7 @@ import fr.eni.projetencheres.dal.DataException;
 /**
  * Servlet implementation class ServletForgottenPwd
  */
-@WebServlet("/oublie")
+@WebServlet("/mot_de_passe_oublie")
 public class ServletForgottenPwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +38,9 @@ public class ServletForgottenPwd extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String mailFromUser = request.getParameter("forgottenpwd");
+		System.out.println("Email saisi par l'utilisateur : " + mailFromUser);
 //		EmailSender.sendPasswordRecoveryEmail(mailFromUser);
+		System.out.println("méthode EmailSender passée");
 
 //		**********CHATGPT**************
 		String newPassword = NewPwdGenerator.generatePassword(8); // Générer un nouveau mot de passe
@@ -48,19 +50,19 @@ public class ServletForgottenPwd extends HttpServlet {
 			if (exist) {
 				// Si l'e-mail existe, mettre à jour le mot de passe
 				UserManager.updateNewPassword(mailFromUser, newPassword);
+				System.out.println("dans la servlet, ligne 53");
 				EmailSender.sendPasswordRecoveryEmail(mailFromUser, newPassword);
 			}
-			
-			//		***************	CHATGPT ***********	
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/forgottenPwdOk.jsp");
-			rd.forward(request, response);
 		} catch (BusinessException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/jsp/forgottenPwdOk.jsp").forward(request, response);
+			e.printStackTrace();
+			response.getWriter().println("Une erreur s'est produite lors de la réinitialisation du mot de passe.");
 		}
 		catch (DataException e) {
-			System.out.println(e);
-			response.sendError(500);
+			System.out.println(e.getMessage());;
 		}
+//		***************	CHATGPT ***********	
+System.out.println("dans la servlet, ligne 64");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/forgottenPwdOk.jsp");
+		rd.forward(request, response);
 	}
 }

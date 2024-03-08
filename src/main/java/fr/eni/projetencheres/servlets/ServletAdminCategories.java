@@ -31,12 +31,9 @@ public class ServletAdminCategories extends HttpServlet {
 			
 			request.setAttribute("categories", categories);
 			request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_categories.jsp").forward(request, response);
-		} catch (BusinessException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_categories.jsp").forward(request, response);
-		} catch (DataException e) {
-			System.out.println(e);
-			response.sendError(500);
+		} catch (BusinessException | DataException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

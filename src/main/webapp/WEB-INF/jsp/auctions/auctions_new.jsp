@@ -43,13 +43,13 @@
 								<label for="initialPrice">Prix de mise à vente (crédits)</label> <input type="number" name="initialPrice" id="initialPrice" min="0.00" step="1" placeholder="5" value="${param.initialPrice}" required />
 							</div>
 							<div class="row text-end">
-								<label for="image">Ajouter une image à l'article</label> <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+								<label for="image">Ajouter une image à l'article</label> <input class="form-control" type="file" id="image" name="image" accept="image/png, image/jpeg" />
 							</div>
 							<div class="row text-start">
 								<label for="categoryId">Catégorie</label>
 								<select name="categoryId" id="categoryId" required>
                                 <c:forEach items="${categories}" var="category">
-                                    <option value="${category.id}">${category.label}</option>
+                                    <option value="${category.getId()}">${category.getLabel()}</option>
                                 </c:forEach>
                             </select>
 							</div>

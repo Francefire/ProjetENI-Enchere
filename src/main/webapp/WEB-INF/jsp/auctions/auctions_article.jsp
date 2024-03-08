@@ -25,40 +25,33 @@
 							<h1>Nom vendeur.</h1>
 						</div>
 						<div class="col">
-							<c:if test="${not empty userConnected}">
-			<section class="actions">
-				<c:choose>
-					<c:when test="${userConnected.id eq article.userId}">
-						<c:if test="${article.auctionState eq 'ADDED'}">
-							<a href="${pageContext.request.contextPath}/encheres/modifier?id=${article.id}">Modifier</a>
-							<form method="POST" action="${pageContext.request.contextPath}/encheres/supprimer?id=${article.id}">
-								<button type="submit">Supprimer</button>
-							</form>
-						</c:if>
-					</c:when>
-					<c:otherwise>
-						<c:if test="${article.auctionState eq 'STARTED'}">
-							<form method="POST" action="${pageContext.request.contextPath}/encheres/encherir?id=${article.id}">
-								<label for="amount">Crédits</label><br>
-								<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required 
-								<c:if test="${userConnected.credit < article.sellingPrice+1}">
-									disabled
+							<section class="actions">
+								<c:if test="${not empty userConnected}">
+									<c:choose>
+										<c:when test="${userConnected.id == article.userId}">
+											<a href="${pageContext.request.contextPath}/encheres/modifier?id=${article.id}">Modifier</a>
+										<form method="POST" action="${pageContext.request.contextPath}/encheres/supprimer?id=${article.id}">
+											<input type="submit" value="Supprimer">
+										</form>
+										</c:when>
+										<c:otherwise>
+												<form method="POST" action="${pageContext.request.contextPath}/encheres/enchere?id=${article.id}">
+													<label for="amount">Crédits</label><br>
+													<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required 
+													<c:if test="${userConnected.credit < article.sellingPrice+1}">
+														disabled
+													</c:if>
+													><br>
+													<button type="submit" value="" 
+													<c:if test="${userConnected.credit < article.sellingPrice+1}">
+														disabled
+													</c:if>
+													>Enchérir</button>
+												</form>
+										</c:otherwise>
+									</c:choose>
 								</c:if>
-								><br>
-								<button type="submit" value="" 
-								<c:if test="${userConnected.credit < article.sellingPrice+1}">
-									disabled
-								</c:if>
-								>Enchérir</button>
-							</form>
-						</c:if>
-						<c:if test="${article.auctionState eq 'ENDED'}">
-							<a href="${pageContext.request.contextPath}/encheres/retrait?id=${article.id}">Retirer l'article</a>
-						</c:if>
-					</c:otherwise>
-				</c:choose>
-			</section>
-		</c:if>
+							</section>
 						</div>
 					</div>
 				</div>
@@ -71,20 +64,22 @@
 						</section>
 					</div>
 					<div class="row">
-						<c:if test="${not empty bids}">
-			<section class="bids">
-				<h2>Dernières enchères</h2>
-				<c:forEach items="${bids}" var="bid">
-					<p>${bid.amount} crédits</p>
-				</c:forEach>
-			</section>
-		</c:if>
+						<section class="bids">
+							<p>Nom Prénom XX crédits</p>
+							<p>Nom Prénom X crédits</p>
+							<p>Nom Prénom XXX crédits</p>
+							<c:forEach items="${bids}" var="bid">
+								<p>Nom Prénom ${bid.amount} crédits</p>
+							</c:forEach>
+						</section>
 					</div>
 				</div>
 			</div>
 		</div>
 		<section class="article">
 		</section>
+		
+		
 	</main>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -26,9 +26,7 @@ public class ServletAuctionsDelete extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Article article = (Article) request.getAttribute("article");
-		
-		response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+		response.sendRedirect(request.getContextPath() + "/encheres");
 	}
 
 	/**
@@ -39,24 +37,20 @@ public class ServletAuctionsDelete extends HttpServlet {
 			throws ServletException, IOException {
 		Article article = (Article) request.getAttribute("article");
 		
-		if (article.getAuctionState().equals("ADDED")) {
-			try {
-				ArticlesManager.deleteArticleByArticleId(article.getId());
-				
-				// Supprimer la catégorie associée à l'article *
-	            CategoryManager categoryManager = new CategoryManager();
-	            categoryManager.deleteCategory(article.getCategoryId());
+		try {
+			ArticlesManager.deleteArticleByArticleId(article.getId());
+			
+			// Supprimer la catégorie associée à l'article *
+            CategoryManager categoryManager = new CategoryManager();
+            categoryManager.deleteCategory(article.getCategoryId());
 
-				response.sendRedirect(request.getContextPath() + "/encheres");
-			} catch (BusinessException e) {
-				request.setAttribute("error", e);
-				response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
-			} catch (DataException e) {
-				System.out.println(e);
-				response.sendError(500);	
-			}
-		} else {
-			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+			response.sendRedirect(request.getContextPath() + "/encheres");
+		} catch (BusinessException e) {
+			request.setAttribute("error", e);
+			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
+		} catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);	
 		}
 	}
 }

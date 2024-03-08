@@ -16,7 +16,7 @@ public class CategoryManager {
 			return categoriesDAO;
 		}
 	
-		public static List<Category> getAllCategories() throws BusinessException, DataException {
+		public List<Category> getAllCategories() throws BusinessException, DataException {
 			return CategoryManager.getInstance().selectAllCategories();
 		}
 	

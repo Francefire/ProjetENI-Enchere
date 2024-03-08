@@ -23,6 +23,7 @@ public class ServletLogout extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
+		System.out.println("je suis déconnecté");
 		response.sendRedirect(request.getContextPath());
 	}
 

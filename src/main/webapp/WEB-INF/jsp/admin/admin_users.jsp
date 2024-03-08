@@ -25,7 +25,7 @@
 				<th>Mot de passe</th>
 				<th>Crédits</th>
 				<th>Admin</th>
-				<th>Désactivé</th>
+				<th>Activé</th>
 			</tr>
 			<tr>
 				<c:forEach items="${users}" var="user">
@@ -38,11 +38,10 @@
 						<td><input type="text" name="phoneNumber" value="${user.phoneNumber}"></td>
 						<td><input type="text" name="street" value="${user.street}"></td>
 						<td><input type="text" name="zipCode" value="${user.zipCode}"></td>
-						<td><input type="text" name="city" value="${user.city}"></td>
 						<td><input type="text" name="password" value="${user.password}"></td>
 						<td><input type="text" name="credit" value="${user.credit}"></td>
 						<td><input type="text" name="admin" value="${user.admin}"></td>
-						<td><input type="text" name="disabled" value="${user.disabled}"></td>
+						<!--td><input type="text" name="enabled" value="${user.enabled}"></td-->
 					</form>
 				</c:forEach>
 			</tr>

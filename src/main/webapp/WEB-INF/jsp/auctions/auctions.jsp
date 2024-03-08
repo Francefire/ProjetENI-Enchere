@@ -18,15 +18,22 @@
 		<section class="search">
 			<form method="GET" action="${pageContext.request.contextPath}/encheres">
 				<div>
-					<label for="search">Nom</label><br>
-					<input type="search" name="search" value="${param.search}" placeholder="Rechercher un article ...">
+					<label for="name">Nom</label><br>
+					<input type="search" name="name" value="${param.name}" placeholder="Chaise en bois">
 				</div>
 				<div>
 					<label for="category">Catégorie</label><br>
 					<select name="category" id="category">
-						<c:forEach items="${categories}" var="category">
-							<option value="${category.id}">${category.label}</option>
+						<option value="all">Toutes les catégories</option>
+						<!--
+						<c:forEach items="${caterogies}" var="category">
+							<option value="${category.id}">${category.name}</option>
 						</c:forEach>
+						-->
+						<option value="informatique">Informatique</option>
+						<option value="ameublement">Ameublement</option>
+						<option value="vetement">Vêtement</option>
+						<option value="sport-loisirs">Sport &amp; Loisirs</option>
 					</select>
 				</div>
 				<div>

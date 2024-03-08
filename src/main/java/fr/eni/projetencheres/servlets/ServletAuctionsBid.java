@@ -26,9 +26,13 @@ public class ServletAuctionsBid extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Article article = (Article) request.getAttribute("article");
+		String id = request.getParameter("id");
 		
-		response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+		if (id == null || id.isEmpty()) {
+			response.sendError(404);
+		} else {
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + id);	
+		}
 	}
 
 	/**
@@ -37,45 +41,37 @@ public class ServletAuctionsBid extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Article article = (Article) request.getAttribute("article");
 		
-		if (article.getAuctionState().equals("STARTED")) {
-			try {
-				double amount = Double.parseDouble(request.getParameter("amount"));
+		try {
+			double amount = Double.parseDouble(request.getParameter("amount"));
+		
+			User user = (User) request.getSession().getAttribute("userConnected");
 			
-				User user = (User) request.getSession().getAttribute("userConnected");
-				
-				if (article.getUserId() == user.getId()) {
-					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+			if (article.getUserId() == user.getId()) {
+				response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+			} else {
+				if (user.getCredit() < article.getSellingPrice()+1) {
+					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());	
 				} else {
-					if (user.getCredit() < article.getSellingPrice()+1) {
-						throw new BusinessException("Vous n'avez pas assez de crédits pour enchérir sur cet article");
-					} 
+					Bid bid = new Bid();
+					bid.setUserId(user.getId());
+					bid.setArticleId(article.getId());
+					bid.setDateTime(LocalDateTime.now());
+					bid.setAmount(amount);
 					
-					if (user.getCredit() < article.getSellingPrice()+amount) {
-						throw new BusinessException("Vous n'avez pas assez de crédits pour enchérir " + amount + " crédits");
-					} else {
-						Bid bid = new Bid();
-						bid.setUserId(user.getId());
-						bid.setArticleId(article.getId());
-						bid.setDateTime(LocalDateTime.now());
-						bid.setAmount(amount);
-						
-						BidsManager.addBid(bid);
+					BidsManager.addBid(bid);
 
-						response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());	
-					}
+					request.setAttribute("message", "Enchère effectuée");
+					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());	
 				}
-			} catch (BusinessException e) {
-				request.setAttribute("error", e.getMessage());
-				response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
-			}  catch (DataException e) {
-				System.out.println(e);
-				response.sendError(500);				
-			} catch (NumberFormatException e) {
-				request.setAttribute("error", "Le montant entré n'est pas valide");
-				response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 			}
-		} else {
-			request.setAttribute("error", "Vous ne pouvez pas miser sur une enchère qui n'est pas en cour");
+		} catch (BusinessException e) {
+			request.setAttribute("error", e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+		}  catch (DataException e) {
+			// TODO Log exception
+			response.sendError(503);				
+		} catch (NumberFormatException e) {
+			request.setAttribute("error", "Le montant entré n'est pas valide");
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		}
 	}

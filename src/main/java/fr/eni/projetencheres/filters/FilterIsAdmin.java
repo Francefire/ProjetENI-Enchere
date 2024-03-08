@@ -20,7 +20,11 @@ import fr.eni.projetencheres.bo.User;
  */
 @WebFilter(
 		filterName = "IsAdmin", 
-		dispatcherTypes = { DispatcherType.REQUEST }
+		dispatcherTypes = { DispatcherType.REQUEST }, 
+		urlPatterns = {
+				"/admin",
+				"/admin/*",
+		}
 )
 public class FilterIsAdmin extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;

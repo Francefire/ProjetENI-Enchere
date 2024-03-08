@@ -25,9 +25,12 @@
 			<input type="file" id="image" name="image" accept="image/png, image/jpeg"><br>
 			<label for="categoryId">Catégorie</label>
 			<select name="categoryId" id="categoryId">
-			<c:forEach items="${categories}" var="category">
-				<option value="${category.id}">${category.label}</option>
-			</c:forEach>
+				<option value="1">Catégorie temporaire</option>
+				<!--
+				<c:forEach items="${categories}" var="category">
+					<option value="${category.id}">${category.name}</option>
+				</c:forEach>
+				-->
 			</select><br>
 			<a href="${pageContext.request.contextPath}/auctions?id=${article.id}">Annuler</a>
 			<input type="reset" value="Réinitialiser">

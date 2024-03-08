@@ -31,6 +31,7 @@ import fr.eni.projetencheres.dal.DataException;
 public class ServletAuctionsNew extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final Logger LOGGER = Logger.getLogger(ServletAuctionsNew.class.getName());
 	private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	/**
@@ -87,7 +88,7 @@ public class ServletAuctionsNew extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		} catch (DataException e) {
-			System.out.println(e);
+			LOGGER.severe(e.getMessage());
 			response.sendError(500);
 		} catch (NullPointerException | NumberFormatException | DateTimeParseException e) {
 			request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);

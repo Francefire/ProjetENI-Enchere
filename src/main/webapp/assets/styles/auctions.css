@@ -20,8 +20,6 @@ body {
 .articles article {
 	background-color: var(--quaternary-color);
 	margin: 20px 0;
-	width: 1000px;
-	max-width: 1000px; 
 }
 
 .articles article:hover {
@@ -32,13 +30,6 @@ body {
 	color: var(--quinary-color);
 	display: flex;
 	text-decoration: none;
-}
-
-.articles article img {
-	height: 150px;
-	width: 150px;
-	max-height: 150px;
-	max-width: 150px;
 }
 
 .articles article div {

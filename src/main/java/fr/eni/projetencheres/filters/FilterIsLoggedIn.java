@@ -13,17 +13,27 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projetencheres.bll.BusinessException;
-import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
-import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet Filter implementation class FilterIsLoggedIn
  */
 @WebFilter(
 		filterName = "IsLoggedIn", 
-		dispatcherTypes = { DispatcherType.REQUEST }
+		dispatcherTypes = { DispatcherType.REQUEST }, 
+		urlPatterns = {
+				"/encheres/encherir", 
+				"/encheres/supprimer",
+				"/encheres/modifier",
+				"/encheres/nouvelle",
+				"/encheres/retrait",
+				"/utilisateur",
+				"/utilisateur/modifier",
+				"/utilisateur/supprimer",
+				"/credits",
+				"/admin",
+				"/admin/*",
+		}
 )
 public class FilterIsLoggedIn extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
@@ -37,19 +47,12 @@ public class FilterIsLoggedIn extends HttpFilter implements Filter {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		User user = (User) httpRequest.getSession().getAttribute("userConnected");
-		
+
 		if (user == null) {
 			String path = String.format("%s/connexion?targetUrl=%s", httpRequest.getContextPath(),
 					httpRequest.getServletPath());
 			httpResponse.sendRedirect(path);
 		} else {
-			try {
-				user = UserManager.getUserById(user.getId());
-				httpRequest.getSession().setAttribute("userConnected", user);
-			} catch (DataException e) {
-				System.out.println(e);
-				httpResponse.sendError(500);
-			}
 			chain.doFilter(request, response);
 		}
 	}

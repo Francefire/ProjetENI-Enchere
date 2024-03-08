@@ -16,12 +16,12 @@ CREATE TABLE ENCHERES (
     no_utilisateur   INTEGER NOT NULL,
     no_article       INTEGER NOT NULL,
     date_enchere     datetime NOT NULL,
+	--Ajout de la contrainte CK_Montant_Positif car une enchere ne peut etre negatif.
 	montant_enchere  INTEGER NOT NULL
 
 )
 
 ALTER TABLE ENCHERES ADD constraint enchere_pk PRIMARY KEY (no_utilisateur, no_article)
---Ajout de la contrainte CK_Montant_Positif car une enchere ne peut etre negatif.
 ALTER TABLE ENCHERES ADD CONSTRAINT CK_Montant_Positif CHECK (montant_enchere >= 0)
 
 CREATE TABLE RETRAITS (
@@ -36,7 +36,7 @@ CREATE TABLE RETRAITS (
 ALTER TABLE RETRAITS ADD constraint retrait_pk PRIMARY KEY  (no_article)
 
 CREATE TABLE UTILISATEURS (
-    no_utilisateur   INTEGER IDENTITY(1,1) NOT NULL CONSTRAINT UQ_No_Utilisateur UNIQUE,
+    no_utilisateur   INTEGER IDENTITY(1,1) NOT NULL,
     pseudo           VARCHAR(30) NOT NULL,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
@@ -71,9 +71,9 @@ CREATE TABLE ARTICLES_VENDUS (
 	--Ajout de la contrainte CK_Prix_Vente car le prix de vente doit etre superieur au prix initial.
     prix_vente                    INTEGER NOT NULL,
     -- Ajout d'un attribut etat_vente permettant de savoir l'état de la vente
-   	etat_vente                    VARCHAR(7) NOT NULL CONSTRAINT DF_Etat_Vente DEFAULT 'ADDED',
+   	etat_vente                    VARCHAR(7) NOT NULL CONSTRAINT DF_Etata_Vente DEFAULT 'ADDED',
    	-- Ajout d'un attribut url_image permettant de stocker l'url de l'image de l'article envoyé par l'utilisateur
-   	url_image                     VARCHAR(256) NULL,
+   	url_image                     VARCHAR(128) NULL,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )
@@ -87,13 +87,13 @@ ALTER TABLE ARTICLES_VENDUS ADD CONSTRAINT CK_Prix_Vente CHECK (prix_vente >= pr
 
 ALTER TABLE ARTICLES_VENDUS
     ADD CONSTRAINT encheres_utilisateur_fk FOREIGN KEY ( no_utilisateur ) REFERENCES UTILISATEURS ( no_utilisateur )
-ON DELETE NO ACTION 
+ON DELETE CASCADE 
     ON UPDATE no action 
 
 ALTER TABLE ENCHERES
     ADD CONSTRAINT encheres_articles_vendus_fk FOREIGN KEY ( no_article )
         REFERENCES ARTICLES_VENDUS ( no_article )
-ON DELETE NO ACTION
+ON DELETE CASCADE
     ON UPDATE no action 
 
 ALTER TABLE RETRAITS
@@ -111,6 +111,6 @@ ON DELETE NO ACTION
 ALTER TABLE ARTICLES_VENDUS
     ADD CONSTRAINT ventes_utilisateur_fk FOREIGN KEY ( no_utilisateur )
         REFERENCES utilisateurs ( no_utilisateur )
-ON DELETE NO ACTION 
+ON DELETE CASCADE 
     ON UPDATE no action 
 

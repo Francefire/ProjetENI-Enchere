@@ -11,8 +11,7 @@
 <body>
 	<%@ include file="/WEB-INF/jspf/header.jspf" %>
 	<main>
-		<a href="${pageContext.request.contextPath}/admin/categories">Categories</a>
-		<a href="${pageContext.request.contextPath}/admin/utilisateurs">Utilisateurs</a>
+		
 	</main>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>

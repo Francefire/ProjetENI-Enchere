@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetencheres.bo.Article;
-import fr.eni.projetencheres.bo.User;
 
 public class ArticleDAO {
 	private static final String SQL_INSERT_ARTICLE = "INSERT INTO ARTICLES_VENDUS "
@@ -19,10 +18,10 @@ public class ArticleDAO {
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS "
 			+ "SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, url_image=?, no_categorie=? "
 			+ "WHERE no_article=?";
-	private static final String SQL_UPDATE_ARTICLE_SELLING_PRICE = "UPDATE ARTICLES_VENDUS SET prix_vente=prix_vente+? WHERE no_article=?";
+	private static final String SQL_UPDATE_ARTICLE_SELLING_PRICE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=?";
 	private static final String SQL_UPDATE_ARTICLE_AUCTION_STATE = "UPDATE ARTICLES_VENDUS SET etat_vente=? WHERE no_article=?";
 	private static final String SQL_SELECT_ARTICLE_BY_ARTICLE_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
-	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT * FROM ARTICLES_VENDUS ORDER BY no_article DESC";
+	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT * FROM ARTICLES_VENDUS";
 	private static final String SQL_SELECT_TOP_ARTICLES = "SELECT TOP (?) * FROM ARTICLES_VENDUS ORDER BY no_article DESC";
 	private static final String SQL_DELETE_ARTICLE_BY_ID = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
 
@@ -99,8 +98,8 @@ public class ArticleDAO {
 			Connection connection = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ARTICLE_AUCTION_STATE);
-			statement.setString(1, auctionState);
-			statement.setInt(2, articleId);
+			statement.setInt(1, articleId);
+			statement.setString(2, auctionState);
 			statement.executeUpdate();
 
 			connection.close();
@@ -121,7 +120,18 @@ public class ArticleDAO {
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
-				article = resultSetToArticle(rs);
+				article = new Article();
+				article.setId(rs.getInt(1));
+				article.setName(rs.getString(2));
+				article.setDescription(rs.getString(3));
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
+				article.setInitialPrice(rs.getDouble(6));
+				article.setSellingPrice(rs.getDouble(7));
+				article.setAuctionState(rs.getString(8));
+				article.setImageUrl(rs.getString(9));
+				article.setUserId(rs.getInt(10));
+				article.setCategoryId(rs.getInt(11));
 			}
 
 			connection.close();
@@ -143,7 +153,18 @@ public class ArticleDAO {
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
-				Article article = resultSetToArticle(rs);
+				Article article = new Article();
+				article.setId(rs.getInt(1));
+				article.setName(rs.getString(2));
+				article.setDescription(rs.getString(3));
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
+				article.setInitialPrice(rs.getDouble(6));
+				article.setSellingPrice(rs.getDouble(7));
+				article.setAuctionState(rs.getString(8));
+				article.setImageUrl(rs.getString(9));
+				article.setUserId(rs.getInt(10));
+				article.setCategoryId(rs.getInt(11));
 				articles.add(article);
 			}
 
@@ -168,7 +189,17 @@ public class ArticleDAO {
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
-				Article article = resultSetToArticle(rs);
+				Article article = new Article();
+				article.setId(rs.getInt(1));
+				article.setName(rs.getString(2));
+				article.setDescription(rs.getString(3));
+				article.setStartDate(rs.getDate(4).toLocalDate());
+				article.setEndDate(rs.getDate(5).toLocalDate());
+				article.setInitialPrice(rs.getDouble(6));
+				article.setSellingPrice(rs.getDouble(7));
+				article.setAuctionState(rs.getString(8));
+				article.setUserId(rs.getInt(9));
+				article.setCategoryId(rs.getInt(10));
 				articles.add(article);
 			}
 
@@ -232,22 +263,5 @@ public class ArticleDAO {
 		} catch (Exception e) {
 			throw new DataException("la suppression d'un article par son identifiant", e.getMessage());
 		}
-	}
-	
-	private Article resultSetToArticle(ResultSet rs) throws SQLException {
-		Article article = new Article();
-		article.setId(rs.getInt(1));
-		article.setName(rs.getString(2));
-		article.setDescription(rs.getString(3));
-		article.setStartDate(rs.getDate(4).toLocalDate());
-		article.setEndDate(rs.getDate(5).toLocalDate());
-		article.setInitialPrice(rs.getDouble(6));
-		article.setSellingPrice(rs.getDouble(7));
-		article.setAuctionState(rs.getString(8));
-		article.setImageUrl(rs.getString(9));
-		article.setUserId(rs.getInt(10));
-		article.setCategoryId(rs.getInt(11));
-		
-		return article;
 	}
 }

@@ -17,7 +17,11 @@ import fr.eni.projetencheres.bo.User;
 
 @WebFilter(
 		filterName = "IsOwner", 
-		dispatcherTypes = { DispatcherType.REQUEST }
+		dispatcherTypes = { DispatcherType.REQUEST }, 
+		urlPatterns = { 
+				"/encheres/supprimer", 
+				"/encheres/modifier", 
+		}
 )
 public class FilterIsOwner implements Filter {
 

@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -44,11 +42,10 @@ public class ArticlesManager {
 
 			if (fileName != null && !fileName.isEmpty()) {
 				try {
-					String path = imagePath + PUBLIC_DIR;
-					saveImage(imagePart, path, fileName);
-					a.setImageUrl(PUBLIC_DIR + "/" + fileName);
+					String path = imagePath + PUBLIC_DIR + File.separator + fileName;
+					saveImage(imagePart, path);
+					a.setImageUrl(PUBLIC_DIR + File.separator + fileName);
 				} catch (IOException e) {
-					System.out.println(e);
 					throw new BusinessException(BusinessException.BLL_IMAGE_SAVE_FAILED);
 				}
 			}
@@ -64,11 +61,10 @@ public class ArticlesManager {
 
 			if (fileName != null && !fileName.isEmpty()) {
 				try {
-					String path = imagePath + PUBLIC_DIR;
-					saveImage(imagePart, path, fileName);
-					a.setImageUrl(PUBLIC_DIR + "/" + fileName);
+					String path = imagePath + PUBLIC_DIR + File.separator + fileName;
+					saveImage(imagePart, path);
+					a.setImageUrl(PUBLIC_DIR + File.separator + fileName);
 				} catch (IOException e) {
-					System.out.println(e);
 					throw new BusinessException(BusinessException.BLL_IMAGE_SAVE_FAILED);
 				}
 			}
@@ -127,10 +123,8 @@ public class ArticlesManager {
 	}
 
 	// Source: https://docs.oracle.com/javaee/6/tutorial/doc/glraq.html
-	private static void saveImage(Part part, String path, String fileName) throws IOException {
-		Files.createDirectories(Paths.get(path));
-		
-		FileOutputStream out = new FileOutputStream(new File(path + "/" + fileName));
+	private static void saveImage(Part part, String path) throws IOException {
+		FileOutputStream out = new FileOutputStream(new File(path));
 		InputStream imageContent = part.getInputStream();
 
 		int read = 0;

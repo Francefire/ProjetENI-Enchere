@@ -12,7 +12,8 @@ import javax.servlet.annotation.WebFilter;
 
 @WebFilter(
 		filterName = "Encode",
-		dispatcherTypes = { DispatcherType.REQUEST }
+		dispatcherTypes = { DispatcherType.REQUEST }, 
+		urlPatterns = { "/*" }
 )
 public class FilterEncode implements Filter {
 

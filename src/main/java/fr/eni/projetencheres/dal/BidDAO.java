@@ -12,7 +12,7 @@ import fr.eni.projetencheres.bo.Bid;
 
 public class BidDAO {
 	private static final String SQL_INSERT_BID = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) VALUES (?, ?, ?, ?)";
-	private static final String SQL_SELECT_BIDS_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=? ORDER BY no_article DESC";
+	private static final String SQL_SELECT_BIDS_BY_ARTICLE_ID = "SELECT no_utilisateur, date_enchere, montant_enchere FROM ENCHERES WHERE no_article=?";
 
 	public void insertBid(Bid b) throws DataException {
 		try {
