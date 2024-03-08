@@ -20,9 +20,9 @@ public class TakeoutManager {
 	}
 	
 	public static void addTakeout(Takeout t) throws DataException, BusinessException {
-		Utils.verifyStringField("street", "rue", 1, 128);
-		Utils.verifyStringField("zipCode", "code postale", 1, 5);
-		Utils.verifyStringField("city", "ville", 1, 128);
+		Utils.verifyStringField("rue", t.getStreet(), 1, 128);
+		Utils.verifyStringField("code postale",t.getZipCode(), 0, 6);
+		Utils.verifyStringField("ville", t.getCity(), 1, 128);
 		
 		t.setDate(LocalDate.now().plusDays(2));
 		

@@ -49,15 +49,15 @@
 											de mise à vente (crédits)</label> <input type="number" name="initialPrice"
 											id="initialPrice" min="0.00" step="1" placeholder="5"
 											value="${param.initialPrice}" required><br>
-										<label for="categoryId">Catégorie</label><br> <label for="image">Ajouter une
+										<label for="image">Ajouter une
 											image à l'article</label> <input type="file" id="image" name="image"
 											accept="image/png, image/jpeg"><br> <label
 											for="categoryId">Catégorie</label> <select name="categoryId" id="categoryId"
 											required>
 
-											<c:forEach items="${categories}" var="category">
-												<option value="${category.id}">${category.name}</option>
-											</c:forEach>
+										<c:forEach items="${categories}" var="category">
+											<option value="${category.id}">${category.label}</option>
+										</c:forEach>
 										</select><br>
 										<div class="container-fluid">
 											<div class="row">
