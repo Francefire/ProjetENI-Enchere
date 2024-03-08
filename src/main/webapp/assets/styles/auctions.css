@@ -30,8 +30,14 @@ body {
 	color: var(--quinary-color);
 	display: flex;
 	text-decoration: none;
+	place-items: end;
 }
 
 .articles article div {
 	padding: 10px;
+}
+
+article img {
+	width: 100%;
+	max-width: 600px;
 }
