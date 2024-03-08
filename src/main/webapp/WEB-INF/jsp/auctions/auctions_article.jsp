@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+				integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+				crossorigin="anonymous">
 	<%@ include file="/WEB-INF/jspf/head.jspf"%>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/auctions_article.css">
 </head>
@@ -11,19 +14,18 @@
 	<%@ include file="/WEB-INF/jspf/header.jspf"%>
 	<main>
 		<%@ include file="/WEB-INF/jspf/error.jspf" %>
-		<section class="article">
-			<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}" width="800" height="400"> 
-			<div>
-				<h1>${article.name}</h1>
-				<span>${article.sellingPrice} crédits</span>
-				<p>${article.description}</p>
-			</div>
-		</section>
-		<section class="seller">
-			<h2>${owner.lastName} ${owner.firstName}</h2>
-			<a href="${pageContext.request.contextPath}/utilisateur?id=${owner.id}">Voir le profil</a>
-		</section>
-		<c:if test="${not empty userConnected}">
+		<div class="container-fluid overflow-hidden">
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}"> 
+					</div>
+					<div class="row seller g-0">
+						<div class="col no-gutters">
+							<h1>Nom vendeur.</h1>
+						</div>
+						<div class="col">
+							<c:if test="${not empty userConnected}">
 			<section class="actions">
 				<c:choose>
 					<c:when test="${userConnected.id eq article.userId}">
@@ -57,7 +59,19 @@
 				</c:choose>
 			</section>
 		</c:if>
-		<c:if test="${not empty bids}">
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="row">
+						<section class="article">
+							<h1>${article.name}</h1>
+							<span>${article.sellingPrice} crédits</span>
+							<p>${article.description}</p>
+						</section>
+					</div>
+					<div class="row">
+						<c:if test="${not empty bids}">
 			<section class="bids">
 				<h2>Dernières enchères</h2>
 				<c:forEach items="${bids}" var="bid">
@@ -65,7 +79,16 @@
 				</c:forEach>
 			</section>
 		</c:if>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="article">
+		</section>
 	</main>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+						integrity="sha384-ho+j7jy4Gz6jG6zUZI3Zl2OvzKu2K5eXZaZtQY5mZtUv6U7cFqISJ3U3n6t5GJl3"
+						crossorigin="anonymous"></script>
 </body>
 </html>

@@ -3,8 +3,12 @@
 body {
 	background-color: var(--tertiary-color);
 }
+img{
+  max-width: 600px;
+  height: auto;
+}
 
-section {
+.seller {
 	background-color: var(--quaternary-color);
 }
 
@@ -15,3 +19,29 @@ section {
 .article div {
 	padding: 5px;
 }
+
+.article img {
+	width: 100%;
+}
+
+.actions a, .actions input {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--quinary-color);
+	font-weight: bold;
+	font-size: 1.8em;
+	width: 100%;
+	text-align: center;
+}
+
+.actions a:hover, .actions input:hover {
+	color: var(--senary-color);
+}
+
+.actions > * {
+	width: 100%;
+ }

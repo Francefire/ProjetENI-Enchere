@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 <head>
+
 	<%@ include file="/WEB-INF/jspf/head.jspf" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/auctions.css">
 </head>
@@ -45,10 +45,17 @@
 				<article>
 					<a href="${pageContext.request.contextPath}/encheres?id=${article.id}">
 						<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}">
-						<div>
-							<h2>${article.name}</h1>
-							<span>${article.sellingPrice}</span>
-							<p>${article.description}</p>
+						<div class="article-info">
+						<h1>${article.name}.</h1>
+                            <p>${article.description}</p>
+						<div class="article-price">
+							<span>${article.sellingPrice}€</span>
+							<c:forEach items="${categories}" var="category">
+								<c:if test="${category.id == article.categoryId}">
+                                   <p> | ${category.label}<p>
+                                </c:if>
+                            </c:forEach>
+							</div>
 						</div>
 					</a>
 				</article>
