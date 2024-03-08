@@ -35,10 +35,10 @@ body {
 }
 
 .articles article img {
-	height: 150px;
-	width: 150px;
-	max-height: 150px;
-	max-width: 150px;
+/* 	height: 150px; */
+/* 	width: 150px; */
+/* 	max-height: 150px; */
+/* 	max-width: 150px; */
 }
 
 .articles article div {
@@ -55,6 +55,7 @@ article img {
 	flex-direction: column;
 	justify-content: space-between;
 	align-items: flex-start;
+	width: 100%;
 }
 
 .article-info h1 {
