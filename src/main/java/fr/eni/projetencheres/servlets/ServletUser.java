@@ -39,26 +39,30 @@ public class ServletUser extends HttpServlet {
 				int id = Integer.parseInt(idParam);
 
 				u = UserManager.getUserById(id);
-				if (u.getId() != userConnected.getId()) {
-					request.setAttribute("displayUser", u);
+				
+				if (u == null) {
+					response.sendError(404);
 				} else {
-					// Ceci permettra d'afficher directement la page de modification du profil si
-					// l'utilisateur veut voir son propre profile
-					request.setAttribute("user", null);
+					if (u.getId() != userConnected.getId()) {
+						request.setAttribute("displayUser", u);
+					} else {
+						// Ceci permettra d'afficher directement la page de modification du profil si
+						// l'utilisateur veut voir son propre profile
+						request.setAttribute("user", null);
+					}
+					
+					rd.forward(request, response);
 				}
-			} catch (BusinessException e) {
-				request.setAttribute("error", e.getMessage());
-				response.sendError(500);
 			} catch (DataException e) {
-				// TODO Log exception
-				response.sendError(503);
+				System.out.println(e);
+				response.sendError(500);
 			} catch (NumberFormatException e) {
 				request.setAttribute("error", "ID non valide");
-				response.sendError(500);
+				rd.forward(request, response);
 			}
+		} else {
+			rd.forward(request, response);
 		}
-
-		rd.forward(request, response);
 	}
 
 	/**

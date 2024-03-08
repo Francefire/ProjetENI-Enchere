@@ -28,14 +28,11 @@ public class CategoriesDAO {
 			ResultSet rs = statement.executeQuery(); // stockage du résultat de la requête, ds rs
 
 			while (rs.next()) {
-				System.out.println(rs.getString("libelle"));
-
 				categories.add(rs.getString("libelle"));
 			}
 
 			connection.close();
 		} catch (SQLException e) {
-			// Logguer l'exception *
 			throw new DataException("la récupération des libellés de catégorie", e.getMessage());
 		}
 
@@ -53,7 +50,6 @@ public class CategoriesDAO {
 			ResultSet rs = statement.executeQuery(); // stockage du résultat de la requête, ds rs
 
 			while (rs.next()) {
-				System.out.println(rs.getString("no_categorie"));
 				Category cate = new Category(rs.getInt("no_categorie"), rs.getString("libelle"));
 				categories.add(cate);
 			}

@@ -6,25 +6,26 @@
 		</a>
 	</h1>
 	<nav>
-		<a href="${pageContext.request.contextPath}/encheres">Enchï¿½res </a>
+		<a href="${pageContext.request.contextPath}/encheres">Enchères</a>
 		<c:choose>
-			<%-- Si user dï¿½connectï¿½ --%>
+			<%-- Si user déconnecté --%>
 			<c:when test="${empty userConnected}">
-				<a href="${pageContext.request.contextPath}/inscription">| Crï¿½er un compte | </a>
+				<a href="${pageContext.request.contextPath}/inscription">| Créer un compte | </a>
 				<a href="${pageContext.request.contextPath}/connexion">
 					Se connecter
 					<i class="fa-solid fa-right-to-bracket" style="color: #D4A373;"></i>
 				</a>
 			</c:when>
-			<%-- Si user connectï¿½ --%>
+			<%-- Si user connecté --%>
 			<c:otherwise>
-				<a href="${pageContext.request.contextPath}/encheres/nouvelle"> | Nouvelle enchï¿½re</a>
-				<a href="${pageContext.request.contextPath}/credits"> | Acheter des crï¿½dits </a>
+				<a href="${pageContext.request.contextPath}/encheres/nouvelle"> | Nouvelle enchère</a>
+				| Cédits ${userConnected.credit}
+				<a href="${pageContext.request.contextPath}/credits"> | Acheter des crédits </a>
 				<c:if test="${userConnected.admin}"> 
-					<a href="${pageContext.request.contextPath}/admin"> Espace Administration</a>
+					<a href="${pageContext.request.contextPath}/admin"> | Espace Administration</a>
 				</c:if>
 				<a href="${pageContext.request.contextPath}/utilisateur"> | Profil de ${userConnected.username} | </a>
-				<a href="${pageContext.request.contextPath}/deconnexion">Se dï¿½connecter <i class="fa-solid fa-right-from-bracket"></i></a>
+				<a href="${pageContext.request.contextPath}/deconnexion">Se déconnecter <i class="fa-solid fa-right-from-bracket"></i></a>
 			</c:otherwise>
 		</c:choose>
 
