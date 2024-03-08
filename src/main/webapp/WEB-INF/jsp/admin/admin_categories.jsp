@@ -12,15 +12,25 @@
 		 <table>
 			  <tr>
 			    <th>Libelle</th>
+			    <th></th>
 			  </tr>
-			  <tr>
 			  <c:forEach items="${categories}" var="category">
-				  <form method="POST" actions="${request.contextPath}/categories?id=${category.id}">
+			  	<tr>
+			  		<form method="POST" id="edit" action="${pageContext.request.contextPath}/admin/categories?action=edit&id=${category.id}">
 				  		<td><input type="text" name="label" value="${category.label}"></td>
-				  </form>
+				  	</form>
+				  	<form method="POST" id="delete" action="${pageContext.request.contextPath}/admin/categories?action=delete&id=${category.id}"></form>
+				  	<td>
+				  		<button form="edit">Modifier</button>
+				  		<button form="delete">Supprimer</button>
+				  	</td>
+			  	</tr>
 			  </c:forEach>
-			  </tr>
-		</table> 
+		</table>
+		<form method="POST" action="${pageContext.request.contextPath}/admin/categories?action=add">
+			<input type="text" name="label" placeholder="Ma catégorie">
+			<input type="submit" value="Ajouter">
+		</form>
 	</main>
 	<%@ include file="/WEB-INF/jspf/footer.jspf"%>
 </body>

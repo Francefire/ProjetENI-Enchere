@@ -14,5 +14,5 @@ VALUES (
 	0, 0
 );
 
-INSERT INTO CATEGORIES (libelle) VALUE ('Mobilier');
-INSERT INTO CATEGORIES (libelle) VALUE ('Informatique');
+INSERT INTO CATEGORIES (libelle) VALUES ('Mobilier');
+INSERT INTO CATEGORIES (libelle) VALUES ('Informatique');
