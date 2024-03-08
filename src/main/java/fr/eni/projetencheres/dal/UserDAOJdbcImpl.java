@@ -54,20 +54,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				user = new User();
-				user.setId(rs.getInt("no_utilisateur"));
-				user.setUsername(rs.getString("pseudo"));
-				user.setLastName(rs.getString("nom"));
-				user.setFirstName(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPhoneNumber(rs.getString("telephone"));
-				user.setStreet(rs.getString("rue"));
-				user.setZipCode(rs.getString("code_postal"));
-				user.setCity(rs.getString("ville"));
-				user.setPassword(rs.getString("mot_de_passe"));
-				user.setCredit(rs.getInt("credit"));
-				user.setAdmin(rs.getBoolean("administrateur"));
-				user.setDisabled(rs.getBoolean("active"));
+				user = this.resultSetToUser(rs);
 			}
 		} catch (Exception e) {
 			throw new DataException("l'obtention d'un utilisateur par son identifiant", e.getMessage());
@@ -83,20 +70,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(1, pseudo);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				user = new User();
-				user.setId(rs.getInt("no_utilisateur"));
-				user.setUsername(rs.getString("pseudo"));
-				user.setLastName(rs.getString("nom"));
-				user.setFirstName(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPhoneNumber(rs.getString("telephone"));
-				user.setStreet(rs.getString("rue"));
-				user.setZipCode(rs.getString("code_postal"));
-				user.setCity(rs.getString("ville"));
-				user.setPassword(rs.getString("mot_de_passe"));
-				user.setCredit(rs.getInt("credit"));
-				user.setAdmin(rs.getBoolean("administrateur"));
-				user.setDisabled(rs.getBoolean("active"));
+				user = this.resultSetToUser(rs);
 			}
 		} catch (SQLException e) {
 			throw new DataException("l'obtention d'un utilisateur par son pseudonyme", e.getMessage());
@@ -113,20 +87,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				user = new User();
-				user.setId(rs.getInt("no_utilisateur"));
-				user.setUsername(rs.getString("pseudo"));
-				user.setLastName(rs.getString("nom"));
-				user.setFirstName(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPhoneNumber(rs.getString("telephone"));
-				user.setStreet(rs.getString("rue"));
-				user.setZipCode(rs.getString("code_postal"));
-				user.setCity(rs.getString("ville"));
-				user.setPassword(rs.getString("mot_de_passe"));
-				user.setCredit(rs.getInt("credit"));
-				user.setAdmin(rs.getBoolean("administrateur"));
-				user.setDisabled(rs.getBoolean("active"));
+				user = this.resultSetToUser(rs);
 			}
 		} catch (SQLException e) {
 			throw new DataException("l'obtention d'un utilisateur par son email", e.getMessage());
@@ -144,20 +105,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			ResultSet rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				User user = new User();
-				user.setId(rs.getInt("no_utilisateur"));
-				user.setUsername(rs.getString("pseudo"));
-				user.setLastName(rs.getString("nom"));
-				user.setFirstName(rs.getString("prenom"));
-				user.setEmail(rs.getString("email"));
-				user.setPhoneNumber(rs.getString("telephone"));
-				user.setStreet(rs.getString("rue"));
-				user.setZipCode(rs.getString("code_postal"));
-				user.setCity(rs.getString("ville"));
-				user.setPassword(rs.getString("mot_de_passe"));
-				user.setCredit(rs.getInt("credit"));
-				user.setAdmin(rs.getBoolean("administrateur"));
-				user.setDisabled(rs.getBoolean("active"));
+				User user = this.resultSetToUser(rs);
 				users.add(user);
 			}
 		} catch (SQLException e) {
@@ -225,6 +173,13 @@ public class UserDAOJdbcImpl implements UserDAO {
 		user.setZipCode(rs.getString("code_postal"));
 		user.setCity(rs.getString("ville"));
 		user.setPassword(rs.getString("mot_de_passe"));
+		user.setCredit(rs.getDouble("credit"));
+		if (rs.getInt("administrateur") == 1) {
+			user.setAdmin(true);
+		}
+		if (rs.getInt("desactive") == 1) {
+			user.setDisabled(false);
+		}
 		return user;
 	}
 
@@ -257,17 +212,7 @@ public class UserDAOJdbcImpl implements UserDAO {
 			pstmt.setString(2, password);
 			ResultSet res = pstmt.executeQuery();
 			if (res.next()) {
-				user = new User();
-				user.setId(res.getInt("no_utilisateur"));
-				user.setUsername(res.getString("pseudo"));
-				user.setLastName(res.getString("nom"));
-				user.setFirstName(res.getString("prenom"));
-				user.setEmail(res.getString("email"));
-				user.setPhoneNumber(res.getString("telephone"));
-				user.setStreet(res.getString("rue"));
-				user.setZipCode(res.getString("code_postal"));
-				user.setCity(res.getString("ville"));
-				user.setPassword(res.getString("mot_de_passe"));
+				user = resultSetToUser(res);
 			}
 			cnx.close();
 		} catch (SQLException e) {

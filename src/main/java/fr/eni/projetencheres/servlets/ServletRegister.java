@@ -29,7 +29,7 @@ public class ServletRegister extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 	}
 
 	/**
@@ -51,15 +51,16 @@ public class ServletRegister extends HttpServlet {
 		String password = request.getParameter("Password");
 		String checkPassword = request.getParameter("CheckPassword");
 		// AFFICHAGE DES INFOS SAISIES PAR L'UTILISATEUR
-		System.out.println("Pseudo : " + userName);
-		System.out.println("Nom de l'utilisateur : " + lastName);
-		System.out.println("Prénom de l'utilisateur :" + firstName);
-		System.out.println("Email : " + email);
-		System.out.println("Telephone : " + phone);
-		System.out.println("Rue : " + street);
-		System.out.println("Code Postal :" + zipCode);
-		System.out.println("Mot de passe : " + password);
-		System.out.println("Vérification du mot de passe : " + checkPassword);
+		/*
+		 * System.out.println("Pseudo : " + userName);
+		 * System.out.println("Nom de l'utilisateur : " + lastName);
+		 * System.out.println("Prénom de l'utilisateur :" + firstName);
+		 * System.out.println("Email : " + email); System.out.println("Telephone : " +
+		 * phone); System.out.println("Rue : " + street);
+		 * System.out.println("Code Postal :" + zipCode);
+		 * System.out.println("Mot de passe : " + password);
+		 * System.out.println("Vérification du mot de passe : " + checkPassword);
+		 */
 
 //  	Création de l'instance de type utilisateur sur la base des renseignements fournis juste au-dessus
 		User new_user = new User(userName, lastName, firstName, email, phone, street, zipCode, city, password);
@@ -84,10 +85,10 @@ public class ServletRegister extends HttpServlet {
 		} catch (BusinessException e) {
 			String errorMessage = e.getMessage();
 			request.setAttribute("error", errorMessage);
-			doGet(request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/register.jsp").forward(request, response);
 		} catch (DataException e) {
-			// TODO Log exception
-			response.sendError(503);
+			System.out.println(e);
+			response.sendError(500);
 		}
 
 //      response.sendRedirect(request.getContextPath());

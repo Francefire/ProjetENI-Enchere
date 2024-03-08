@@ -39,7 +39,6 @@ public class ServletUserDelete extends HttpServlet {
 		String confirmPassword = request.getParameter("deleteConfirmPassword");
 
 		try {
-			System.out.println(u.getPassword().trim() + " " + password.trim());
 			UserManager.checkPwd(u, password);
 			UserManager.comparePwd(password, confirmPassword);
 			UserManager.getInstance().delete(u.getId());
@@ -49,8 +48,8 @@ public class ServletUserDelete extends HttpServlet {
 			request.setAttribute("error", e.getMessage());
 			rd = request.getRequestDispatcher("/WEB-INF/jsp/user/user.jsp");
 		} catch (DataException e) {
-			// TODO Log exception
-			response.sendError(503);
+			System.out.println(e);
+			response.sendError(500);
 		}
 
 		rd.forward(request, response);

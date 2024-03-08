@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
 import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.CategoryManager;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.bo.Category;
 import fr.eni.projetencheres.dal.DataException;
 
 /**
@@ -28,18 +30,19 @@ public class ServletHome extends HttpServlet {
 
 		try {
 			List<Article> articles = ArticlesManager.getAllArticles();
-			
+			List<Category> categories = CategoryManager.getAllCategories();
+
 		    request.setAttribute("articles", articles);
+		    request.setAttribute("categories", categories);
 		    request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		} catch (BusinessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		} catch (DataException e) {
-			// TODO Log exception
 			System.out.println(e);
 			response.sendError(500);
 		}
 	}
-		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

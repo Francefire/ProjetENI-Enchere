@@ -52,8 +52,8 @@ public class ServletCredits extends HttpServlet {
 				request.setAttribute("error", e.getMessage());
 				rd.forward(request, response);
 			} catch (DataException e) {
-				// TODO Log exception
-				response.sendError(503);	
+				System.out.println(e);
+				response.sendError(500);	
 			} catch (NumberFormatException e) {
 				request.setAttribute("error", "Le montant donné n'est pas valide");
 				rd.forward(request, response);
