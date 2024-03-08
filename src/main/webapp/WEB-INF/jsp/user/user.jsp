@@ -18,7 +18,7 @@
 				<c:import url="/WEB-INF/jsp/user/jspf/edit_profile.jspf" />
 			</c:when>
 			<c:otherwise>
-				<h1>${user.getUsername()}.</h1>
+				<h1>${displayUser.getUsername()}.</h1>
 				<%@ include file="/WEB-INF/jspf/error.jspf" %>
 				<c:import url="/WEB-INF/jsp/user/jspf/view_profile.jspf" />
 			</c:otherwise>

@@ -1,36 +1,36 @@
 <form action="" method="post" class="view">
 	<div>
 		<label for="username">Nom d'utilisateur</label> <input type="text"
-			name="username" id="username" value="${user.getUsername()}" disabled>
+			name="username" id="username" value="${displayUser.getUsername()}" disabled>
 	</div>
 	<div>
 		<label for="lastName">Nom</label> <input type="text" name="lastName"
-			id="lastName" value="${user.getLastName()}" disabled>
+			id="lastName" value="${displayUser.getLastName()}" disabled>
 	</div>
 	<div>
 		<label for="firstName">Prenom</label> <input type="text"
-			name="firstName" id="firstName" value="${user.getFirstName()}"
+			name="firstName" id="firstName" value="${displayUser.getFirstName()}"
 			disabled>
 	</div>
 	<div>
 		<label for="email">Email</label> <input type="email" name="email"
-			id="email" value="${user.getEmail()}" disabled>
+			id="email" value="${displayUser.getEmail()}" disabled>
 	</div>
 	<div>
 		<label for="mobile">Téléphone</label> <input type="tel" name="mobile"
-			id="mobile" value="${user.getPhoneNumber()}" disabled>
+			id="mobile" value="${displayUser.getPhoneNumber()}" disabled>
 	</div>
 	<div>
 		<label for="street">Rue</label> <input type="text" name="street"
-			id="street" value="${user.getStreet()}" disabled>
+			id="street" value="${displayUser.getStreet()}" disabled>
 	</div>
 	<div>
 		<label for="zipCode">Code postal</label> <input type="text"
-			name="zipCode" id="zipCode" value="${user.getZipCode()}" disabled>
+			name="zipCode" id="zipCode" value="${displayUser.getZipCode()}" disabled>
 	</div>
 	<div>
 		<label for="city">Ville</label> <input type="text" name="city"
-			id="city" value="${user.getCity()}" disabled>
+			id="city" value="${displayUser.getCity()}" disabled>
 	</div>
 	<div class="rounded">
 		<br>
