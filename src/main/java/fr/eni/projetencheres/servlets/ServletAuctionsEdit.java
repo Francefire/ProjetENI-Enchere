@@ -40,6 +40,7 @@ public class ServletAuctionsEdit extends HttpServlet {
 			try {
 				List<Category> categories = CategoryManager.getAllCategories();
 				request.setAttribute("categories", categories);
+				request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 			} catch (BusinessException e) {
 				request.setAttribute("error", e.getMessage());
@@ -105,6 +106,7 @@ public class ServletAuctionsEdit extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 			} catch (BusinessException e) {
 				request.setAttribute("error", e.getMessage());
+				request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 			} catch (DataException e) {
 				System.out.println(e);
@@ -112,6 +114,7 @@ public class ServletAuctionsEdit extends HttpServlet {
 			} catch (NullPointerException | NumberFormatException | DateTimeParseException e) {
 				System.out.println(e);
 				request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
+				request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
 				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_edit.jsp").forward(request, response);
 			}
 		} else {

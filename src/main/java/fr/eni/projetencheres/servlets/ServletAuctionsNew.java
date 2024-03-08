@@ -87,12 +87,14 @@ public class ServletAuctionsNew extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		} catch (BusinessException e) {
 			request.setAttribute("error", e.getMessage());
+			request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		} catch (DataException e) {
 			System.out.println(e);
 			response.sendError(500);
 		} catch (NullPointerException | NumberFormatException | DateTimeParseException e) {
 			request.setAttribute("error", BusinessException.BLL_FIELDS_INVALID_VALUES_ERROR);
+			request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
 			request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_new.jsp").forward(request, response);
 		}
 	}
