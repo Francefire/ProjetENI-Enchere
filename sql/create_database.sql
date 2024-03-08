@@ -73,7 +73,7 @@ CREATE TABLE ARTICLES_VENDUS (
     -- Ajout d'un attribut etat_vente permettant de savoir l'état de la vente
    	etat_vente                    VARCHAR(7) NOT NULL CONSTRAINT DF_Etat_Vente DEFAULT 'ADDED',
    	-- Ajout d'un attribut url_image permettant de stocker l'url de l'image de l'article envoyé par l'utilisateur
-   	url_image                     VARCHAR(256) NULL,
+   	url_image                     VARCHAR(256) NULL CONSTRAINT DF_Url_Image DEFAULT '/assets/images/article_placeholder.jpg',
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL
 )
