@@ -7,7 +7,7 @@ public class BusinessException extends Exception {
 	public static final String BLL_USER_MAILDOESNOTEXIST = "Si tout va bien, vous devriez recevoir un e-mail pour réinitialiser votre mot de passe";
 	public static final String BLL_ADD_ARTICLE_START_DATE_AFTER_END_DATE_ERROR = "La date du début de l'enchère ne peut pas être après la fin de celle-ci";
 	public static final String BLL_GET_ARTICLE_NULL = "L'article n'a pas pu être trouvé";
-	public static final String BLL_GET_ALL_ARTICLES_NULL = "Aucuns articles n'ont pu être trouvés";
+	public static final String BLL_GET_ALL_ARTICLES_NULL = "Aucun article n'ont pu être trouvés";
 
 	public static final String BLL_FIELD_EMPTY_ERROR = "Le champ %s doit être renseigné";
 	public static final String BLL_FIELD_BOUNDS_ERROR = "Le champ %s doit être compris entre %d et %d caractères";
@@ -25,7 +25,7 @@ public class BusinessException extends Exception {
 
 	public static final String BLL_FIELDS_INVALID_VALUES_ERROR = "Les informations entrées ne sont pas valides, veuillez les corriger";
 	
-	public static final String BLL_INSERT_CHEAT = "";
+	public static final String BLL_INSERT_CHEAT = "Anti-Cheat system : arrêtez de toucher le DevTools, merci :-)";
 	
 	public static final String BLL_IMAGE_SAVE_FAILED = "Une erreur s'est produite, l'image de l'article n'a pas pu être sauvegardée";
 	

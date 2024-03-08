@@ -16,9 +16,6 @@ import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
 import fr.eni.projetencheres.dal.DataException;
 
-//TODO : faire quelque chose de "mot de passe oublié"		
-//TODO : déplacer les jsp dans un unique dossier 
-
 /**
  * Servlet implementation class ServletSeConnecter
  */
@@ -70,7 +67,6 @@ public class ServletLogin extends HttpServlet {
 			session.setAttribute("userConnected", u);
 
 			// Destruction de la session au bout de x min
-
 			session.setMaxInactiveInterval(pingTimeout);
 			if (request.getParameter("targetUrl") != null) {
 				request.setAttribute("message", "Vous devez être connecté pour accéder à cette page");
