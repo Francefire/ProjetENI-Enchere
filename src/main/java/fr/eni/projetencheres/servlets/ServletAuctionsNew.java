@@ -41,8 +41,7 @@ public class ServletAuctionsNew extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			// Récupération de la liste des catégories depuis le CategoryManager
-			CategoryManager categoryManager = new CategoryManager();
-			List<Category> categories = categoryManager.getAllCategories();
+			List<Category> categories = CategoryManager.getAllCategories();
 			request.setAttribute("categories", categories);
 
 			request.setAttribute("dateNow", LocalDate.now().format(DATETIME_FORMATTER));
@@ -58,8 +57,11 @@ public class ServletAuctionsNew extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException {		
 		try {
+			List<Category> categories = CategoryManager.getAllCategories();
+			request.setAttribute("categories", categories);
+			
 			String name = request.getParameter("name").trim();
 			String description = request.getParameter("description").trim();
 			LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), DATETIME_FORMATTER);
