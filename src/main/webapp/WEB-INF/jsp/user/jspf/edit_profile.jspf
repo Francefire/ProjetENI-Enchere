@@ -118,7 +118,7 @@
 	<div>
 		<input type="button" value="Annuler" id="cancelDelete">
 		<input type="submit" value="Supprimer mon compte" id="deleteButtonConfirm"
-			formaction="${pageContext.request.contextPath}/utilisateur/modifier">
+			formaction="${pageContext.request.contextPath}/utilisateur/supprimer">
 	</div>
 </form>
 <div>

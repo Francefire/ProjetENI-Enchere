@@ -36,11 +36,11 @@ CREATE TABLE RETRAITS (
 ALTER TABLE RETRAITS ADD constraint retrait_pk PRIMARY KEY  (no_article)
 
 CREATE TABLE UTILISATEURS (
-    no_utilisateur   INTEGER IDENTITY(1,1) NOT NULL CONSTRAINT UQ_No_Utilisateur UNIQUE,
-    pseudo           VARCHAR(30) NOT NULL,
+    no_utilisateur   INTEGER IDENTITY(1,1) NOT NULL, 
+    pseudo           VARCHAR(30) NOT NULL CONSTRAINT UQ_Pseudo UNIQUE,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
-    email            VARCHAR(50) NOT NULL,
+    email            VARCHAR(50) NOT NULL CONSTRAINT UQ_Email UNIQUE,
     telephone        VARCHAR(15),
     rue              VARCHAR(60),
     code_postal      VARCHAR(10),

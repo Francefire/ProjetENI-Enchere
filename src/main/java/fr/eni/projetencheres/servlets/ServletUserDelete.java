@@ -39,7 +39,7 @@ public class ServletUserDelete extends HttpServlet {
 		String confirmPassword = request.getParameter("deleteConfirmPassword");
 
 		try {
-			UserManager.checkPwd(u, password);
+			UserManager.login(u.getUsername(), password);
 			UserManager.comparePwd(password, confirmPassword);
 			UserManager.getInstance().delete(u.getId());
 			session.invalidate();

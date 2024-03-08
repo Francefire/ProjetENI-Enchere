@@ -31,12 +31,22 @@ public class UserManager {
 	public static void createUser(User user, String checkPassword) throws BusinessException, DataException {
 		UserManager.checkUserInfo(user);
 		comparePwd(user.getPassword(), checkPassword); // comparaison des saisies
-		String mdphashe = UserManager.hashPwd(user.getPassword()); // récup du mdp hashé, et transféré dans la variable
+		String mdphashe = UserManager.hashPwd(user.getPassword()); // récupération du mdp hashé, et transfert dans la variable
 		user.setPassword(mdphashe);
-		UserManager.getInstance().insert(user);
+		try {
+			UserManager.getInstance().insert(user);
+		} catch (DataException e) {
+			if (e.getMessage().contains("UQ_Email")) {
+				throw new BusinessException(BusinessException.BLL_FIELD_NOT_UNIQUE, "email");
+			}
+			else if (e.getMessage().contains("UQ_Pseudo")) {
+					throw new BusinessException(BusinessException.BLL_FIELD_NOT_UNIQUE, "pseudo");
+			}
+			System.out.println(e.getMessage());
+		}
 	}
 
-	// VERIFICATION DES CHEATERS
+	// VÉRIFICATION DES CHEATERS
 	public static void check_cheaters(String username, String lastName, String firstName, String email, String street,
 			String zipCode, String city, String password) throws BusinessException {
 		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null
@@ -101,17 +111,17 @@ public class UserManager {
 	}
 
 	// Creation d'une methode permettant de verifier que les informations sont
-	// conforme aux contraintes
+	// conformes aux contraintes
 	public static void checkUserInfo(User u) throws BusinessException {
-		Utils.verifyStringField("username", u.getUsername(), 0, 30);
-		Utils.verifyStringField("password", u.getPassword(), 8, 30);
-		Utils.verifyStringField("firstName", u.getFirstName(), 0, 30);
-		Utils.verifyStringField("lastName", u.getLastName(), 0, 30);
+		Utils.verifyStringField("pseudo", u.getUsername(), 0, 30);
+		Utils.verifyStringField("mot de passe", u.getPassword(), 8, 30);
+		Utils.verifyStringField("prénom", u.getFirstName(), 0, 30);
+		Utils.verifyStringField("nom", u.getLastName(), 0, 30);
 		Utils.verifyStringField("email", u.getEmail(), 0, 50);
-		Utils.verifyStringField("phoneNumber", u.getPhoneNumber(), 0, 15);
-		Utils.verifyStringField("street", u.getStreet(), 0, 50);
-		Utils.verifyStringField("city", u.getCity(), 0, 30);
-		Utils.verifyStringField("zipCode", u.getZipCode(), 0, 10);
+//		Utils.verifyStringField("phoneNumber", u.getPhoneNumber(), 0, 15);
+		Utils.verifyStringField("rue", u.getStreet(), 0, 50);
+		Utils.verifyStringField("ville", u.getCity(), 0, 30);
+		Utils.verifyStringField("code postal", u.getZipCode(), 0, 10);
 
 		if (!u.getPassword().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$")) {
 			throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
@@ -119,7 +129,7 @@ public class UserManager {
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
 		}
-
+		
 	}
 
 	public static String hashPwd(String password) {
@@ -138,7 +148,7 @@ public class UserManager {
 		}
 		return sb.toString();
 	}
-
+	
 	public static void checkUserInfo(User u, boolean checkPassword) throws BusinessException {
 		Utils.verifyStringField("username", u.getUsername(), 0, 30);
 		if (checkPassword) {
@@ -147,13 +157,13 @@ public class UserManager {
 				throw new BusinessException(BusinessException.BLL_PASSWORD_NOT_VALID);
 			}
 		}
-		Utils.verifyStringField("firstName", u.getFirstName(), 0, 30);
-		Utils.verifyStringField("lastName", u.getLastName(), 0, 30);
+		Utils.verifyStringField("prénom", u.getFirstName(), 0, 30);
+		Utils.verifyStringField("nom", u.getLastName(), 0, 30);
 		Utils.verifyStringField("email", u.getEmail(), 0, 50);
-		Utils.verifyStringField("phoneNumber", u.getPhoneNumber(), 0, 15);
-		Utils.verifyStringField("street", u.getStreet(), 0, 50);
-		Utils.verifyStringField("city", u.getCity(), 0, 30);
-		Utils.verifyStringField("zipCode", u.getZipCode(), 0, 10);
+//		Utils.verifyStringField("phoneNumber", u.getPhoneNumber(), 0, 15);
+		Utils.verifyStringField("rue", u.getStreet(), 0, 50);
+		Utils.verifyStringField("ville", u.getCity(), 0, 30);
+		Utils.verifyStringField("code postal", u.getZipCode(), 0, 10);
 
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
@@ -161,8 +171,6 @@ public class UserManager {
 
 	}
 
-	// TODO : implémenter des nom et pseudo dans la BDD
-	// TODO : mettre une contrainte d'unicité sur l'adresse mail
 	// TODO : mettre un pattern sur le pseudo
 	// TODO : placer une ternaire
 	public static boolean mailExist(String email) throws BusinessException {
@@ -180,6 +188,7 @@ public class UserManager {
 		// on vérifie si l'adresse mail renseignée par l'utilisateur est bien dans la base de données
 		if (mailExist(mailFromUser)) {
 			UserManager.getInstance().updateNewPassword(mailFromUser, UserManager.hashPwd(password));
+			System.out.println("BLL UserManager ligne 185");
 		}
 	}
 }
