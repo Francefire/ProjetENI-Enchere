@@ -20,32 +20,20 @@ import javax.servlet.http.HttpServletRequest;
  */
 @WebFilter(
 		filterName = "Breadcrumb",
-		dispatcherTypes = { DispatcherType.REQUEST}, 
-		urlPatterns = { "/*"}
+		dispatcherTypes = { DispatcherType.REQUEST }
 )
 public class FilterBreadcrumb extends HttpFilter implements Filter {
-       
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		System.out.println("----------FilterBreadcrumb----------");
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		System.out.println(httpRequest.getServletPath());
-		List<String> breadcrumb = Arrays.asList(httpRequest.getServletPath().split("/"));
-		
-		System.out.println(breadcrumb);
-		
-		request.setAttribute("breadcrumb", breadcrumb);
 
-		// pass the request along the filter chain
-		System.out.println("----------FilterBreadcrumb----------");
+		List<String> breadcrumb = Arrays.asList(httpRequest.getServletPath().split("/"));
+
+		request.setAttribute("breadcrumb", breadcrumb);
 		chain.doFilter(request, response);
 	}
 

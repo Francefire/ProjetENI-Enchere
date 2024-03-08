@@ -19,8 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @WebFilter(
 		filterName = "Log",
-		dispatcherTypes = { DispatcherType.REQUEST },
-		urlPatterns = { "/*" }
+		dispatcherTypes = { DispatcherType.REQUEST }
 )
 public class FilterLog extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
