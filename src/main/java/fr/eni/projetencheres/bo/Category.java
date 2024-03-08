@@ -7,6 +7,10 @@ public class Category {
 	// TODO: Constructeur vide
 	// TODO: Constructeur sans id
 	
+	public Category() {
+		
+	}
+	
 	public Category(int id, String label) {
 		this.id = id;
 		this.label = label;
@@ -40,9 +44,4 @@ public class Category {
 		builder.append("]");
 		return builder.toString();
 	}
-
-	public String getLibelle() {
-		return "String";
-	}
-
 }
