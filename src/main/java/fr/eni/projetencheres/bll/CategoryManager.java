@@ -21,29 +21,29 @@ public class CategoryManager {
 		}
 	
 		// Méthode pour créer une nouvelle catégorie
-		public void createCategory(Category categorie) throws BusinessException, DataException {
-			validateCategory(categorie);
-			CategoryManager.getInstance().createCategory(categorie);
+		public static void createCategory(Category category) throws BusinessException, DataException {
+			validateCategory(category);
+			CategoryManager.getInstance().createCategory(category);
 		}
 	
 		// Méthode pour mettre à jour une catégorie existante
-		public void updateCategory(Category categorie) throws BusinessException, DataException {
-			validateCategory(categorie);
-			CategoryManager.getInstance().updateCategory(categorie);
+		public static void updateCategory(Category category) throws BusinessException, DataException {
+			validateCategory(category);
+			CategoryManager.getInstance().updateCategory(category);
 		}
 	
 		// Méthode pour supprimer une catégorie existante
-		public void deleteCategory(int idCategorie) throws BusinessException, DataException {
-			CategoryManager.getInstance().deleteCategory(idCategorie);
+		public static void deleteCategory(int categoryId) throws BusinessException, DataException {
+			CategoryManager.getInstance().deleteCategory(categoryId);
 		}
 	
 		// Méthode pour valider les propriétés d'une catégorie
 	
-		private void validateCategory(Category categorie) throws BusinessException {
-			if (categorie == null) {
+		private static void validateCategory(Category category) throws BusinessException {
+			if (category == null) {
 				throw new BusinessException("La catégorie ne peut pas être nulle");
 			}
-			if (categorie.getLibelle() == null || categorie.getLibelle().trim().isEmpty()) {
+			if (category.getLabel() == null || category.getLabel().trim().isEmpty()) {
 				throw new BusinessException("Le nom de la catégorie ne peut pas être vide");
 			}
 		}
