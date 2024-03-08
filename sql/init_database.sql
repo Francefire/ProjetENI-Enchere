@@ -1,18 +1,19 @@
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, desactive) 
-VALUES (
-	'admin', 'Admin', 'Admin', 'admin@admin.admin', '0605040302', 
-	'rue de administrative', '70000', 'Admin City', 
-	'C30DB455C7A0BD7532830424CDACDA8365818E6425995B07F186C9D6C6CED38A',
-	1, 0
-);
+-- mot de passe des utilisateurs : ENI3438eni
 
-INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, desactive) 
-VALUES (
-	'joe', 'Bel', 'Joe', 'joe.bel@example.com', '0545639586', 
-	'rue du champ', '20453', 'Belleville', 
-	'4f0d24b941645161ed5ee39bc053f9ea5afc63f19ee3a0f4323f2092851886c1',
-	0, 0
-);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, desactive) VALUES ('admin', 'Admin', 'Admin', 'admin@admin.admin', '0605040302','rue de administrative', '70000', 'Admin City', '3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4', 1, 0);
+  
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe, administrateur, desactive) VALUES ('joe', 'Bel', 'Joe', 'joe.bel@example.com', '0545639586', 'rue du champ', '20453', 'Belleville', '3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4',	0, 1);
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('DEVMJ','JODAR','Mario','mario.jodar2023@campus-eni.fr','0601020304','rue du la street', '38000','GRENOBLE','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('MAUD','LEMAIRE','Maud','maud.lemaire2023@campus-eni.fr','0601020304','rue du la street', '81000','RABASTENS','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('MAX', 'MICHAUD', 'Maxime', 'maxime.michaud2023@campus-eni.fr', '0601020304','rue du campus ENI', '01234','VILLE','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('TOUHAMI','AGLAGAL','Touhami','touhami.aglagal2023@campus-eni.fr','0601020304','rue du la street', '85000','FONTENAY LE COMTE','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('FRANCOIS','BLITTE','Francois','francois.blitte2023@campus-eni.fr','0601020304','rue du la Geekerie', '01234','LAVAL','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('EBRU','JOLIVET','Ebru','ebru.jolivet2023@campus-eni.fr','0601020304','rue du la street', '01234','PAU','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('YOUSSEF','REVERBEL','Youssef','youssef.reverbel2023@campus-eni.fr','0601020304','rue du la street', '34000','MONTPELLIER','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('LAETITIA','GIMENO','Laetitia','laetitia.gimeno2023@campus-eni.fr','0601020304','rue du la street', '34000','MONTPELLIER','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('OLEKSANDR','MUKHIN','Oleksandr','oleksandr.mukhin2023@campus-eni.fr','0601020304','rue du la street', '01234','VILLE','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('MAXIME','VOZELLE','Maxime','maxime.vozelle2024@campus-eni.fr','0601020304','rue du la street', '01234','VILLE','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
+INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, telephone, rue, code_postal, ville, mot_de_passe) VALUES ('EMMANUEL','MALABRY','Emmanuel','emalabry@campus-eni.fr','0601020304','rue du campus ENI', '01234','VILLE','3724371969645388abbe172431698200b8d97d96f91fb80682611356929a78f4')
 
-INSERT INTO CATEGORIES (libelle) VALUE ('Mobilier');
-INSERT INTO CATEGORIES (libelle) VALUE ('Informatique');
+INSERT INTO CATEGORIES (libelle) VALUES ('Mobilier');
+INSERT INTO CATEGORIES (libelle) VALUES ('Informatique');

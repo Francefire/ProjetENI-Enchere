@@ -22,6 +22,7 @@ public class BusinessException extends Exception {
 	public static final String BLL_PASSWORD_NOT_VALID = "Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre";
 
 	public static final String BLL_EMAIL_NOT_VALID = "L'email n'est pas valide";
+	public static final String BLL_FIELD_NOT_UNIQUE = "Le champ %s n'est plus disponible";
 
 	public static final String BLL_FIELDS_INVALID_VALUES_ERROR = "Les informations entrées ne sont pas valides, veuillez les corriger";
 	
@@ -48,4 +49,7 @@ public class BusinessException extends Exception {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
+	public BusinessException(String message, String champ) {
+		super(String.format(message, champ));
+	}
 }
