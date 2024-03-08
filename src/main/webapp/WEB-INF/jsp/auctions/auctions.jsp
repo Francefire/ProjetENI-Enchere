@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<%@ include file="/WEB-INF/jspf/head.jspf" %>
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/assets/styles/auctions.css">
 </head>
@@ -51,13 +52,18 @@
 				<article>
 					<a href="${pageContext.request.contextPath}/encheres?id=${article.id}">
 						<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}">
-						<h1>${article.name}</h1>
-						<span>${article.sellingPrice}</span>
-								<c:forEach items="${categories}" var="category">
-									<c:if test="${category.id == article.categoryId}">
-                                       <p>${category.label}<p>
-                                    </c:if>
-                                </c:forEach>
+						<div class="article-info">
+						<h1>${article.name}.</h1>
+                            <p>${article.description}</p>
+						<div class="article-price">
+							<span>${article.sellingPrice}€</span>
+							<c:forEach items="${categories}" var="category">
+								<c:if test="${category.id == article.categoryId}">
+                                   <p> | ${category.label}<p>
+                                </c:if>
+                            </c:forEach>
+							</div>
+						</div>
 					</a>
 				</article>
 			</c:forEach>	
