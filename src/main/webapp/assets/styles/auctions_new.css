@@ -27,17 +27,46 @@ form input {
 	background-color: var(--quaternary-color);
 	color: var(--text-input-color);
 	width: 100%;
+	border: 1px solid var(--quinary-color);
 }
-form a {
+
+form a, form input[type="submit"], form input[type="reset"]{
 	padding: 10px;
 	outline: none;
 	border: none;
 	border-radius: 5px;
 	display: block;
 	background-color: var(--quaternary-color);
-	color: var(--text-input-color);
+	color: var(--quinary-color);
+	font-weight: bold;
+	font-size: 1.8em;
 	width: 100%;
 	text-align: center;
+}
+
+form input[type="file"] {
+	background-color: var(--quaternary-color);
+	direction: rtl;
+	border-color: var(--quinary-color);
+	/* padding: 10px;
+	border-radius: 5px;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color); */
+}
+
+.form-container input[type="file"]:hover:not(:disabled):not([readonly])::file-selector-button{
+	background-color: var(--tertiary-color) !important;
+}
+
+form input[type="file"]::file-selector-button {
+	background-color: var(--quaternary-color);
+	
+}
+
+
+.form-control[type=file]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+    background-color: var(--tertiary-color);
 }
 
 form textarea {
@@ -49,4 +78,40 @@ form textarea {
 	background-color: var(--quaternary-color);
 	color: var(--text-input-color);
 	width: 100%;
+	border: 1px solid var(--quinary-color);
 }
+
+select {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color);
+	width: 100%;
+}
+
+select option {
+	padding: 10px;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	display: block;
+	background-color: var(--quaternary-color);
+	color: var(--text-input-color);
+	width: 100%;
+}
+option:hover {
+	box-shadow: 0 0 10px 100px #1882A8 inset
+}
+
+label{
+	font-weight: bold;
+}
+
+.form-container form div {
+	margin-bottom: 0.5em;
+	width: 100%;
+}
+

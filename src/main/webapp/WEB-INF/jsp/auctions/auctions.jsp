@@ -53,8 +53,8 @@
 					<a href="${pageContext.request.contextPath}/encheres?id=${article.id}">
 						<img src="${pageContext.request.contextPath}${article.imageUrl}" alt="${article.name}">
 						<h1>${article.name}</h1>
-						<span>${article.sellingPrice}</span>
-						<p>${article.description}</p>
+						<span><h3>${article.sellingPrice} €</h3></span>
+						<p> | ${article.description}</p>
 					</a>
 				</article>
 			</c:forEach>	
