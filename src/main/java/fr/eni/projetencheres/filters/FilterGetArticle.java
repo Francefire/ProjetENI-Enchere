@@ -2,6 +2,8 @@ package fr.eni.projetencheres.filters;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
+
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projetencheres.bll.ArticlesManager;
+import fr.eni.projetencheres.bll.BidsManager;
 import fr.eni.projetencheres.bll.BusinessException;
 import fr.eni.projetencheres.bo.Article;
+import fr.eni.projetencheres.bo.Bid;
 import fr.eni.projetencheres.dal.DataException;
 
 /**
@@ -35,8 +39,6 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 
 		String id = (String) httpRequest.getParameter("id");
 
-		System.out.println("GetArticle");
-
 		if (id == null || id.isEmpty()) {
 			httpResponse.sendError(404);
 		} else {
@@ -44,20 +46,20 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 				int articleId = Integer.parseInt(id);
 
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
-
+				
 				if (article == null) {
 					httpResponse.sendError(404);
 				} else {
-					System.out.println(article.toString());
-
 					if (article.getStartDate().isBefore(LocalDate.now())) {
 						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
+						article.setAuctionState("STARTED");
 					}
 
 					if (article.getEndDate().isBefore(LocalDate.now())) {
 						ArticlesManager.editArticleAuctionState(article.getId(), "ENDED");
+						article.setAuctionState("ENDED");
 					}
-
+					
 					httpRequest.setAttribute("article", article);
 					chain.doFilter(httpRequest, response);
 				}

@@ -30,9 +30,6 @@ public class ServletAdminUsers extends HttpServlet {
 			
 			request.setAttribute("users", users);
 			request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_users.jsp").forward(request, response);
-		} catch (BusinessException e) {
-			request.setAttribute("error", e.getMessage());
-			request.getRequestDispatcher("/WEB-INF/jsp/admin/admin_users.jsp").forward(request, response);
 		} catch (DataException e) {
 			System.out.println(e);
 			response.sendError(500);

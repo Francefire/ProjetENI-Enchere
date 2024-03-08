@@ -94,33 +94,17 @@ public class ServletAuctions extends HttpServlet {
 		} else {
 			try {
 				int articleId = Integer.parseInt(id);
-
+				
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
-				// List<Bid> bids = BidsManager.getBidsByArticleId(article.getId());
 
-				User user = (User) request.getSession().getAttribute("userConnected");
+				List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
 
 				request.setAttribute("article", article);
-				// request.setAttribute("bids", bids);
+				request.setAttribute("bids", bids);
 
-				RequestDispatcher auctionsArticleRd = request
-						.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_article.jsp");
-
-				if (user == null) {
-					auctionsArticleRd.forward(request, response);
-				} else {
-					if (article.getAuctionState() == "ENDED") {
-						Bid bid = BidsManager.getLastBidForArticle(article.getId());
-
-						if (bid.getUserId() == user.getId()) {
-							response.sendRedirect(request.getContextPath() + "/encheres/retrait?id=" + article.getId());
-						}
-					} else {
-						User owner = UserManager.getUserById(article.getUserId());
-						request.setAttribute("owner", owner);
-						auctionsArticleRd.forward(request, response);
-					}
-				}
+				User owner = UserManager.getUserById(article.getUserId());
+				request.setAttribute("owner", owner);
+				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_article.jsp").forward(request, response);
 			} catch (BusinessException e) {
 				request.setAttribute("error", e.getMessage());
 				auctionsRd.forward(request, response);

@@ -19,7 +19,7 @@ public class ArticleDAO {
 	private static final String SQL_UPDATE_ARTICLE = "UPDATE ARTICLES_VENDUS "
 			+ "SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, url_image=?, no_categorie=? "
 			+ "WHERE no_article=?";
-	private static final String SQL_UPDATE_ARTICLE_SELLING_PRICE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=?";
+	private static final String SQL_UPDATE_ARTICLE_SELLING_PRICE = "UPDATE ARTICLES_VENDUS SET prix_vente=prix_vente+? WHERE no_article=?";
 	private static final String SQL_UPDATE_ARTICLE_AUCTION_STATE = "UPDATE ARTICLES_VENDUS SET etat_vente=? WHERE no_article=?";
 	private static final String SQL_SELECT_ARTICLE_BY_ARTICLE_ID = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
 	private static final String SQL_SELECT_ALL_ARTICLES = "SELECT * FROM ARTICLES_VENDUS ORDER BY no_article DESC";
@@ -99,8 +99,8 @@ public class ArticleDAO {
 			Connection connection = ConnectionProvider.getConnection();
 
 			PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ARTICLE_AUCTION_STATE);
-			statement.setInt(1, articleId);
-			statement.setString(2, auctionState);
+			statement.setString(1, auctionState);
+			statement.setInt(2, articleId);
 			statement.executeUpdate();
 
 			connection.close();
