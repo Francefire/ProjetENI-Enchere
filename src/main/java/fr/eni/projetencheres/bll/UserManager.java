@@ -31,12 +31,12 @@ public class UserManager {
 	public static void createUser(User user, String checkPassword) throws BusinessException, DataException {
 		UserManager.checkUserInfo(user);
 		comparePwd(user.getPassword(), checkPassword); // comparaison des saisies
-		String mdphashe = UserManager.hashPwd(user.getPassword()); // récup du mdp hashé, et transféré dans la variable
+		String mdphashe = UserManager.hashPwd(user.getPassword()); // récupération du mdp hashé, et transfert dans la variable
 		user.setPassword(mdphashe);
 		UserManager.getInstance().insert(user);
 	}
 
-	// VERIFICATION DES CHEATERS
+	// VÉRIFICATION DES CHEATERS
 	public static void check_cheaters(String username, String lastName, String firstName, String email, String street,
 			String zipCode, String city, String password) throws BusinessException {
 		if (username == null || username.isEmpty() || lastName == null || lastName.isEmpty() || firstName == null
@@ -101,7 +101,7 @@ public class UserManager {
 	}
 
 	// Creation d'une methode permettant de verifier que les informations sont
-	// conforme aux contraintes
+	// conformes aux contraintes
 	public static void checkUserInfo(User u) throws BusinessException {
 		Utils.verifyStringField("username", u.getUsername(), 0, 30);
 		Utils.verifyStringField("password", u.getPassword(), 8, 30);
@@ -119,7 +119,6 @@ public class UserManager {
 		if (!u.getEmail().matches("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$")) {
 			throw new BusinessException(BusinessException.BLL_EMAIL_NOT_VALID);
 		}
-
 	}
 
 	public static String hashPwd(String password) {
@@ -161,8 +160,6 @@ public class UserManager {
 
 	}
 
-	// TODO : implémenter des nom et pseudo dans la BDD
-	// TODO : mettre une contrainte d'unicité sur l'adresse mail
 	// TODO : mettre un pattern sur le pseudo
 	// TODO : placer une ternaire
 	public static boolean mailExist(String email) throws BusinessException {
