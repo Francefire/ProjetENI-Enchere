@@ -22,7 +22,7 @@
 					</div>
 					<div class="row seller g-0">
 						<div class="col no-gutters">
-							<h1>Nom vendeur.</h1>
+							<h1>${owner.firstName} ${owner.lastName}.</h1>
 						</div>
 						<div class="col">
 							<c:if test="${not empty userConnected}">
@@ -39,17 +39,17 @@
 					<c:otherwise>
 						<c:if test="${article.auctionState eq 'STARTED'}">
 							<form method="POST" action="${pageContext.request.contextPath}/encheres/encherir?id=${article.id}">
-								<label for="amount">Crédits</label><br>
+								<label for="amount">Crédits :</label><br>
 								<input type="number" name="amount" id="amount" min="1" step="1" placeholder="1" required 
 								<c:if test="${userConnected.credit < article.sellingPrice+1}">
 									disabled
 								</c:if>
-								><br>
-								<button type="submit" value="" 
+								>
+								<input type="submit" value="Encherir" 
 								<c:if test="${userConnected.credit < article.sellingPrice+1}">
 									disabled
 								</c:if>
-								>Enchérir</button>
+								>
 							</form>
 						</c:if>
 						<c:if test="${article.auctionState eq 'ENDED'}">

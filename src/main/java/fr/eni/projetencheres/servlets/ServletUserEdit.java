@@ -65,13 +65,14 @@ public class ServletUserEdit extends HttpServlet {
 		editedUser.setCredit(u.getCredit());
 		editedUser.setAdmin(u.isAdmin());
 		try {
-			UserManager.comparePwd(u.getPassword(), passwordValidation);
+			UserManager.login(u.getUsername(), passwordValidation);
 			UserManager.checkUserInfo(editedUser, false);
-
-			if (password != null && !password.isEmpty()) {
+			if ((password.trim() != "")) {
+				System.out.println("password : " + password + " confirmEditPassword : " + confirmEditPassword);
 				UserManager.comparePwd(password, confirmEditPassword);
 				UserManager.checkUserInfo(editedUser);
-				editedUser.setPassword(password);
+				editedUser.setPassword(UserManager.hashPwd(password));
+				System.out.println(editedUser.getPassword());
 			}
 
 			UserManager.editUser(editedUser);

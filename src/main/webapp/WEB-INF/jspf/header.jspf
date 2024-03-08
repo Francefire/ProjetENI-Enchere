@@ -40,7 +40,7 @@
 				<a href="${pageContext.request.contextPath}/${crumb}">${crumb}</a>&nbsp;&raquo; 
            	</c:when>
 			<c:otherwise>
-				<span>${crumb}</span>
+				&nbsp;<span>${crumb}</span>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>

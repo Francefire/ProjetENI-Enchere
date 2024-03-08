@@ -2,6 +2,7 @@ package fr.eni.projetencheres.filters;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.DispatcherType;
@@ -25,9 +26,10 @@ import fr.eni.projetencheres.dal.DataException;
 /**
  * Servlet Filter implementation class FilterParseArticleId
  */
-@WebFilter(filterName = "GetArticle", dispatcherTypes = { DispatcherType.REQUEST })
+@WebFilter(filterName = "GetArticle", dispatcherTypes = { DispatcherType.REQUEST, DispatcherType.FORWARD })
 public class FilterGetArticle extends HttpFilter implements Filter {
 	private static final long serialVersionUID = 1L;
+	private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
@@ -50,7 +52,8 @@ public class FilterGetArticle extends HttpFilter implements Filter {
 				if (article == null) {
 					httpResponse.sendError(404);
 				} else {
-					if (article.getStartDate().equals(LocalDate.now())) {
+					if (article.getStartDate().format(DATETIME_FORMATTER).equals(LocalDate.now().format(DATETIME_FORMATTER))) {
+						System.out.println("start date is today");
 						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
 						article.setAuctionState("STARTED");
 					}

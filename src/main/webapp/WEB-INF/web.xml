@@ -80,4 +80,8 @@
         <filter-name>Category</filter-name>
         <url-pattern>/encheres/*</url-pattern>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>Date</filter-name>
+        <url-pattern>/encheres/*</url-pattern>
+    </filter-mapping>
 </web-app>

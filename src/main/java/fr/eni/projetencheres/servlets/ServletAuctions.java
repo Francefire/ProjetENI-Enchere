@@ -94,17 +94,35 @@ public class ServletAuctions extends HttpServlet {
 		} else {
 			try {
 				int articleId = Integer.parseInt(id);
-				
+
 				Article article = ArticlesManager.getArticleByArticleId(articleId);
+				
+				if (article == null) {
+					response.sendError(404);
+				} else {
+					if (article.getStartDate().equals(LocalDate.now())) {
+						System.out.println("start date is today");
+						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
+						article.setAuctionState("STARTED");
+					}
+					if (article.getStartDate().isBefore(LocalDate.now())) {
+						ArticlesManager.editArticleAuctionState(article.getId(), "STARTED");
+						article.setAuctionState("STARTED");
+					}
 
-				List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
+					if (article.getEndDate().isBefore(LocalDate.now())) {
+						ArticlesManager.editArticleAuctionState(article.getId(), "ENDED");
+						article.setAuctionState("ENDED");
+					}
+					
+					List<Bid> bids = BidsManager.getBidsByArticleId(articleId);
+					request.setAttribute("bids", bids);
+					request.setAttribute("article", article);
+					User owner = UserManager.getUserById(article.getUserId());
+					request.setAttribute("owner", owner);
+					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_article.jsp").forward(request, response);
+				}
 
-				request.setAttribute("article", article);
-				request.setAttribute("bids", bids);
-
-				User owner = UserManager.getUserById(article.getUserId());
-				request.setAttribute("owner", owner);
-				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_article.jsp").forward(request, response);
 			} catch (BusinessException e) {
 				request.setAttribute("error", e.getMessage());
 				auctionsRd.forward(request, response);

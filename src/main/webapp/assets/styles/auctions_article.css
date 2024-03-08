@@ -38,10 +38,26 @@ img{
 	text-align: center;
 }
 
-.actions a:hover, .actions input:hover {
+.actions a:not(disabled):hover, .actions input:not(disabled):hover {
 	color: var(--senary-color);
+	font-weight: bold;
+}
+
+.actions a:disabled:hover, .actions input:disabled:hover {
+	color: var(--tertiary-color);
+}
+
+.actions a:disabled, .actions input:disabled{
+	color: var(--tertiary-color);
 }
 
 .actions > * {
 	width: 100%;
+ }
+ 
+ .actions label{
+ padding: 10px;
+ font-weight: bold;
+ text-align: center;
+ width: 100%;
  }
