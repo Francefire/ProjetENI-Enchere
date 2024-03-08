@@ -78,11 +78,11 @@ public class UserManager {
 	}
 
 	// Creation d'une méthode pour recuperer un utilisateur
-	public static User getUserById(int userId) throws BusinessException, DataException {
+	public static User getUserById(int userId) throws DataException {
 		return UserManager.getInstance().selectById(userId);
 	}
 
-	public static List<User> getAllUsers() throws BusinessException, DataException {
+	public static List<User> getAllUsers() throws DataException {
 		return UserManager.getInstance().selectAllUsers();
 	}
 

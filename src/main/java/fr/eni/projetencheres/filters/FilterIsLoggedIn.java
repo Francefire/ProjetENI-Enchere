@@ -13,7 +13,10 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.projetencheres.bll.BusinessException;
+import fr.eni.projetencheres.bll.UserManager;
 import fr.eni.projetencheres.bo.User;
+import fr.eni.projetencheres.dal.DataException;
 
 /**
  * Servlet Filter implementation class FilterIsLoggedIn
@@ -40,6 +43,13 @@ public class FilterIsLoggedIn extends HttpFilter implements Filter {
 					httpRequest.getServletPath());
 			httpResponse.sendRedirect(path);
 		} else {
+			try {
+				user = UserManager.getUserById(user.getId());
+				httpRequest.getSession().setAttribute("userConnected", user);
+			} catch (DataException e) {
+				System.out.println(e);
+				httpResponse.sendError(500);
+			}
 			chain.doFilter(request, response);
 		}
 	}

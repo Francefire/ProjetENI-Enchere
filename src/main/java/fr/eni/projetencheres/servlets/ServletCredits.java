@@ -47,8 +47,6 @@ public class ServletCredits extends HttpServlet {
 				
 				UserManager.addCreditsToUser(amount, user.getId());
 				
-				user.setCredit(user.getCredit()+amount);
-				
 				rd.forward(request, response);
 			} catch (BusinessException e) {
 				request.setAttribute("error", e.getMessage());

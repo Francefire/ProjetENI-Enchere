@@ -53,9 +53,6 @@ public class ServletUser extends HttpServlet {
 					
 					rd.forward(request, response);
 				}
-			} catch (BusinessException e) {
-				request.setAttribute("error", e.getMessage());
-				rd.forward(request, response);
 			} catch (DataException e) {
 				System.out.println(e);
 				response.sendError(500);

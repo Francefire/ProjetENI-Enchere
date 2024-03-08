@@ -22,50 +22,76 @@ import fr.eni.projetencheres.dal.DataException;
 @WebServlet("/encheres/retrait")
 public class ServletAuctionsTakeout extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath() + "/encheres");
-	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Article article = (Article) request.getAttribute("article");
-		
-		User user = (User) request.getSession().getAttribute("userConnected");
-		
-		try {
-			Bid bid = BidsManager.getLastBidForArticle(article.getId());
 
-			if (bid.getUserId() == user.getId()) {
-				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_takeout.jsp").forward(request,response);
-				String paramStreet = request.getParameter("street");
-				String paramZipCode = request.getParameter("zipCode");
-				String paramCity = request.getParameter("city");
-				
-				Takeout takeout = new Takeout();
-				takeout.setArticleId(article.getId());
-				takeout.setStreet(paramStreet);
-				takeout.setZipCode(paramZipCode);
-				takeout.setCity(paramCity);
-				
-				TakeoutManager.addTakeout(takeout);
-				
-				response.sendRedirect(request.getContextPath() + "/encheres");
-			} else {
-				response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
+		if (article.getAuctionState().equals("ENDED")) {
+			try {
+				User user = (User) request.getSession().getAttribute("userConnected");
+
+				Bid bid = BidsManager.getLastBidForArticle(article.getId());
+
+				if (bid.getUserId() == user.getId()) {
+					request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_takeout.jsp").forward(request,
+							response);
+				} else {
+					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+				}
+			} catch (DataException e) {
+				System.out.println(e);
+				response.sendError(500);
 			}
-		} catch (BusinessException e) {
-			request.setAttribute("error", e);
-			response.sendRedirect(request.getContextPath() + "/encheres?id="+article.getId());
-		} catch (DataException e) {
-			System.out.println(e);
-			response.sendError(500);	
+		} else {
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
 		}
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		Article article = (Article) request.getAttribute("article");
+
+		if (article.getAuctionState().equals("ENDED")) {
+			try {
+				User user = (User) request.getSession().getAttribute("userConnected");
+
+				Bid bid = BidsManager.getLastBidForArticle(article.getId());
+
+				if (bid.getUserId() == user.getId()) {
+					String paramStreet = request.getParameter("street");
+					String paramZipCode = request.getParameter("zipCode");
+					String paramCity = request.getParameter("city");
+
+					Takeout takeout = new Takeout();
+					takeout.setArticleId(article.getId());
+					takeout.setStreet(paramStreet);
+					takeout.setZipCode(paramZipCode);
+					takeout.setCity(paramCity);
+
+					TakeoutManager.addTakeout(takeout);
+
+					response.sendRedirect(request.getContextPath() + "/encheres");
+				} else {
+					response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+				}
+			} catch (BusinessException e) {
+				request.setAttribute("error", e.getMessage());
+				request.getRequestDispatcher("/WEB-INF/jsp/auctions/auctions_takeout.jsp").forward(request, response);
+			} catch (DataException e) {
+				System.out.println(e);
+				response.sendError(500);
+			}
+		} else {
+			response.sendRedirect(request.getContextPath() + "/encheres?id=" + article.getId());
+		}
+	}
 }
