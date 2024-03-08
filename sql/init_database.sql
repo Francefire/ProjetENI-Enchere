@@ -29,7 +29,7 @@ INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date
 INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES ('Ordinateur', 'Ordinateur portable', '2024-03-01', '2024-03-15', 500, 500, 2, 2);
 
 -- Inserer un article dont l'enchere est terminée, on est le 08/03/2024
-INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES ('T-shirt', 'T-shirt en coton', '2024-02-01', '2024-02-15', 10, 15, 2, 3);
+INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie) VALUES ('T-shirt', 'T-shirt en coton', '2024-02-01', '2024-02-15', 10, 15, 6, 3);
 
 
 -- Inserer une enchere pour l'article dont l'enchere est terminé par l'utilisateur 1
