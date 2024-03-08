@@ -2,6 +2,7 @@ package fr.eni.projetencheres.servlets;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -28,6 +29,8 @@ import fr.eni.projetencheres.dal.DataException;
 public class ServletAuctionsEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
