@@ -16,7 +16,7 @@ public class EmailSender {
 
 //    public static void sendPasswordRecoveryEmail(String mailFromUser) {
         final String username = "eni-projets@hotmail.com"; // Adresse email de l'expéditeur
-        final String password = "***REMOVED***"; // Mot de passe de l'expéditeur
+        final String password = "********"; // Mot de passe de l'expéditeur
         
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
